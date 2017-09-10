@@ -42,10 +42,12 @@
               <p>Ou solicite uma visita por outros meios:</p>
               <ul class="address">
                 <li><i class="fa fa-phone"></i> <span> Telefones:</span> (85) 3293-1000 | (85) 99251-6999  </li>
-                <li><i class="fa fa-envelope"></i> <span> Email:</span><a href="mailto:inova@inovautilidades.com"> inova@inovautilidades.com</a></li>
-                <li><i class="fa fa-map-marker"></i> <span> Endereço:</span> Rua Leste I, 500 - Galpão D - Distrito Industrial, Maracanaú-CE </li>
+                <li><i class="fa fa-envelope"></i> <span> Email Institucional:</span><a href="mailto:inovautilidades@inovautilidades.com.br"> inovautilidades@inovautilidades.com.br</a></li>
+                <li><i class="fa fa-envelope"></i> <span> Email Financeiro:</span><a href="mailto:financeiro@inovautilidades.com.br"> financeiro@inovautilidades.com.br</a></li>
+                <li><i class="fa fa-envelope"></i> <span> Email Comercial:</span><a href="mailto:comercial@inovautilidades.com.br"> comercial@inovautilidades.com.br</a></li>
+                <li><i class="fa fa-map-marker"></i> <span> Endereço:</span> Rua Leste I, 500 - Galpão D - Distrito Industrial, Maracanaú-CE, 61.939-190</li>
                 <li>
-                 <div style="height:400px;" id="google-map" class="wow fadeIn" data-latitude="-3.854939" data-longitude="-38.594829" data-wow-duration="1000ms" data-wow-delay="400ms"></div></li>
+                 <div style="height:200px;" id="google-map" class="wow fadeIn" data-latitude="-3.854939" data-longitude="-38.594829" data-wow-duration="1000ms" data-wow-delay="400ms"></div></li>
               </ul>
             </div>
           </div>

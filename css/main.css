@@ -1081,4 +1081,24 @@ width: 25%;
     border-radius: 10%;
     float: right;
 }
+#certificacoes{
+  background-image: url(../images/backcat.jpg);
+background-position: center;
+background-attachment: fixed;
+background-size: cover;
+}
+
+#certificacoes h3{
+  text-align: center;
+      background: rgba(0, 82, 117, 0.55);
+      width: 100%;
+      padding: 1%;
+      box-shadow: 10px 10px 0px 0px rgba(255, 188, 0, 0.57);
+      color: white;
+      font-variant: all-petite-caps;
+      font-size: 40px;
+      /* margin-bottom: -5px; */
+      margin-top: -8%;
+      font-family: Open Sans;
+}
 /*Presets*/

@@ -14,11 +14,13 @@
     <div class="row">
       <div class="catalog-nav col-xs-12">
         <ul class="nav navbar-nav">
-          <li class="scroll active"><a onclick="setItemCatalogo(this);">Todos os produtos</a></li>
+          <li class="scroll active"><a onclick="setItemCatalogo(this);">Todos os Produtos</a></li>
+          <li class="scroll"><a onclick="setItemCatalogo(this);">Poltronas Monobloco</a></li>
+          <li class="scroll"><a onclick="setItemCatalogo(this);">Poltronas Pés de Alumínio</a></li>
+          <li class="scroll"><a onclick="setItemCatalogo(this);">Cadeiras</a></li>
+          <li class="scroll"><a onclick="setItemCatalogo(this);">Roupeiros</a></li>
           <li class="scroll"><a onclick="setItemCatalogo(this);">Banquetas</a></li>
           <li class="scroll"><a onclick="setItemCatalogo(this);">Mesas</a></li>
-          <li class="scroll"><a onclick="setItemCatalogo(this);">Personalizados</a></li>
-          <li class="scroll"><a onclick="setItemCatalogo(this);">Poltronas</a></li>
         </ul>
       </div>
     </div>

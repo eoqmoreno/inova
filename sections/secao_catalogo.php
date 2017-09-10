@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-        <h2 class="title_catalogo">Catálogo</h2>
+        <h2 class="title_catalogo">Catálogo de Produtos</h2>
         <p>Veja nossos produtos mais populares, mas não se limite! Trabalhamos também com produtos personalizados.</p>
       </div>
     </div>

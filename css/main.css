@@ -365,6 +365,9 @@ section {
   margin-bottom: 30px;
 }
 
+section#servicos{
+}
+
 .progress{
   height: 20px;
   background-color: #fff;
@@ -407,9 +410,23 @@ center a img.img-responsive{
 }
 
 }
-i.fa.fa-recycle+h3.timer::after {
-    content: "%";
+h3.timer::after {
+    content: "% \f1b8";
+    display: inline;
+    font-family: FontAwesome;
+    position: relative;
 }
+.objIncl{
+  position: relative;
+}
+.objIncl::before{
+content: "\f1b8";
+font-family: FontAwesome;
+position: absolute;
+top: 0px;
+left: -5px;
+}
+
 ul.nostyle{
   list-style-type:none;
 }
@@ -647,12 +664,13 @@ ul.nostyle{
 #features h3 {
     margin-top: 15px;
     font-size: 50px;
-    margin-bottom: 7px;
-    display: inline;
+    margin-bottom: 0px;
     color: #ffffff;
     background: rgba(0, 42, 60, 0.92);
-    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
 #features p{
     color: #fff;
     font-size: 25px;
@@ -742,7 +760,7 @@ background-color: rgba(0, 0, 0, 0.2);
 
 
 #opinioes {
-  background-image: url(../images/twitter-bg.jpg);
+  background-image: url(../images/homescreen/homesc-inovabck.jpeg);
 }
 
 #opinioes > div {

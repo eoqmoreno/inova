@@ -2,8 +2,8 @@
 
 ?>
   <section id="servicos">
-    <div class="row">
     <div class="container">
+      <div class="row">
       <div class="heading wow fadeInUp col-sm-12" data-wow-duration="1000ms" data-wow-delay="300ms">
         <div class="row">
           <div class="text-center col-sm-8 col-sm-offset-2">

@@ -44,7 +44,9 @@
           <li class="scroll active"><a href="#inicio">Início</a></li>
           <li class="scroll"><a href="#servicos">Serviços</a></li>
           <li class="scroll"><a href="#sobre-nos">Sobre Nós</a></li>
+
           <li style="background-color:rgba(255,255,255,0.2);" class="scroll"><a href="#portfolio">Catálogo de Produtos</a></li>
+          <li class="scroll"><a href="#certificacoes">Certificações</a></li>
           <li class="scroll"><a href="#contact">Contato</a></li>
         </ul>
       </div>

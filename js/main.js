@@ -54,7 +54,14 @@ jQuery(function($) {
 	};
 
 	$('#tohash').on('click', function(){
-		$('html, body').animate({scrollTop: $(this.hash).offset().top - 5}, 800);
+		//$('html, body').animate({scrollTop: $(this.hash).offset().top-45}, 800);
+		var target = $( $(this).attr('href') );
+		if( target.length ) {
+        event.preventDefault();
+        $('html, body').animate({
+            scrollTop: target.offset().top
+        }, 300);
+    }
 		return false;
 	});
 

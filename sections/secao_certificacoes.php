@@ -5,7 +5,7 @@
     <div class="container">
       <center><h3>CERTIFICAÇÕES</h3></center>
       <div class="row count">
-        CERTIFICAÇÕES
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
       </div>
     </div>
   </section><!--/#features-->

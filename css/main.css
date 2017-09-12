@@ -365,7 +365,9 @@ section {
   margin-bottom: 30px;
 }
 
-section#servicos{
+div.heading.wow.fadeInUp.col-sm-12{
+  box-shadow: 7px 7px 3px 0px #005d86;
+  margin-bottom: 45px;
 }
 
 .progress{

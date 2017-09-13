@@ -27,15 +27,15 @@
 
   </div><!--/#home-slider-->
   <div class="main-nav">
-    <div class="container">
-      <div class="navbar-header">
+    <div style="width:100%;" class="container">
+      <div class="navbar-header scroll">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Alterar navegação</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="./">
+        <a class="navbar-brand" href="#inicio">
           <h1><img class="img-responsive" style="height:40px;" src="images/logo_mini.png" alt="logo"></h1>
         </a>
       </div>

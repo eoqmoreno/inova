@@ -1,11 +1,16 @@
+CREATE TABLE inova_catalogo_tabs(
+  id_tab INT PRIMARY KEY AUTO_INCREMENT,
+  titulo VARCHAR(60) NOT NULL
+);
+
 CREATE TABLE inova_catalogo(
   id_itm INT PRIMARY KEY AUTO_INCREMENT,
   titulo VARCHAR(60) NOT NULL,
   link_imagem VARCHAR(100) NOT NULL,
   descricao VARCHAR(600),
-  desc_cliente VARCHAR(200),
   data DATE NOT NULL,
-  tags VARCHAR(300)
+  tab INT NOT NULL,
+  FOREIGN KEY(tab) REFERENCES inova_catalogo_tabs(id_tab)
 );
 
 CREATE TABLE inova_contatos(
@@ -24,12 +29,13 @@ CREATE TABLE inova_sys_err(
   data DATETIME NOT NULL
 );
 
+INSERT INTO inova_catalogo_tabs VALUES(null,"Poltronas Monobloco");
+INSERT INTO inova_catalogo_tabs VALUES(null,"Poltronas Pés de Alumínio");
+INSERT INTO inova_catalogo_tabs VALUES(null,"Cadeiras");
+INSERT INTO inova_catalogo_tabs VALUES(null,"Roupeiros");
+INSERT INTO inova_catalogo_tabs VALUES(null,"Banquetas");
+INSERT INTO inova_catalogo_tabs VALUES(null,"Mesas");
+
 
 INSERT INTO inova_catalogo VALUES(null,'Mesa Premier','mesa_premier.jpg','<p>Conforto, qualidade e praticidade</p>
-<p>Design <b>inovador</b><br/>(Encaixe lateral)</p>','Inova','2017-08-07','Inova,Mesa,Premier');
-INSERT INTO inova_catalogo VALUES(null,'Banqueta Inova','banqueta.jpg','<p>Leve, <b>compacta</b>, reforçada.</p>
-<p>Ideal para o seu dia.</p>','Inova','2017-08-07','Inova,Banqueta');
-INSERT INTO inova_catalogo VALUES(null,'Mesa Premier','mesa_premier.jpg','<p>Conforto, qualidade e praticidade</p>
-<p>Design <b>inovador</b><br/>(Encaixe lateral)</p>','Inova','2017-08-07','Inova,Mesa,Premier');
-INSERT INTO inova_catalogo VALUES(null,'Banqueta Inova','banqueta.jpg','<p>Leve, <b>compacta</b>, reforçada.</p>
-<p>Ideal para o seu dia.</p>','Inova','2017-08-07','Inova,Banqueta');
+<p>Design <b>inovador</b><br/>(Encaixe lateral)</p>','2017-08-07',1);

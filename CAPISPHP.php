@@ -6,12 +6,14 @@
  */
 // http://jeimison.me.pn | https://github.com/jeimison3/CAPISPHP/
 
+
 include_once('./mod_PageControl.php'); //Controle de redirecionamentos [MODIFIQUE]
 include_once('./mod_URLPos.php'); //Funções para redirecionamentos
 include_once('./mod_Bootstrap.php'); //Livraria de funções para Bootstrap
 include_once('./mod_BDCon.php'); //Funções para BD
 include_once('./mod_BuildCatalogo.php'); //Funções de catálogo
 include_once('./mod_Sectioner.php'); //Funções de catálogo
+include_once('./mod_FileUploads.php'); //Ferramenta de apoio para uploads.
 
 //Regras para estrutura HTML da página:
 class CAPISPHP_Structure{

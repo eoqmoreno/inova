@@ -21,7 +21,7 @@ class BCatalogo{
                           <div class="overlay-text">
                             <div class="folio-info">
                               <h3>'.$item_port['titulo'].'</h3>
-                              <p>'.$item_port['tags'].'</p>
+                              <p>'.$item_port['tab'].'</p>
                             </div>
                             <div class="folio-overview">
                               <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="catalogo_item.php/'.$item_port['id_itm'].'" ><i class="fa fa-link"></i></a></span>

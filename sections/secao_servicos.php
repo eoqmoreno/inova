@@ -6,7 +6,7 @@
       <div class="heading wow fadeInUp col-sm-12" data-wow-duration="1000ms" data-wow-delay="300ms">
         <div class="row">
           <div class="text-center col-sm-8 col-sm-offset-2">
-            <h2>Serviços</h2>
+            <h2 class="whitefont">Serviços</h2>
             <p>Nossos produtos e serviços são feitos sob os mesmos conceitos</p>
           </div>
         </div>

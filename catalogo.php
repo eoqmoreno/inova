@@ -11,9 +11,10 @@ include('CAPISPHP.php'); //Apenas para uso dos módulos
   <title>Inova Utilidades</title>
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/animate.min.css" rel="stylesheet">
-  <link href="css/font-awesome.min.css" rel="stylesheet">
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="css/lightbox.css" rel="stylesheet">
   <link href="css/main.css" rel="stylesheet">
+  <link href="css/outrasPaginas.css" rel="stylesheet">
   <link id="css-preset" href="css/presets/preset1.css" rel="stylesheet">
   <link href="css/responsive.css" rel="stylesheet">
   <link href="css/widgEditor.css" rel="stylesheet">
@@ -34,12 +35,23 @@ A estrutura de datas é: 2017-08-02
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-				<form id="posta_publica" method="POST" action="postar_publicacao.php">
-				<input class="form-control" placeholder="Título da postagem" id="titulo" name="titulo" type="text"/>
-				<textarea placeholder="Descrição simples" class="form-control" id="descricao" name="descricao"></textarea>
-				<input class="form-control" placeholder="Tags(sep. por vírgula)" name="tags" id="tags" type="text"/>
-				<textarea rows="15" placeholder="Conteúdo..." class="form-control widgEditor nothing" id="conteudo" name="conteudo"></textarea>
-				<button type="submit" class="btn">Publicar</button>
+				<form id="posta_publica" enctype="multipart/form-data" method="POST" action="postar_produto.php">
+          <br/><br/>
+				<input class="form-control" placeholder="Título do produto" id="titulo" name="titulo" type="text"/><br/>
+        <input id="prod_img" name="prod_img" type="file"/><br/>
+        <textarea rows="15" placeholder="Descrição do produto" class="form-control widgEditor nothing" id="conteudo" name="conteudo"></textarea>
+				<select class="form-control" name="tab" id="tab" type="text"/>
+<?php
+$data=DBCon::dbQuery("SELECT * FROM inova_catalogo_tabs;");
+if($data->num_rows>0){
+	while($item_port = $data->fetch_array(MYSQLI_BOTH)){
+    echo("<option value=".$item_port['id_tab'].">".$item_port['titulo']."</option>\n");
+	}
+}
+?>
+        </select>
+        <br/>
+				<button type="submit" class="btn btn-primary">Publicar</button>
 				</div>
             </div>
         </div>

@@ -353,6 +353,22 @@ section {
 #sobre-nos {
   background-image: url(../images/about-bg.jpg);
   padding: 60px 0;
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0%;
+  background-attachment: fixed;
+
+  animation-name: sobre;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes sobre {
+    0%   {background-position: 0%;}
+    100% {background-position: 100%;}
 }
 
 #sobre-nos h2 {

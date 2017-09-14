@@ -28,7 +28,7 @@
   </div><!--/#home-slider-->
   <div class="main-nav">
     <div style="width:100%;" class="container">
-      <div class="navbar-header scroll">
+      <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="sr-only">Alterar navegação</span>
           <span class="icon-bar"></span>

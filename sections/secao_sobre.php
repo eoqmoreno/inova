@@ -3,7 +3,7 @@
 ?>
   <section id="sobre-nos" class="parallax">
     <div class="container" style="background: rgba(2, 143, 204, 0.67);box-shadow: 0px 0px 0px 5px rgba(255, 141, 6, 0.4);border-radius: 25px;padding: 10px;">
-      <div class="row">
+      <div style="width:100%;">
         <div class="col-sm-12 col-xs-12">
           <div class="about-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
             <div class="col-sm-6 col-xs-12">

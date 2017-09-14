@@ -352,7 +352,7 @@ section {
 **************************/
 #sobre-nos {
   background-image: url(../images/about-bg.jpg);
-  padding: 60px 0;
+  /*padding: 60px 0;*/
 
   background-size: cover;
   background-repeat: no-repeat;
@@ -370,6 +370,30 @@ section {
     0%   {background-position: 0%;}
     100% {background-position: 100%;}
 }
+
+#opinioes{
+background-size: cover;
+background-repeat: no-repeat;
+background-position: 0%;
+background-attachment: fixed;
+animation-name: opinioesAnim;
+animation-duration: 40s;
+animation-timing-function: linear;
+animation-iteration-count: infinite;
+animation-direction: alternate;
+}
+
+@keyframes opinioesAnim {
+    0%   {background-position: 0% 0%;}
+    100% {background-position: 100% 0%;}
+}
+/*
+0%   {background-position: 0% 0%;}
+25% {background-position: 50% 0%;}
+75% {background-position: 0% 50%;}
+100% {background-position: 100% 100%;}
+Animação mais rápida...
+*/
 
 #sobre-nos h2 {
   margin-top: 0;
@@ -412,6 +436,11 @@ div.heading.wow.fadeInUp.col-sm-12{
 .progress .progress-bar.six-sec-ease-in-out {
   -webkit-transition: width 2s ease-in-out;
   transition:  width 2s ease-in-out;
+}
+
+/*Cria efeito de sombra no fim de cada section*/
+section{
+  box-shadow: inset 0px -10px 20px -8px rgba(0,0,0,0.98);
 }
 
 /*==============================================================================
@@ -782,7 +811,7 @@ background-color: rgba(0, 0, 0, 0.2);
 
 
 #opinioes {
-  background-image: url(../images/homescreen/homesc-inovabck.jpeg);
+  background-image: url(../images/homescreen/homesc-inovabck.jpg);
 }
 
 #opinioes > div {

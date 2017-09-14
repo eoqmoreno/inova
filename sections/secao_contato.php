@@ -6,7 +6,7 @@
     <div class="container">
       <div class="row">
         <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
-          <h2>Contato</h2>
+          <h2>Fale Conosco</h2>
           <p id="form-contato-focus">Se deseja solicitar algum pedido ou suporte use nossos canais abaixo.</p>
         </div>
       </div>

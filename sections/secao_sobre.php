@@ -18,12 +18,12 @@
 <p>Ser referência no mercado consumidor Norte-Nordeste na comercialização de produtos em utilidades para o lar.</p>
 </div>
 
-<div class="col-xs-6 col-sm-4">
+<div class="col-xs-12 col-sm-4">
 <h2>Missão</h2>
 <p>Ofertar ao mercado de utilidades plásticas, produtos acessíveis com garantia de qualidade, com foco em gestão de resultados e desenvolvimento das pessoas, gerando valor ao negócio.</p>
 </div>
 
-<div class="col-xs-6 col-sm-4">
+<div class="col-xs-12 col-sm-4">
 <h2>Valores</h2>
 <p><ul class="fa-ul">
   <li><i class="fa-li fa fa-long-arrow-right"></i>Clientes satisfeitos</li>

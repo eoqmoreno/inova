@@ -60,6 +60,7 @@ $sectAdm = new HTMLSection(array('pager_one'));
   <script type="text/javascript" src="js/smoothscroll.js"></script>
   <script type="text/javascript" src="js/jquery.countTo.js"></script>
   <script type="text/javascript" src="js/lightbox.min.js"></script>
+  <script type="text/javascript" src="js/jquery.mask.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 
 </body>

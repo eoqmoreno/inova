@@ -128,6 +128,7 @@ jQuery(function($) {
 		var fmd = new FormData();
 		fmd.append("nome",$("#name").val());
 		fmd.append("mail",$("#email").val());
+		fmd.append("telef",$("#teleph").val());
 		fmd.append("assu",$("#subject").val());
 		fmd.append("mes",$("#message").val());
 		$.ajax({
@@ -144,6 +145,32 @@ jQuery(function($) {
 			form_status.html('<p class="text-success">Enviado com sucesso! Logo que possível entraremos em contato.</p>').delay(3000).fadeOut();
 		});
 	});
+
+
+		// Contact form
+		var form = $('#formulario-trabalhe-conosco');
+		form.submit(function(event){
+			event.preventDefault();
+			var form_status = $('<div class="form_status"></div>');
+			var fmd = new FormData();
+			fmd.append("classe","trabalhe-conosco");
+			fmd.append("anexo",$("#anexo").files[0]);
+			$.ajax({
+				method:"POST",
+				url: $(this).attr('action'),
+				data:fmd,
+				processData: false,
+				cache: false,
+				contentType: false,
+				beforeSend: function(){
+					form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando dados.</p>').fadeIn() );
+				}
+			}).done(function(data){
+				form_status.html('<p class="text-success">Enviado com sucesso! Agradecemos pela contribuição.</p>').delay(3000).fadeOut();
+			});
+		});
+
+
 
 	//Google Map
 	var latitude = $('#google-map').data('latitude')
@@ -175,9 +202,15 @@ jQuery(function($) {
 
 });
 
+$('#contato-items a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show');
+});
+
 function setItemCatalogo(ItmClass){
 	$('.catalog-nav ul li').removeClass('active');
 	$(ItmClass.parentElement).addClass('active').html();
 	var nomevalor=$(ItmClass).html();
 	//alert(nomevalor);
 }
+//Máscara de formulários:

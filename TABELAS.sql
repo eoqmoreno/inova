@@ -16,8 +16,9 @@ CREATE TABLE inova_catalogo(
 CREATE TABLE inova_contatos(
   id_con INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(200) NOT NULL,
-  assunto VARCHAR(300) NOT NULL,
-  email VARCHAR(200) NOT NULL,
+  assunto VARCHAR(30) NOT NULL,
+  telefone VARCHAR(15) NOT NULL,
+  email VARCHAR(200),
   mensagem VARCHAR(800) NOT NULL,
   data_msg DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'
 );

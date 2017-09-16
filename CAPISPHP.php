@@ -54,5 +54,4 @@ class CAPISPHP_Structure{
   public static function host_link(){return 'http://'.$_SERVER['HTTP_HOST'].'/';}
 }
 
-
 ?>

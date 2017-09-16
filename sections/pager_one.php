@@ -1,7 +1,7 @@
 <?php
 class pager_one{
   public static function loadPagina($urlAcess){
-    include_once(URLPos::getURLDirRoot().HTMLSection::$section_props['path_sections'].'/'.$urlAcess);
+    include_once(HTMLSection::$section_props['path_sections'].'/'.$urlAcess);
   }
 
   function getHTML(){

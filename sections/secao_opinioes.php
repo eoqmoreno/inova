@@ -6,7 +6,7 @@
     <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
       <div class="container text-center">
         <div class="footer-logo">
-          <a href="./"><img class="img-responsive" src="images/logo_mini.png" alt=""></a>
+          <a href="./"><img class="img-responsive" src="<?php echo URLPos::getURLDirRoot(); ?>images/logo_mini.png" alt=""></a>
         </div>
         <div class="social-icons">
           <ul>

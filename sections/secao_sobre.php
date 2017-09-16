@@ -9,18 +9,18 @@
 
 <div class="col-xs-12">
 <h2>A Empresa</h2>
-<p>A INOVA – Indústria e Comércio de Utilidades para o lar, foi fundada em 31 de outubro de 2015. O corpo técnico é composto por profissionais das áreas de Engenharia, Administração, Recursos Humanos, Ciências Contábeis, e demais com formação técnica nas áreas de Eletrotécnica e Mecânica Industrial.</p>
-<p>A empresa tem se baseado na busca constante pela qualidade, na viabilização de uma gestão dinâmica e eficiente e, sobretudo, no compromisso em desenvolver seus profissionais.</p>
+<p class="text-justify">A INOVA – Indústria e Comércio de Utilidades para o lar, foi fundada em 31 de outubro de 2015. O corpo técnico é composto por profissionais das áreas de Engenharia, Administração, Recursos Humanos, Ciências Contábeis, e demais com formação técnica nas áreas de Eletrotécnica e Mecânica Industrial.<br/>
+A empresa tem se baseado na busca constante pela qualidade, na viabilização de uma gestão dinâmica e eficiente e, sobretudo, no compromisso em desenvolver seus profissionais.</p>
 </div>
 
 <div class="col-xs-12 col-sm-4">
 <h2>Visão</h2>
-<p>Ser referência no mercado consumidor Norte-Nordeste na comercialização de produtos em utilidades para o lar.</p>
+<p class="text-justify">Ser referência no mercado consumidor Norte-Nordeste na comercialização de produtos em utilidades para o lar.</p>
 </div>
 
 <div class="col-xs-12 col-sm-4">
 <h2>Missão</h2>
-<p>Ofertar ao mercado de utilidades plásticas, produtos acessíveis com garantia de qualidade, com foco em gestão de resultados e desenvolvimento das pessoas, gerando valor ao negócio.</p>
+<p class="text-justify">Ofertar ao mercado de utilidades plásticas, produtos acessíveis com garantia de qualidade, com foco em gestão de resultados e desenvolvimento das pessoas, gerando valor ao negócio.</p>
 </div>
 
 <div class="col-xs-12 col-sm-4">

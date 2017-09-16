@@ -1,6 +1,3 @@
-<?php
-include('CAPISPHP.php'); //Apenas para uso dos módulos
-?>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -9,16 +6,16 @@ include('CAPISPHP.php'); //Apenas para uso dos módulos
   <meta name="description" content="">
   <meta name="author" content="Inova Utilidades">
   <title>Inova Utilidades</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/animate.min.css" rel="stylesheet">
-  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="css/lightbox.css" rel="stylesheet">
-  <link href="css/main.css" rel="stylesheet">
-  <link href="css/outrasPaginas.css" rel="stylesheet">
-  <link id="css-preset" href="css/presets/preset1.css" rel="stylesheet">
-  <link href="css/responsive.css" rel="stylesheet">
-  <link href="css/widgEditor.css" rel="stylesheet">
-  <script src="js/widgEditor.js"></script>
+  <link href="<?php echo URLPos::getURLDirRoot(); ?>css/bootstrap.min.css" rel="stylesheet">
+  <link href="<?php echo URLPos::getURLDirRoot(); ?>css/animate.min.css" rel="stylesheet">
+  <link href="<?php echo URLPos::getURLDirRoot(); ?>font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<?php echo URLPos::getURLDirRoot(); ?>css/lightbox.css" rel="stylesheet">
+  <link href="<?php echo URLPos::getURLDirRoot(); ?>css/main.css" rel="stylesheet">
+  <link href="<?php echo URLPos::getURLDirRoot(); ?>css/outrasPaginas.css" rel="stylesheet">
+  <link id="css-preset" href="<?php echo URLPos::getURLDirRoot(); ?>css/presets/preset1.css" rel="stylesheet">
+  <link href="<?php echo URLPos::getURLDirRoot(); ?>css/responsive.css" rel="stylesheet">
+  <link href="<?php echo URLPos::getURLDirRoot(); ?>css/widgEditor.css" rel="stylesheet">
+  <script src="<?php echo URLPos::getURLDirRoot(); ?>js/widgEditor.js"></script>
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>

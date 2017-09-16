@@ -4,15 +4,15 @@
 <header id="inicio">
   <div id="home-slider" class="carousel slide carousel-fade" data-ride="carousel">
     <div class="carousel-inner">
-      <div class="item active" style="background-image: url(images/slider/1.jpg)">
+      <div class="item active" style="background-image: url(<?php echo URLPos::getURLDirRoot(); ?>images/slider/1.jpg)">
         <div class="caption">
-          <div class="animated jackInTheBox"><center><img class="img-responsive" src="images/logo_mini.png" alt="Inova Utilidades"></center></div>
+          <div class="animated jackInTheBox"><center><img class="img-responsive" src="<?php echo URLPos::getURLDirRoot(); ?>images/logo_mini.png" alt="Inova Utilidades"></center></div>
           <h1 style="font-size:1em;" class="animated fadeInRightBig">Nossos <span>produtos</span> são <span>projetados</span> pensando no seu bem estar</h1>
           <!--<p class="animated fadeInRightBig">Nossos <span>móveis</span> são <span>projetados</span> pensando no seu bem estar.</p>-->
 
         </div>
       </div>
-      <div class="item" style="background-image: url(images/slider/2.jpg)">
+      <div class="item" style="background-image: url(<?php echo URLPos::getURLDirRoot(); ?>images/slider/2.jpg)">
         <div class="caption">
           <h1 class="animated fadeInLeftBig">Entregamos em todo o <span>País</span></h1>
           <p class="animated fadeInRightBig">Veja o catálogo e conheça nossos produtos</p>
@@ -35,7 +35,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#inicio">
-          <h1><img class="img-responsive" style="height:40px;" src="images/logo_mini.png" alt="logo"></h1>
+          <h1><img class="img-responsive" style="height:40px;" src="<?php echo URLPos::getURLDirRoot(); ?>images/logo_mini.png" alt="logo"></h1>
         </a>
       </div>
       <div class="collapse navbar-collapse">

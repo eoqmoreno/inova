@@ -121,14 +121,23 @@ jQuery(function($) {
 	});
 
 	// Contact form
-	var form = $('#main-contact-form');
-	form.submit(function(event){
+	var form_sac = $('#main-contact-form');
+	form_sac.submit(function(event){
 		event.preventDefault();
 		var form_status = $('<div class="form_status"></div>');
+		var functiona=($("#name").val().length>3)&&//+3 caracteres
+		(($("#message").val().length>5)&&($("#message").val().indexOf(' ')>-1))&& //Ter mais que 5 letras e espaço deve existir.
+		($("#subject").val()!=-1)&& //Não estar no valor padrão
+		(  ($("#email").val().indexOf('@')>0) //@ estar a frente da primeira caractere
+		|| ($("#teleph").val().length==15)  ); //Telefone ter 15 caracteres. Um dos dois deve estar preenchido.
+		console.log('parte 1');
+		if(!functiona){
+form_sac.prepend( form_status.html('<p class="text-warning">Por favor, preencha todos os campos corretamente.<br/>E-mail é opcional se tiver um telefone, e vice-versa.</p>').fadeIn().delay(10000).fadeOut() );
+		}else{
 		var fmd = new FormData();
 		fmd.append("nome",$("#name").val());
-		fmd.append("mail",$("#email").val());
-		fmd.append("telef",$("#teleph").val());
+		if ($("#email").val().indexOf('@')>0)	fmd.append("mail",$("#email").val());
+		if ($("#teleph").val().length==15) fmd.append("telef",$("#teleph").val());
 		fmd.append("assu",$("#subject").val());
 		fmd.append("mes",$("#message").val());
 		$.ajax({
@@ -139,22 +148,32 @@ jQuery(function($) {
 			cache: false,
 			contentType: false,
 			beforeSend: function(){
-				form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando mensagem.</p>').fadeIn() );
+				form_sac.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando mensagem.</p>').fadeIn() );
 			}
 		}).done(function(data){
-			form_status.html('<p class="text-success">Enviado com sucesso! Logo que possível entraremos em contato.</p>').delay(3000).fadeOut();
+			if(data.code==0)
+			form_status.html('<p class="text-success">Enviado com sucesso! Agradecemos pelo contato.</p>').delay(5000).fadeOut();
+			else if(data.code>0)
+			form_status.html('<p class="text-warning">Ops... Parece que aconteceu algum problema. Erro: '+data.value+'</p>').delay(7000).fadeOut();
+			else
+			form_status.html('<p class="text-warning">Ops... Parece que aconteceu algum problema. Erro: '+data+'</p>').delay(20000).fadeOut();
 		});
+	}
 	});
 
 
 		// Contact form
-		var form = $('#formulario-trabalhe-conosco');
-		form.submit(function(event){
+		var form_wwu = $('#formulario-trabalhe-conosco');
+		form_wwu.submit(function(event){
 			event.preventDefault();
 			var form_status = $('<div class="form_status"></div>');
+		if($("#anexo")[0].files[0]===undefined){
+form_wwu.prepend( form_status.html('<p class="text-warning">Por favor, escolha um arquivo para ser enviado.</p>').fadeIn().delay(10000).fadeOut() );
+		}else{
+
 			var fmd = new FormData();
 			fmd.append("classe","trabalhe-conosco");
-			fmd.append("anexo",$("#anexo").files[0]);
+			fmd.append("anexo",$("#anexo")[0].files[0]);
 			$.ajax({
 				method:"POST",
 				url: $(this).attr('action'),
@@ -163,11 +182,16 @@ jQuery(function($) {
 				cache: false,
 				contentType: false,
 				beforeSend: function(){
-					form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando dados.</p>').fadeIn() );
+					form_wwu.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando dados.</p>').fadeIn() );
 				}
 			}).done(function(data){
+				if(data.code==0)
 				form_status.html('<p class="text-success">Enviado com sucesso! Agradecemos pela contribuição.</p>').delay(3000).fadeOut();
+				else
+				form_status.html('<p class="text-warning">Ops... Parece que aconteceu algum problema. Erro: '+data+'</p>').delay(3000).fadeOut();
+
 			});
+		}
 		});
 
 

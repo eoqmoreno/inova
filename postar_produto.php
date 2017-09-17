@@ -1,6 +1,6 @@
 <?php
 include("./CAPISPHP.php");
-if(isset($_POST["titulo"])&&isset($_FILES["prod_img"]["name"])&&isset($_POST["conteudo"])&&(intval($_POST["tab"])>-1)){
+if(array_key_exists('titulo',$_POST)&&isset($_FILES["prod_img"]["name"])&&array_key_exists('conteudo',$_POST)&&(intval($_POST["tab"])>-1)){
   $titulo=$_POST["titulo"];$conteudo=$_POST["conteudo"];$tab_num=intval($_POST["tab"]);
   $data=date("Y-m-d");
 

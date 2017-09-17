@@ -15,9 +15,7 @@
           <div class="col-sm-offset-3 col-sm-6">
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#fale-conosco" aria-controls="fale-conosco" role="tab" data-toggle="tab"><i class="fa fa-user-o" aria-hidden="true"></i> SAC</a></li>
-              <!--
               <li role="presentation"><a href="#trabalhe-conosco" aria-controls="trabalhe-conosco" role="tab" data-toggle="tab"><i class="fa fa-handshake-o" aria-hidden="true"></i> Trabalhe Conosco</a></li>
-            -->
             </ul>
           </div>
           <!-- INÍCIO DAS TABPANELS -->
@@ -36,12 +34,12 @@
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="email" id="email" class="form-control" placeholder="Endereço de email" required="required">
+                      <input type="email" id="email" class="form-control" placeholder="Endereço de email">
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="text" id="teleph" class="form-control" data-mask="(99) 99999-9999" placeholder="(99) 99999-9999 *" required="required">
+                      <input type="text" id="teleph" class="form-control" data-mask="(99) 99999-9999" placeholder="(99) 99999-9999 *">
                     </div>
                   </div>
 
@@ -80,7 +78,7 @@
                   <div class="col-sm-12 row">
                     <div style="background-color:rgba(255,255,255,0.4);border-radius:5px;" class="input-group">
                       <span class="input-group-addon" id="sizing-addon2"><h5><i class="glyphicon glyphicon-link" style="color:black;" aria-hidden="true"></i></i></h5></span>
-                      <input style="margin-top: 12px;" type="file" name="anexo" id="anexo" aria-describedby="sizing-addon2" required="required" />
+                      <input style="margin-top: 12px;" accept=".pdf,.jpg,.jpeg,.png,.bmp" type="file" name="anexo" id="anexo" aria-describedby="sizing-addon2" required="required" />
                     </div>
                   </div>
                   <div class="input-group form-group col-sm-4">

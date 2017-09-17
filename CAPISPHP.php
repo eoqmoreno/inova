@@ -14,6 +14,8 @@ include_once('./mod_BDCon.php'); //Funções para BD
 include_once('./mod_BuildCatalogo.php'); //Funções de catálogo
 include_once('./mod_Sectioner.php'); //Funções de catálogo
 include_once('./mod_FileUploads.php'); //Ferramenta de apoio para uploads.
+$MailerData=array('host'=>'smtp.gmail.com','porta'=>587,'SMTPSec'=>'tls','email'=>'j3systems0@gmail.com','passwd'=>'thesystemKILLER','use_html'=>true);
+include_once('./mod_PHPMailer.php');
 
 //Regras para estrutura HTML da página:
 class CAPISPHP_Structure{

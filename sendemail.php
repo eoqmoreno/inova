@@ -1,18 +1,19 @@
 <?php
-$name       = @trim(stripslashes($_POST['name'])); 
-$from       = @trim(stripslashes($_POST['email'])); 
-$subject    = @trim(stripslashes($_POST['subject'])); 
-$message    = @trim(stripslashes($_POST['message'])); 
-$to   		= 'email@email.com';//replace with your email
+include_once('mod_PHPMailer.php');
+$vectDados=array('host'=>'smtp.gmail.com',
+'porta'=>587,
+'SMTPSec'=>'tls',
+'email'=>'j3systems0@gmail.com',
+'passwd'=>'thesystemKILLER',
+'use_html'=>true);
+$msend = new ModulePHPMailer($vectDados);
+$msend->SetAssunto('Somente um teste!');
+$msend->AddAnexo('./images/about-bg.jpg');
+$msend->SetNomeOrigem('Inova Website');
+$msend->addDestino('jeimison3@gmail.com');
 
-$headers   = array();
-$headers[] = "MIME-Version: 1.0";
-$headers[] = "Content-type: text/plain; charset=iso-8859-1";
-$headers[] = "From: {$name} <{$from}>";
-$headers[] = "Reply-To: <{$from}>";
-$headers[] = "Subject: {$subject}";
-$headers[] = "X-Mailer: PHP/".phpversion();
+$msend->SetMensagem('<h1>Isso é somente um teste</h1><h2>Haverão mil testes até que um instante de perfeição seja obtido.</h2>');
 
-mail($to, $subject, $message, $headers);
-
-die;
+if($msend->enviar()) echo('Enviado!');
+else var_dump($msend->getError());
+?>

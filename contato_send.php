@@ -8,7 +8,8 @@ if(array_key_exists('nome',$_POST)&&array_key_exists('assu',$_POST)&&array_key_e
 $msend = new ModulePHPMailer($MailerData);
 $msend->SetAssunto("SAC - Nova Mensagem");
 $msend->SetNomeOrigem('Inova Website');
-$msend->addDestino('jeimison3@gmail.com');
+$msend->addDestino('comercial@inovautilidades.com.br');
+$msend->addDestino('financeiro@inoplast.com.br');
 
 $emailcampo="";
 if(isset($_POST["mail"])){$emailcampo="<p>E-mail: <a href=".$_POST["mail"].">".$_POST["mail"]."</a></p>";}
@@ -48,7 +49,7 @@ echo(json_encode($msend->getError()));
   $msend->SetAssunto('Trabalhe Conosco - Novo Curriculo');
   $msend->AddAnexo($nomeaddr,$instancia["name_last"]);
   $msend->SetNomeOrigem('Inova Website');
-  $msend->addDestino('jeimison3@gmail.com');
+  $msend->addDestino('rh@inoplast.com.br');
 
   $msend->SetMensagem('<p>Segue em anexo currículo enviado no site.</p>');
 

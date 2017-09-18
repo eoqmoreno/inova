@@ -32,7 +32,7 @@ A estrutura de datas é: 2017-08-02
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-				<form id="posta_publica" enctype="multipart/form-data" method="POST" action="postar_produto.php">
+				<form id="posta_publica" enctype="multipart/form-data" method="POST" action="<?php echo URLPos::getURLDirRoot(); ?>index.php/produto_publish">
           <br/><br/>
 				<input class="form-control" placeholder="Título do produto" id="titulo" name="titulo" type="text"/><br/>
         <input id="prod_img" name="prod_img" type="file"/><br/>

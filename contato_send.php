@@ -27,24 +27,26 @@ $msend->enviar();
 echo(json_encode($msend->getError()));
 /*
   $data=date("Y-m-d H:i:s");
+  $resu=DBCon::dbQuery("INSERT INTO inova_contatos VALUES(null,'$nome','$assunto','$telefone','$email','$mensg','$data');");
 
-$resu=DBCon::dbQuery("INSERT INTO inova_contatos VALUES(null,'$nome','$assunto','$telefone','$email','$mensg','$data');");
-*/
+  */
+
+
+
 }elseif($_POST["classe"]=="trabalhe-conosco"){
   $regras_upload=array(
-    'path_name'=>'uploads/tmp/',
-    'extension'=>array('pdf','jpg','png','bmp','jpeg'),
-    'renbymd5_fname'=>true,
-    'prefix_name'=>'curric_',
-    'return_extense_fname'=>true
+    'extension'=>array('bmp','png','jpg','jpeg','pdf'), //Extensões suportadas
   );
+
   $uploader=new FileUpload($regras_upload);
-  $nome_arquivo = $uploader->upload($_FILES["anexo"]);
 
+  $instancia = $uploader->upload($_FILES["anexo"]);
+  if( $instancia['ok'] ){ //Se arquivo movido com sucesso...
+    $nomeaddr=$instancia['tmpname'];
 
-  $msend = new ModulePHPMailer($MailerData);
+  $msend = new ModulePHPMailer($MailerData); //Inicia módulo Mailer
   $msend->SetAssunto('Trabalhe Conosco - Novo Curriculo');
-  $msend->AddAnexo($nome_arquivo);
+  $msend->AddAnexo($nomeaddr,$instancia["name_last"]);
   $msend->SetNomeOrigem('Inova Website');
   $msend->addDestino('jeimison3@gmail.com');
 
@@ -52,6 +54,7 @@ $resu=DBCon::dbQuery("INSERT INTO inova_contatos VALUES(null,'$nome','$assunto',
 
   $msend->enviar();
   echo(json_encode($msend->getError()));
+  }else echo(json_encode(array('code'=>10+($uploader->getErrorStatus()['code']),'value'=>'UPLOADER: '.$uploader->getErrorStatus()['value'])));
 
 
 }else echo(json_encode(array('code'=>404,'value'=>'Função não reconhecida. Algum campo está faltando?')));

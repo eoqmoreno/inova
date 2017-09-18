@@ -1,5 +1,6 @@
+var depuracao=false;
+var retornoJS;
 jQuery(function($) {
-
 	//Preloader
 	var preloader = $('.preloader');
 	$(window).load(function(){
@@ -120,6 +121,12 @@ jQuery(function($) {
 		$("#portfolio-single").slideUp(500);
 	});
 
+	function tratarErros(textStatus){
+		if(depuracao){
+			retornoJS=textStatus;
+			console.log("[FORM_SAC] Retorno obtido em: 'retornoJS'. MSG="+textStatus.responseText);
+		}
+	}
 	// Contact form
 	var form_sac = $('#main-contact-form');
 	form_sac.submit(function(event){
@@ -151,13 +158,22 @@ form_sac.prepend( form_status.html('<p class="text-warning">Por favor, preencha 
 				form_sac.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando mensagem.</p>').fadeIn() );
 			}
 		}).done(function(data){
+			if(depuracao){
+				retornoJS=data;
+				console.log("[FORM_SAC] Retorno obtido em: 'retornoJS'");
+			}
 			if(data.code==0)
 			form_status.html('<p class="text-success">Enviado com sucesso! Agradecemos pelo contato.</p>').delay(5000).fadeOut();
 			else if(data.code>0)
 			form_status.html('<p class="text-warning">Ops... Parece que aconteceu algum problema. Erro: '+data.value+'</p>').delay(7000).fadeOut();
 			else
 			form_status.html('<p class="text-warning">Ops... Parece que aconteceu algum problema. Erro: '+data+'</p>').delay(20000).fadeOut();
+		}).error(function(textStatus ){
+			tratarErros(textStatus);
+			form_status.html('<p class="text-danger">Ops... Parece que estamos com alguns problemas. Desculpe :/</p>').delay(4000).fadeOut();
 		});
+
+		;
 	}
 	});
 
@@ -170,7 +186,6 @@ form_sac.prepend( form_status.html('<p class="text-warning">Por favor, preencha 
 		if($("#anexo")[0].files[0]===undefined){
 form_wwu.prepend( form_status.html('<p class="text-warning">Por favor, escolha um arquivo para ser enviado.</p>').fadeIn().delay(10000).fadeOut() );
 		}else{
-
 			var fmd = new FormData();
 			fmd.append("classe","trabalhe-conosco");
 			fmd.append("anexo",$("#anexo")[0].files[0]);
@@ -185,11 +200,19 @@ form_wwu.prepend( form_status.html('<p class="text-warning">Por favor, escolha u
 					form_wwu.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando dados.</p>').fadeIn() );
 				}
 			}).done(function(data){
+				if(depuracao){
+					retornoJS=data;
+					console.log("[FORM_WWU] Retorno obtido em: 'retornoJS'");
+				}
+
 				if(data.code==0)
 				form_status.html('<p class="text-success">Enviado com sucesso! Agradecemos pela contribuição.</p>').delay(3000).fadeOut();
 				else
 				form_status.html('<p class="text-warning">Ops... Parece que aconteceu algum problema. Erro: '+data+'</p>').delay(3000).fadeOut();
 
+			}).error(function(textStatus){
+				tratarErros(textStatus);
+				form_status.html('<p class="text-danger">Ops... Parece que estamos com alguns problemas. Desculpe :/</p>').delay(4000).fadeOut();
 			});
 		}
 		});

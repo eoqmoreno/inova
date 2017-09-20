@@ -6,8 +6,11 @@ private static $indexes=array(
 'paginas/inicio.php'=>'inicio',
 'paginas/man_tabs.php'=>'tabs',
 'controllers/tabs_return.php'=>'tabs_access',
-'catalogo.php'=>'catalogo',
+'paginas/man_catalogo.php'=>'catalogo',
 'postar_produto.php'=>'produto_publish',
+'paginas/man_produtos.php'=>'produtos',
+'controllers/produtos_return.php'=>'produtos_access',
+'paginas/man_main.php'=>'gestor',
 );
 private static $DEFAULT='inicio';
 

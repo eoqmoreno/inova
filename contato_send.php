@@ -5,7 +5,7 @@ if(array_key_exists('nome',$_POST)&&array_key_exists('assu',$_POST)&&array_key_e
 &&(array_key_exists('telef',$_POST) || array_key_exists('mail',$_POST))){
   $nome=$_POST["nome"];$assunto=$_POST["assu"];$mensg=$_POST["mes"];
 
-$msend = new ModulePHPMailer($MailerData);
+$msend = new ModulePHPMailer(CAPISPHP_Structure::$MailerData);
 $msend->SetAssunto("SAC - Nova Mensagem");
 $msend->SetNomeOrigem('Inova Website');
 $msend->addDestino('comercial@inovautilidades.com.br');
@@ -45,7 +45,7 @@ echo(json_encode($msend->getError()));
   if( $instancia['ok'] ){ //Se arquivo movido com sucesso...
     $nomeaddr=$instancia['tmpname'];
 
-  $msend = new ModulePHPMailer($MailerData); //Inicia módulo Mailer
+  $msend = new ModulePHPMailer(CAPISPHP_Structure::$MailerData); //Inicia módulo Mailer
   $msend->SetAssunto('Trabalhe Conosco - Novo Curriculo');
   $msend->AddAnexo($nomeaddr,$instancia["name_last"]);
   $msend->SetNomeOrigem('Inova Website');

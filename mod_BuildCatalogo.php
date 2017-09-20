@@ -9,7 +9,6 @@ class BCatalogo{
   public static function getHTML(){
     $arrBD=self::listaItens();
     $strFinal="";
-    echo(URLPos::getURLDirRoot());
       if($arrBD->num_rows>0){
         while($item_port = $arrBD->fetch_array(MYSQLI_BOTH)){
           $strFinal.='        <div class="col-sm-3">

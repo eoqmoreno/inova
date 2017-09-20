@@ -22,7 +22,7 @@
     <a class="left-control" href="#home-slider" data-slide="prev"><i class="fa fa-angle-left"></i></a>
     <a class="right-control" href="#home-slider" data-slide="next"><i class="fa fa-angle-right"></i></a>
 
-    <a id="tohash" href="#servicos"><i class="fa fa-angle-down"></i></a>
+    <a id="tohash" href="#portfolio"><i class="fa fa-angle-down"></i></a>
 
   </div><!--/#home-slider-->
   <div class="main-nav">
@@ -41,10 +41,9 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <li class="scroll active"><a href="#inicio">Início</a></li>
-          <li class="scroll"><a href="#servicos">Serviços</a></li>
           <li class="scroll"><a href="#sobre-nos">A Empresa</a></li>
-
           <li style="background-color:rgba(255,255,255,0.2);" class="scroll"><a href="#portfolio">Catálogo de Produtos</a></li>
+          <li class="scroll"><a href="#servicos">Serviços</a></li>
           <li class="scroll"><a href="#certificacoes">Certificações</a></li>
           <li class="scroll"><a href="#contact">Contato</a></li>
         </ul>

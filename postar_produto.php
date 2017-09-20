@@ -20,7 +20,7 @@ echo('Sucesso.');
   //header('location: ');
 
 }else{
-  echo("Ops... Parece que estamos com problemas.");
+  echo("Ops... Parece que estamos com problemas de upload...");
 }
 
 //echo('Publicado com sucesso.');

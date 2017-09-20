@@ -1,7 +1,10 @@
 CREATE TABLE inova_catalogo_tabs(
   id_tab INT PRIMARY KEY AUTO_INCREMENT,
-  titulo VARCHAR(60) NOT NULL
+  titulo VARCHAR(60) NOT NULL,
+  herdando int NOT NULL
 );
+
+INSERT INTO inova_catalogo_tabs VALUES(1,"Produtos",1);
 
 CREATE TABLE inova_catalogo(
   id_itm INT PRIMARY KEY AUTO_INCREMENT,
@@ -29,6 +32,7 @@ CREATE TABLE inova_sys_err(
   msg VARCHAR(300) NOT NULL,
   data DATETIME NOT NULL
 );
+
 
 INSERT INTO inova_catalogo_tabs VALUES(null,"Poltronas Monobloco");
 INSERT INTO inova_catalogo_tabs VALUES(null,"Poltronas Pés de Alumínio");

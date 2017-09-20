@@ -2,7 +2,7 @@
 class DBCon{
 public static $DB=array('db' => 'inova',
 'user' => 'root',
-'pass' => '',
+'pass' => 'ino@4321',
 'addr' => 'localhost',
 'encoding' => 'utf8',
 'timezone' => 'America/Fortaleza');

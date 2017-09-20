@@ -1,5 +1,16 @@
 var depuracao=false;
 var retornoJS;
+function callbackajx(murl,fmData,beforesend_case,done_case,error_case){
+	$.ajax({
+		method:"POST",
+		url: murl,
+		data:fmData,
+		processData: false,
+		cache: false,
+		contentType: false,
+		beforeSend: beforesend_case
+	}).done(done_case).error(error_case);
+}
 jQuery(function($) {
 	//Preloader
 	var preloader = $('.preloader');

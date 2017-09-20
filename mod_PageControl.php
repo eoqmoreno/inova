@@ -4,6 +4,8 @@ class PageControl{
 //Redirecionamentos URL referenciada após o /index.php/[1]
 private static $indexes=array(
 'paginas/inicio.php'=>'inicio',
+'paginas/man_tabs.php'=>'tabs',
+'controllers/tabs_return.php'=>'tabs_access',
 'catalogo.php'=>'catalogo',
 'postar_produto.php'=>'produto_publish',
 );

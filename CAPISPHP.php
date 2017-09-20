@@ -86,17 +86,10 @@ $this->AddMeta('COPYRIGHT',CAPISPHP_Structure::$COPYRIGHT);
 //GOOGLE METATAGS:
 $this->AddMeta('google',"notranslate");
 $this->AddMeta('google',"nositelinkssearchbox");
-$this->AddMeta('google',"notranslate");
-$this->AddMeta('google',"notranslate");
-$this->AddMeta('google',"notranslate");
-$this->AddMeta('google',"notranslate");
-$this->AddMeta('google',"notranslate");
-$this->AddMeta('google',"notranslate");
 
 $this->AddMeta('RATING','GENERAL');
 $this->AddMeta('DISTRIBUTION','GLOBAL');
 $this->AddMeta('RESOURCE-TYPE','DOCUMENT');
-$this->AddMeta('Robots','INDEX,FOLLOW');
 
 if(CAPISPHP_Structure::$UsarMetaProp){
 $this->AddRawMeta('property="og:locale" content="'.CAPISPHP_Structure::$METAPROP_Locale.'"');

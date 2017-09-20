@@ -33,7 +33,7 @@ class BCatalogo{
                     </div>
                   </div>'."\n";
         }
-      }else{$strFinal="Sem resultados.";}
+      }else{$strFinal="";}
     return $strFinal;
   }
 }

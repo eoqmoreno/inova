@@ -8,7 +8,7 @@ function getFullStrName($id_origem,$full_arr){
     if(isset($full_arr[$id_atual])){
       $FinalStr.=" ".$full_arr[$id_atual]['titulo'];
       $id_atual=$full_arr[$id_atual]['herdando'];
-      $parou=!array_key_exists($id_atual,$full_arr);
+      $parou=( !array_key_exists($id_atual,$full_arr) || ($id_atual==$full_arr[$id_atual]['herdando']) );
       if(!$parou) $FinalStr.=" ".$separador;
     }else $parou=true;
   }
@@ -17,7 +17,9 @@ function getFullStrName($id_origem,$full_arr){
 
 header('Content-Type: application/json');
 if(isset($_POST['funcao']) && ($_POST['funcao'] == "c")){//Consulta
-$data=DBCon::dbQuery("SELECT * FROM inova_catalogo_tabs WHERE id_tab<>herdando ORDER BY herdando,titulo ASC;");
+  $extras="WHERE id_tab<>herdando";
+  if(isset($_POST['spec'])) $extras="";
+$data=DBCon::dbQuery("SELECT * FROM inova_catalogo_tabs $extras ORDER BY herdando,titulo ASC;");
 $retorno=array('code'=>0,'lista'=>array());
 
 if($data->num_rows>0){

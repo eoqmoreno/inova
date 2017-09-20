@@ -33,11 +33,14 @@
 <script>
 function updtTable(){
   var nulo=new FormData();
+  console.log("Tentando...");
   nulo.append('funcao','c');
+  nulo.append('spec','');
 callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/tabs_access',nulo,
 function(){//BeforeSend
 $("#refresh_bnt").attr("disabled",'disabled'); //Bloquei botão
 },function(data){//Done
+  console.log("Carregando.");
   var campo=$("table tbody").html('');
 $("#refresh_bnt").removeAttr("disabled");//Libera botão
   if(data.code==0){

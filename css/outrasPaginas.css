@@ -1,0 +1,12 @@
+.form-control{
+    color:#000;
+}
+.form-control::-moz-placeholder,.form-control::placeholder,.form-control::-webkit-input-placeholder,.form-control:-ms-input-placeholder {
+    color: black;
+    opacity: 1;
+}
+
+.form-control{
+  background-color: rgb(255,255,255);
+  border: 1px solid rgb(200,200,200);
+}

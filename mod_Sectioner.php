@@ -5,7 +5,7 @@ class HTMLSection{
 
   function __construct($namesArray){
     foreach ($namesArray as $item){
-      include_once(URLPos::getURLDirRoot().HTMLSection::$section_props['path_sections'].'/'.$item.'.php');
+      include_once(HTMLSection::$section_props['path_sections'].'/'.$item.'.php');
       $objeto = new $item();
       echo($objeto->getHTML());
     }

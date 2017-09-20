@@ -1,0 +1,10 @@
+<files ~ "^.*\.([Hh][Tt][Aa])">
+order allow,deny
+deny from all
+satisfy all
+</files>
+<FilesMatch ".(flv|gif|jpg|jpeg|png|ico|swf|js|css|pdf)$">
+Header set Cache-Control "max-age=28800"
+</FilesMatch>
+RewriteEngine On
+DirectoryIndex index.php

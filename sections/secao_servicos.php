@@ -6,7 +6,7 @@
       <div class="heading wow fadeInUp col-sm-12" data-wow-duration="1000ms" data-wow-delay="300ms">
         <div class="row">
           <div class="text-center col-sm-8 col-sm-offset-2">
-            <h2>Serviços</h2>
+            <h2 class="whitefont">SERVIÇOS</h2>
             <p>Nossos produtos e serviços são feitos sob os mesmos conceitos</p>
           </div>
         </div>
@@ -40,7 +40,7 @@
               <p>Temos redes de entrega por todo o país. Não se limite pela distância. <b>Você pode ter o melhor onde quiser pois vamos onde estiver.</b></p>
             </div>
           </div>
-          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="650ms">
+          <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="650ms">
             <div class="service-icon">
               <i class="fa fa-group"></i>
             </div>
@@ -49,7 +49,7 @@
               <p>Os colaboradores formam a imagem e caráter da empresa, além da excelência dos nossos serviços. A atenção com nossos colaboradores é mais que uma obrigação. É um princípio.  </p>
             </div>
           </div>
-          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="750ms">
+          <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="750ms">
             <div class="service-icon">
               <i class="fa fa-warning"></i>
             </div>
@@ -58,7 +58,7 @@
               <p>Realizamos diversos testes nos nossos produtos antes de sua liberação. Justamente por isso <b>temos a certificação de qualidade do Inmetro</b>.</p>
             </div>
           </div>
-          <div class="col-sm-4 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="850ms">
+          <div class="col-sm-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="850ms">
             <div class="service-icon">
               <i class="fa fa-question"></i>
             </div>

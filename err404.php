@@ -1,10 +1,7 @@
 <?php
-class WebView{
-  public static function html(){
+    $mvw = new MainView();
     CAPISPHP_Structure::setTitl("Erro 404");
-    return "<center><h2>Ops... A página que tentou acessar não existe :/</h2></center>";
+    echo($mvw->head());
+    echo "<center><h2>Ops... A página que tentou acessar não existe :/</h2></center>";
 
-
-  }
-}
 ?>

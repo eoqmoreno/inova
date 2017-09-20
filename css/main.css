@@ -21,7 +21,11 @@ body {
 
 
 h1, h2, h3, h4, h5, h6 {
-  color: #fff;
+  color: #000;
+}
+
+h2.whitefont{
+  color:#fff;
 }
 
 h2 {
@@ -346,10 +350,49 @@ section {
 /*************************
 ********About CSS*******
 **************************/
-#sobre-nos {
+#sobre-nos{
   background-image: url(../images/about-bg.jpg);
-  padding: 60px 0;
+  /*padding: 60px 0;*/
 }
+
+.anim-background{
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0%;
+  background-attachment: fixed;
+
+  animation-name: animacao-bg;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@media (min-width:767px) {
+  .anim-background{
+    animation-duration: 30s;
+  }
+}
+@media (max-width:767px) {
+  .anim-background{
+    animation-duration: 360s;
+  }
+}
+
+@keyframes animacao-bg {
+    0%   {background-position: 0%;}
+    100% {background-position: 100%;}
+}
+
+#opinioes{
+}
+
+/*
+0%   {background-position: 0% 0%;}
+25% {background-position: 50% 0%;}
+75% {background-position: 0% 50%;}
+100% {background-position: 100% 100%;}
+Animação mais rápida...
+*/
 
 #sobre-nos h2 {
   margin-top: 0;
@@ -392,6 +435,11 @@ div.heading.wow.fadeInUp.col-sm-12{
 .progress .progress-bar.six-sec-ease-in-out {
   -webkit-transition: width 2s ease-in-out;
   transition:  width 2s ease-in-out;
+}
+
+/*Cria efeito de sombra no fim de cada section*/
+section{
+  box-shadow: inset 0px -10px 20px -8px rgba(0,0,0,0.98);
 }
 
 /*==============================================================================
@@ -762,7 +810,7 @@ background-color: rgba(0, 0, 0, 0.2);
 
 
 #opinioes {
-  background-image: url(../images/homescreen/homesc-inovabck.jpeg);
+  background-image: url(../images/homescreen/homesc-inovabck.jpg);
 }
 
 #opinioes > div {

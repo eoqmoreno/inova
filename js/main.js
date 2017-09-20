@@ -1,5 +1,17 @@
+var depuracao=false;
+var retornoJS;
+function callbackajx(murl,fmData,beforesend_case,done_case,error_case){
+	$.ajax({
+		method:"POST",
+		url: murl,
+		data:fmData,
+		processData: false,
+		cache: false,
+		contentType: false,
+		beforeSend: beforesend_case
+	}).done(done_case).error(error_case);
+}
 jQuery(function($) {
-
 	//Preloader
 	var preloader = $('.preloader');
 	$(window).load(function(){
@@ -54,14 +66,8 @@ jQuery(function($) {
 	};
 
 	$('#tohash').on('click', function(){
-		//$('html, body').animate({scrollTop: $(this.hash).offset().top-45}, 800);
-		var target = $( $(this).attr('href') );
-		if( target.length ) {
-        event.preventDefault();
-        $('html, body').animate({
-            scrollTop: target.offset().top
-        }, 300);
-    }
+		$('html, body').animate({scrollTop: $(this.hash).offset().top-45}, 800);
+
 		return false;
 	});
 
@@ -126,14 +132,30 @@ jQuery(function($) {
 		$("#portfolio-single").slideUp(500);
 	});
 
+	function tratarErros(textStatus){
+		if(depuracao){
+			retornoJS=textStatus;
+			console.log("[FORM_SAC] Retorno obtido em: 'retornoJS'. MSG="+textStatus.responseText);
+		}
+	}
 	// Contact form
-	var form = $('#main-contact-form');
-	form.submit(function(event){
+	var form_sac = $('#main-contact-form');
+	form_sac.submit(function(event){
 		event.preventDefault();
 		var form_status = $('<div class="form_status"></div>');
+		var functiona=($("#name").val().length>3)&&//+3 caracteres
+		(($("#message").val().length>5)&&($("#message").val().indexOf(' ')>-1))&& //Ter mais que 5 letras e espaço deve existir.
+		($("#subject").val()!=-1)&& //Não estar no valor padrão
+		(  ($("#email").val().indexOf('@')>0) //@ estar a frente da primeira caractere
+		|| ($("#teleph").val().length==15)  ); //Telefone ter 15 caracteres. Um dos dois deve estar preenchido.
+		console.log('parte 1');
+		if(!functiona){
+form_sac.prepend( form_status.html('<p class="text-warning">Por favor, preencha todos os campos corretamente.<br/>E-mail é opcional se tiver um telefone, e vice-versa.</p>').fadeIn().delay(10000).fadeOut() );
+		}else{
 		var fmd = new FormData();
 		fmd.append("nome",$("#name").val());
-		fmd.append("mail",$("#email").val());
+		if ($("#email").val().indexOf('@')>0)	fmd.append("mail",$("#email").val());
+		if ($("#teleph").val().length==15) fmd.append("telef",$("#teleph").val());
 		fmd.append("assu",$("#subject").val());
 		fmd.append("mes",$("#message").val());
 		$.ajax({
@@ -144,12 +166,69 @@ jQuery(function($) {
 			cache: false,
 			contentType: false,
 			beforeSend: function(){
-				form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando mensagem.</p>').fadeIn() );
+				form_sac.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando mensagem.</p>').fadeIn() );
 			}
 		}).done(function(data){
-			form_status.html('<p class="text-success">Enviado com sucesso! Logo que possível entraremos em contato.</p>').delay(3000).fadeOut();
+			if(depuracao){
+				retornoJS=data;
+				console.log("[FORM_SAC] Retorno obtido em: 'retornoJS'");
+			}
+			if(data.code==0)
+			form_status.html('<p class="text-success">Enviado com sucesso! Agradecemos pelo contato.</p>').delay(5000).fadeOut();
+			else if(data.code>0)
+			form_status.html('<p class="text-warning">Ops... Parece que aconteceu algum problema. Erro: '+data.value+'</p>').delay(7000).fadeOut();
+			else
+			form_status.html('<p class="text-warning">Ops... Parece que aconteceu algum problema. Erro: '+data+'</p>').delay(20000).fadeOut();
+		}).error(function(textStatus ){
+			tratarErros(textStatus);
+			form_status.html('<p class="text-danger">Ops... Parece que estamos com alguns problemas. Desculpe :/</p>').delay(4000).fadeOut();
 		});
+
+		;
+	}
 	});
+
+
+		// Contact form
+		var form_wwu = $('#formulario-trabalhe-conosco');
+		form_wwu.submit(function(event){
+			event.preventDefault();
+			var form_status = $('<div class="form_status"></div>');
+		if($("#anexo")[0].files[0]===undefined){
+form_wwu.prepend( form_status.html('<p class="text-warning">Por favor, escolha um arquivo para ser enviado.</p>').fadeIn().delay(10000).fadeOut() );
+		}else{
+			var fmd = new FormData();
+			fmd.append("classe","trabalhe-conosco");
+			fmd.append("anexo",$("#anexo")[0].files[0]);
+			$.ajax({
+				method:"POST",
+				url: $(this).attr('action'),
+				data:fmd,
+				processData: false,
+				cache: false,
+				contentType: false,
+				beforeSend: function(){
+					form_wwu.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Enviando dados.</p>').fadeIn() );
+				}
+			}).done(function(data){
+				if(depuracao){
+					retornoJS=data;
+					console.log("[FORM_WWU] Retorno obtido em: 'retornoJS'");
+				}
+
+				if(data.code==0)
+				form_status.html('<p class="text-success">Enviado com sucesso! Agradecemos pela contribuição.</p>').delay(3000).fadeOut();
+				else
+				form_status.html('<p class="text-warning">Ops... Parece que aconteceu algum problema. Erro: '+data+'</p>').delay(3000).fadeOut();
+
+			}).error(function(textStatus){
+				tratarErros(textStatus);
+				form_status.html('<p class="text-danger">Ops... Parece que estamos com alguns problemas. Desculpe :/</p>').delay(4000).fadeOut();
+			});
+		}
+		});
+
+
 
 	//Google Map
 	var latitude = $('#google-map').data('latitude')
@@ -157,11 +236,13 @@ jQuery(function($) {
 	function initialize_map() {
 		var myLatlng = new google.maps.LatLng(latitude,longitude);
 		var mapOptions = {
-			zoom: 14,
+			zoom: 17,
 			scrollwheel: false,
+			mapTypeId: 'satellite',
 			center: myLatlng
 		};
 		var map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+
 		var contentString = '';
 		var infowindow = new google.maps.InfoWindow({
 			content: '<div class="map-content"><ul class="address">' + $('.address').html() + '</ul></div>'
@@ -173,9 +254,15 @@ jQuery(function($) {
 		google.maps.event.addListener(marker, 'click', function() {
 			infowindow.open(map,marker);
 		});
+
 	}
 	google.maps.event.addDomListener(window, 'load', initialize_map);
 
+});
+
+$('#contato-items a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show');
 });
 
 function setItemCatalogo(ItmClass){
@@ -184,3 +271,4 @@ function setItemCatalogo(ItmClass){
 	var nomevalor=$(ItmClass).html();
 	//alert(nomevalor);
 }
+//Máscara de formulários:

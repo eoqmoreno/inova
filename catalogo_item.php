@@ -23,9 +23,8 @@ if(isset(URLPos::getURLObjects()[1])&&(intval(URLPos::getURLObjects()[1])>0)){
 			<div class="col-sm-3">
 				<div class="project-details">
 					<h3>Detalhes do Projeto</h3>
-					<p><span>Cliente: </span><?php if(isset($extracao)) echo $extracao['desc_cliente']; ?></p>
-					<p><span>Data:</span> <?php if(isset($extracao)) echo $extracao['data']; ?></p>
-					<p><span>Tags:</span> <?php if(isset($extracao)) echo $extracao['tags']; ?></p>
+					<p><span>Publicado:</span> <?php if(isset($extracao)) echo $extracao['data']; ?></p>
+					<p><span>Classe:</span> <?php if(isset($extracao)) echo $extracao['tab']; ?></p>
 				</div>
 			</div>
 		</div>

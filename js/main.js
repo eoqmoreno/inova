@@ -265,10 +265,5 @@ $('#contato-items a').click(function (e) {
   $(this).tab('show');
 });
 
-function setItemCatalogo(ItmClass){
-	$('.catalog-nav ul li').removeClass('active');
-	$(ItmClass.parentElement).addClass('active').html();
-	var nomevalor=$(ItmClass).html();
-	//alert(nomevalor);
-}
+
 //Máscara de formulários:

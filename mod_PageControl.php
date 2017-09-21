@@ -11,6 +11,7 @@ private static $indexes=array(
 'paginas/man_produtos.php'=>'produtos',
 'controllers/produtos_return.php'=>'produtos_access',
 'paginas/man_main.php'=>'gestor',
+'controllers/tabs_catalogo.php'=>'tabs_catalogo_get'
 );
 private static $DEFAULT='inicio';
 

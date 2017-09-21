@@ -17,7 +17,6 @@ function setItemCatalogo(ItmClass,classNum){
 	callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/tabs_catalogo_get',nulo,
 	function(){//BeforeSend
 	},function(data){//Done
-    console.log(data);
     var proximo_nivel=classNum+1;
     var div_menus=$("div.row.navbarscatalog");
     var menu=$('<div class="catalog-nav col-xs-12"></div>');

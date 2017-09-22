@@ -107,7 +107,6 @@ section {
   color: white;
     background: #ff8a00;
     border-radius: 0%;
-    width: -webkit-fill-available;
     margin-bottom: 10px;
 }
 
@@ -416,7 +415,6 @@ Animação mais rápida...
 }
 
 div.heading.wow.fadeInUp.col-sm-12{
-  box-shadow: 7px 7px 3px 0px #005d86;
   margin-bottom: 45px;
 }
 
@@ -1029,7 +1027,6 @@ background-color: rgba(0, 0, 0, 0.2);
 
 #contact-us .heading {
     color: white;
-    box-shadow: 10px 10px #005d86;
     background: #e27a00;
     border-radius: 1%;
     margin-bottom: 25px;

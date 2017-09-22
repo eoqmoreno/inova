@@ -5,12 +5,12 @@
   <div id="contact-us" class="parallax">
     <div class="container">
       <div class="row">
-        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+        <div style="margin-top:29px;" class="heading text-center col-sm-12 wow fadeInUp" data-wow-duration="700ms" data-wow-delay="300ms">
           <h2>CONTATO</h2>
         </div>
       </div>
       <div class="col-sm-6">
-      <div class="contact-form wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+      <div class="contact-form wow fadeIn" data-wow-duration="500ms" data-wow-delay="200ms">
         <div class="row">
           <div class="col-sm-offset-3 col-sm-6">
             <ul class="nav nav-tabs" role="tablist">

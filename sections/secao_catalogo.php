@@ -1,7 +1,7 @@
 <?php
 
 ?>
-<section id="portfolio">
+<section style="margin:0 0;" id="portfolio">
   <div class="container">
     <div class="row">
       <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">

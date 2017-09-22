@@ -7,6 +7,7 @@ function __construct($inp_rules){
 	require './libs/phpmailer/PHPMailerAutoload.php';
 	$this->mail = new PHPMailer();
 	$this->mail->isSMTP(); //Define como SMTP
+	$this->mail->CharSet = 'UTF-8';
 	$this->mail->Port = $this->mailRules['porta'];
 	$this->mail->SMTPSecure = $this->mailRules['SMTPSec'];
 	$this->mail->SMTPAuth = true;

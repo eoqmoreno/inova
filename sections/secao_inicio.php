@@ -9,7 +9,6 @@
           <div class="animated jackInTheBox"><center><img class="img-responsive" src="<?php echo URLPos::getURLDirRoot(); ?>images/logo_mini.png" alt="Inova Utilidades"></center></div>
           <h1 style="font-size:1em;" class="animated fadeInRightBig">Nossos <span>produtos</span> são <span>projetados</span> pensando no seu bem estar</h1>
           <!--<p class="animated fadeInRightBig">Nossos <span>móveis</span> são <span>projetados</span> pensando no seu bem estar.</p>-->
-
         </div>
       </div>
       <div class="item" style="background-image: url(<?php echo URLPos::getURLDirRoot(); ?>images/slider/2.jpg)">

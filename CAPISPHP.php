@@ -70,7 +70,7 @@ function AddStyle($dataAdd){self::AddHead("<link href='".URLPos::getURLDirRoot()
 
 //Função final para exibir conteúdo
 function head($indexar=false){
-$this->AddRawMeta('charset="utf-8"');
+$this->AddRawMeta('http-equiv="Content-type" content="text/html; charset=utf-8"');
 $this->AddRawMeta('http-equiv="X-UA-Compatible" content="IE=edge"');
 $this->AddMeta('viewport','width=device-width, initial-scale=1, maximum-scale=1');
 

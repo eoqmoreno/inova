@@ -25,7 +25,7 @@ class BCatalogo{
                             </div>
                             <div class="folio-overview">
                               <span class="folio-link"><a class="folio-read-more" href="#" data-single_url="catalogo_item.php/'.$item_port['id_itm'].'" ><i class="fa fa-link"></i></a></span>
-                              <span class="folio-expand"><a href="'.URLPos::getURLDirRoot().'images/catalogo/'.$item_port['link_imagem'].'" data-lightbox="portfolio"><i class="fa fa-search-plus"></i></a></span>
+                              <span class="folio-expand"><a href="'.URLPos::getURLDirRoot().'images/catalogo/'.$item_port['link_imagem'].'"><i class="fa fa-search-plus"></i></a></span>
                             </div>
                           </div>
                         </div>

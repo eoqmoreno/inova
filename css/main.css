@@ -354,6 +354,13 @@ section {
   background-image: url(../images/about-bg.jpg);
   /*padding: 60px 0;*/
 }
+.navbar-nav li.scroll{
+cursor: pointer;
+}
+.navbar-nav li.scroll:hover{
+background-color: rgba(255,255,255,0.5);
+}
+
 
 .anim-background{
   background-size: cover;

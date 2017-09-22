@@ -260,10 +260,7 @@ form_wwu.prepend( form_status.html('<p class="text-warning">Por favor, escolha u
 
 });
 
-$('#contato-items a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show');
-});
+
 
 
 //Máscara de formulários:

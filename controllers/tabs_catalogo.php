@@ -15,6 +15,39 @@ function getFullStrName($id_origem,$full_arr){
   return $FinalStr;
 }
 
+
+function getArrayIDsToDown($id_origem,$full_arr){
+  $arrAll=array();$lastFound=array(0=>array('id_tab'=>$id_origem));$kwtr=array();
+
+  $parou = false;
+  while (!$parou){
+foreach ($lastFound as $ky => $tabfound) {
+  $id_atual=$tabfound['id_tab'];
+  $arrAll[]=$id_atual;
+  //echo("ATUAL=".$id_atual);
+    foreach ($full_arr as $tab) {
+      if($tab['herdando']==$id_atual){
+        if(!in_array($tab['id_tab'],$arrAll)) $lastFound[]=$tab;
+      }
+    }
+    unset($lastFound[$ky]);
+  }
+$parou=sizeof($lastFound)==0;
+
+  }
+return $arrAll;
+}
+
+
+function getProdutosByTab($tab_id){
+$tmpv=array();
+$dbRetorno  = DBCon::dbQuery("SELECT * FROM inova_catalogo WHERE tab=$tab_id;");
+if($dbRetorno->num_rows>0){
+  while($item = $dbRetorno->fetch_array(MYSQLI_BOTH)) array_push($tmpv,$item);
+}
+return $tmpv;
+}
+
 function getKeyBySubkeyA($titulo,$vetor,$subkey){
   return array_filter($vetor, function($element) use($titulo){
     return isset($element['herdando']) && $element['herdando'] == intval($titulo) && $element['id_tab'] != intval($titulo);
@@ -42,20 +75,63 @@ if($data->num_rows>0){
 }
 
 if(isset($_POST['funcao']) && ($_POST['funcao'] == "i")){//Inicial
+  $TabPrincipal="Produtos";
   $retorno=array(
     'code'=>0,
-    'lista'=>getSubItens("Produtos",$RetornoBD));
+    'lista'=>getSubItens($TabPrincipal,$RetornoBD),
+    'produtos'=>array() );
 
-  if(sizeof($retorno['lista'])>0) echo json_encode($retorno);
-  else echo json_encode(array('code'=>7));//COD 7 = SEM RESULTADOS.
+    /*
+    $tmp_arr=getProdutosByTab( getKeyBySubkey($TabPrincipal,$RetornoBD,'titulo') );
+      if(sizeof($tmp_arr)>0) foreach ($tmp_arr as $item_prod) array_push($retorno['produtos'],$item_prod);
+
+  foreach ($retorno['lista'] as $valor)
+    if(sizeof($valor)>0) {
+      $tmp_arr=getProdutosByTab($valor['id_tab']);
+      foreach ($tmp_arr as $itens_ret) array_push($retorno['produtos'], $itens_ret );
+    }
+*/
+
+$idtmp=getArrayIDsToDown($RetornoBD[getKeyBySubkey($TabPrincipal,$RetornoBD,'titulo')]['id_tab'],$RetornoBD);
+foreach ($idtmp as $val){
+  $tmp_arr=getProdutosByTab(intval($val));
+  foreach ($tmp_arr as $itens_ret) array_push($retorno['produtos'], $itens_ret );
+}
+
+  if(sizeof($retorno['lista'])==0) $retorno['code']=7;//COD 7 = SEM RESULTADOS DE TABS.
+  echo json_encode($retorno);
+
+
 
 }elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "nxt")){//Proximas tabs
   $retorno=array(
     'code'=>0,
-    'lista'=>getKeyBySubkeyA($_POST['nxt-id'],$RetornoBD,'herdando'));
-    
-  if(sizeof($retorno['lista'])>0) echo json_encode($retorno);
-  else echo json_encode(array('code'=>7));//COD 7 = SEM RESULTADOS.
+    'lista'=>getKeyBySubkeyA($_POST['nxt-id'],$RetornoBD,'herdando'),
+  'produtos'=>array());
+  $tmp_arr=getProdutosByTab(intval($_POST['nxt-id']));
+    if(sizeof($tmp_arr)>0) foreach ($tmp_arr as $item_prod) array_push($retorno['produtos'],$item_prod);
+
+  foreach ($retorno['lista'] as $valor)
+    if(sizeof($valor)>0) {
+      $tmp_arr=getProdutosByTab($valor['id_tab']);
+      foreach ($tmp_arr as $itens_ret) array_push($retorno['produtos'], $itens_ret );
+    }
+
+  if(sizeof($retorno['lista'])==0) $retorno['code']=7;//COD 7 = SEM RESULTADOS DE TABS..
+
+  echo json_encode($retorno);
+
+
+
+
+
+
+
+
+
+
+
+
 
 }elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "a")){//Acréscimo
   $nome=$_POST['nome'];$herdado=intval($_POST['herdado']);

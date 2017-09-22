@@ -1017,12 +1017,22 @@ background-color: rgba(0, 0, 0, 0.2);
 
 #contact-us {
   background: black;
-    padding-bottom: 90px;
-    background-attachment: fixed;
-    background-position: center;
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-image: url(../images/map-image.png);
+}
+
+
+
+#contact-us.animador{
+  /* background-size: cover; */
+  background-repeat: no-repeat;
+  /* background-position: 0%; */
+  background-attachment: fixed;
+  animation-name: changebk-contact;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 30s;
+  background-size: 200%;
+
 }
 
 #contact-us .heading {

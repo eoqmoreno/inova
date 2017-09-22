@@ -4,6 +4,14 @@
 
 <?php echo(ObjetoView::$mvw->head(true)); ?>
 
+<style>
+@keyframes changebk-contact {
+0%   {background-image: url(../images/slider/1.jpg);}
+50%  {background-image: url(../images/slider/2.jpg);}
+100% {background-image: url(../images/homescreen/homesc-inovabck.jpg);}
+}
+</style>
+
 <script>
 
 $('.nav-tabs a').click(function (e) {

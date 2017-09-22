@@ -2,7 +2,8 @@
 
 ?>
 <section style="padding:0 0;" id="contact">
-  <div id="contact-us" class="parallax">
+
+  <div id="contact-us" class="parallax animador">
     <div class="container">
       <div class="row">
         <div style="margin-top:29px;" class="heading text-center col-sm-12 wow fadeInUp" data-wow-duration="700ms" data-wow-delay="300ms">
@@ -99,7 +100,7 @@
               <p>Ou solicite uma visita por outros meios:</p>
               <ul class="address">
                 <li><i class="fa fa-phone"></i> <span> Telefones:</span> (85) 3293-1000 | (85) 99251-6999  </li>
-                <li><i class="fa fa-envelope"></i> <span> Email da empresa:</span><a href="mailto:inovautilidades@inovautilidades.com.br"> inovautilidades@inovautilidades.com.br</a></li>
+                <li><i class="fa fa-envelope"></i> <span> Email da empresa:</span><a href="mailto:inova@inovautilidades.com.br"> inova@inovautilidades.com.br</a></li>
                 <li><i class="fa fa-envelope"></i> <span> Fale com o Financeiro:</span><a href="mailto:financeiro@inovautilidades.com.br"> financeiro@inovautilidades.com.br</a></li>
                 <li><i class="fa fa-envelope"></i> <span> Fale com o Comercial:</span><a href="mailto:comercial@inovautilidades.com.br"> comercial@inovautilidades.com.br</a></li>
                 <li>

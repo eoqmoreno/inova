@@ -20,7 +20,7 @@ echo('Sucesso.');
   //header('location: ');
 
 }else{
-  echo("Ops... Parece que estamos com problemas de upload...");
+  echo("Ops... Parece que estamos com problemas de upload...<br/>Mensagem: ".$uploader->getErrorStatus()['value']);
 }
 
 //echo('Publicado com sucesso.');

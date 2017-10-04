@@ -122,17 +122,6 @@ foreach ($idtmp as $val){
   echo json_encode($retorno);
 
 
-
-
-
-
-
-
-
-
-
-
-
 }elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "a")){//Acréscimo
   $nome=$_POST['nome'];$herdado=intval($_POST['herdado']);
 $data=DBCon::dbQuery("INSERT INTO inova_catalogo_tabs VALUES(null,'$nome',$herdado);");

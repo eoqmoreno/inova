@@ -43,13 +43,13 @@ class FileUpload{
   if ($pastaacessivel && $extensao_correta && (!file_exists($arquivo_trajeto)) ) { //Se as extensões estiverem corretas, e o arquivo ainda não existe:
     if( move_uploaded_file($uploadFile['tmp_name'], $arquivo_trajeto) ){
       $sucesso=true;
-    }else{$this->errordata=array('code'=>1,"value"=>"Não foi possível mover o arquivo. Verifique as permissões da pasta.");}
+    }else{$this->errordata=array('code'=>1,"value"=>"Não foi possível mover o arquivo. Verifique as permissões da pasta e o tamanho do arquivo.");}
   }elseif((!$salvar_local)&&($extensao_correta)){
     $sucesso=true;
   } else {
-    if($extensao_correta) $this->errordata=array('code'=>2,"value"=>"Não é possível salvar: Extensão não suportada");
+    if(!$extensao_correta) $this->errordata=array('code'=>2,"value"=>"Não é possível salvar: Extensão não suportada");
     elseif(file_exists($arquivo_trajeto)) $this->errordata=array('code'=>3,"value"=>"Não é possível salvar: O arquivo já existe.");
-    elseif($pastaacessivel) $this->errordata=array('code'=>5,"value"=>"Não é possível salvar: Pasta sem permissão.");
+    elseif(!$pastaacessivel) $this->errordata=array('code'=>5,"value"=>"Não é possível salvar: Pasta sem permissão.");
   }
 
   $fileStatus['ok']=$sucesso;

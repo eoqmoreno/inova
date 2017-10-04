@@ -34,13 +34,6 @@ CREATE TABLE inova_sys_err(
 );
 
 
-INSERT INTO inova_catalogo_tabs VALUES(null,"Poltronas Monobloco");
-INSERT INTO inova_catalogo_tabs VALUES(null,"Poltronas Pés de Alumínio");
-INSERT INTO inova_catalogo_tabs VALUES(null,"Cadeiras");
-INSERT INTO inova_catalogo_tabs VALUES(null,"Roupeiros");
-INSERT INTO inova_catalogo_tabs VALUES(null,"Banquetas");
-INSERT INTO inova_catalogo_tabs VALUES(null,"Mesas");
-
 
 INSERT INTO inova_catalogo VALUES(null,'Mesa Premier','mesa_premier.jpg','<p>Conforto, qualidade e praticidade</p>
 <p>Design <b>inovador</b><br/>(Encaixe lateral)</p>','2017-08-07',1);

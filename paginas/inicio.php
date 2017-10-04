@@ -102,6 +102,8 @@ item.append(
           $('<span class="folio-link"></span>').append( $('<a class="folio-read-more" href="#"></a>').html('<i class="fa fa-link"></i>').attr('data-single_url','<?php echo URLPos::getURLDirRoot(); ?>catalogo_item.php/'+obj['id_itm']) )
         ).append(
           $('<span class="folio-expand"></span>').append( $('<a data-lightbox="portfolio"></a>').html('<i class="fa fa-search-plus"></i>').attr('href','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+obj['link_imagem'] ) )
+        ).append(
+          $('<span class="folio-expand"></span>').append( $('<a></a>').html('<i class="fa fa-cart-plus"></i>').attr('href','javascript:addCompra('+obj['id_itm']+');' ) )
         )
       )
     )
@@ -146,6 +148,21 @@ function flCatalogo(idvalor){
 
 	//alert(nomevalor);
 }
+
+//A partir daqui, códigos referentes às compras
+var itensCompra = [];
+
+function updateListaCompras(){
+  $("#itens-comprados").html(itensCompra.length);
+}
+
+function addCompra(numID){
+  var quant = prompt("Quantidade?","1");
+  itensCompra.push(numID);
+  updateListaCompras();
+}
+
+
 </script>
 
 </head><!--/head-->

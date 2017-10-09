@@ -13,7 +13,7 @@
       <div class="col-sm-6">
       <div class="contact-form wow fadeIn" data-wow-duration="500ms" data-wow-delay="200ms">
         <div class="row">
-          <div class="col-sm-offset-3 col-sm-6">
+          <div class="col-sm-12">
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#fale-conosco" aria-controls="fale-conosco" role="tab" data-toggle="tab"><i class="fa fa-user-o" aria-hidden="true"></i> SAC</a></li>
               <li role="presentation"><a href="#trabalhe-conosco" aria-controls="trabalhe-conosco" role="tab" data-toggle="tab"><i class="fa fa-handshake-o" aria-hidden="true"></i> Trabalhe Conosco</a></li>

@@ -153,13 +153,22 @@ function flCatalogo(idvalor){
 var itensCompra = [];
 
 function updateListaCompras(){
-  $("#itens-comprados").html(itensCompra.length);
+  var qnt=0;
+  for (var val in itensCompra) ++qnt;
+  $("#itens-comprados").html(qnt);
 }
 
 function addCompra(numID){
-  var quant = prompt("Quantidade?","1");
-  itensCompra.push(numID);
+  var preloadQuant=1;
+  if(itensCompra[numID]!==undefined){
+  preloadQuant = itensCompra[numID]['quant'];
+  }
+  var quant = prompt("Quantidade?",preloadQuant);
+  if((quant!==null)&&(parseInt(quant)>=1)){
+  itensCompra[numID]={"quant":parseInt(quant),"id":numID};
+  //.push(numID);
   updateListaCompras();
+  }
 }
 
 
@@ -172,6 +181,81 @@ function addCompra(numID){
 <!--/.preloader-->
 
 <body onload="flCatalogo();">
+
+  <div id="modalCompras" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gridSystemModalLabel">Lista de Compras</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+              <table class="table table-striped">
+                <thead>
+                </thead>
+                <tbody id="tab-produtos-lista">
+                  <tr><td style="text-align:center;" colspan="4">Aguarde</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary">Validar pedido</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+<script>
+function modalComprasShow(){
+  $('#modalCompras').modal('show');
+}
+
+$('#modalCompras').on('show.bs.modal', function (event) {
+  var itmCont=0,tmDelayExec=0;
+  $("#tab-produtos-lista").html('');
+for(var index in itensCompra){
+  var nulo=new FormData();
+  nulo.append('funcao','e');
+  nulo.append('id',index);
+
+  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/produtos_access',nulo,
+	function(){//BeforeSend
+	},function(data){//Done
+    console.log(data);
+	  if(data.code==0){
+      var tbbody=$("#tab-produtos-lista");
+        var item= $("<tr></tr>");
+        var unidades=1;
+        if(itensCompra[index]!==undefined){
+        unidades = itensCompra[ data.objeto['id'] ]['quant'];
+        }
+
+        item.html("<td><img height='60px' src='"+data.objeto['img_link']+"'></img></td><td><h4>"+data.objeto['nome']+"</h4><h4>Unidade(s): "+unidades+"</td><td><a class=\"btn btn-danger\" onclick=\"remvProduto("+data.objeto['id']+",this);\"><span class=\"glyphicon glyphicon-remove\"></span></a></td>");
+        tmDelayExec+=(++itmCont)*10;
+	      tbbody.append( item.hide().delay(tmDelayExec).fadeIn() );
+	  }else{
+	    $("#tab-produtos-lista").append( $('<div class="form_status"></div>').html('<p class="text-warning">Ops... Parece que aconteceu um problema.<br/>Abra o console para ver os dados.</p>').fadeIn().delay(20000).fadeOut() );
+	    console.log(data);
+	  }
+	},function(e){console.log("ERRO.");console.log(e);}
+	);
+  /*
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)*/
+}
+});
+</script>
+
 <?php
 $sectAdm = new HTMLSection(array('pager_one'));
 ?>

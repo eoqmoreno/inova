@@ -60,5 +60,22 @@ $data=DBCon::dbQuery("DELETE FROM inova_catalogo WHERE id_itm=$nid;");
 
 echo json_encode($retorno);
 
-}else echo json_encode(array('code'=>1,'msg'=>'Ação não reconhecida.'));
+}elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "e")){//Extração
+  $nid=intval($_POST['id']);
+  $retorno=array('code'=>0);
+
+  $dt_produto=DBCon::dbQuery("SELECT * FROM inova_catalogo WHERE id_itm=$nid;");
+  $dados_recv =  $dt_produto->fetch_array(MYSQLI_BOTH);
+  $arquivo_imagem=CAPISPHP_Structure::$Produtos_Upload_Data['path_name'].$dados_recv['link_imagem'];
+  $retorno['objeto']=array(
+    'img_link'=>$arquivo_imagem,
+    'nome'=>$dados_recv['titulo'],
+    'id'=>$dados_recv['id_itm']
+  );
+
+echo json_encode($retorno);
+
+}
+
+else echo json_encode(array('code'=>1,'msg'=>'Ação não reconhecida.'));
 ?>

@@ -44,8 +44,8 @@
           <li style="background-color:rgba(255,255,255,0.2);" class="scroll"><a href="#portfolio">Catálogo de Produtos</a></li>
           <li class="scroll"><a href="#servicos">Serviços</a></li>
           <li class="scroll"><a href="#certificacoes">Certificações</a></li>
-          <li class="scroll"></li>
-          <li class="scroll"><a href="#portfolio"><span id="itens-comprados" class="badge">0</span> itens comprados</a></li>
+          <li class="scroll"><a href="#contact">Contato</a></li>
+          <li class="scroll"><a onclick="modalComprasShow();" href="#portfolio"><span id="itens-comprados" class="badge">0</span> itens comprados</a></li>
         </ul>
       </div>
     </div>

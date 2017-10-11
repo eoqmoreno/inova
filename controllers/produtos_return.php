@@ -27,8 +27,8 @@ if($data->num_rows>0){
 }
 
 
-$data=DBCon::dbQuery("SELECT inova_catalogo.id_itm \"id_itm\",inova_catalogo.titulo \"itm_titulo\",inova_catalogo_tabs.id_tab \"id_tab\",inova_catalogo_tabs.titulo \"tab_titulo\"
-   FROM inova_catalogo INNER JOIN inova_catalogo_tabs ON inova_catalogo.tab=inova_catalogo_tabs.id_tab ORDER BY inova_catalogo_tabs.herdando,inova_catalogo_tabs.titulo ASC;");
+$data=DBCon::dbQuery("SELECT inova_produto_classe.id_itm \"id_itm\",inova_produto_classe.titulo \"itm_titulo\",inova_catalogo_tabs.id_tab \"id_tab\",inova_catalogo_tabs.titulo \"tab_titulo\"
+   FROM inova_produto_classe INNER JOIN inova_catalogo_tabs ON inova_produto_classe.tab=inova_catalogo_tabs.id_tab ORDER BY inova_catalogo_tabs.herdando,inova_catalogo_tabs.titulo ASC;");
 
 
 $retorno=array('code'=>0,'lista'=>array());
@@ -75,7 +75,13 @@ echo json_encode($retorno);
 
 echo json_encode($retorno);
 
-}
+}elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "a")){//Acréscimo
+  $pnome=$_POST['nome'];
+  $prod_tab=intval($_POST['tab']);
+  $data=DBCon::dbQuery("INSERT INTO inova_produto_classe VALUES(null,'$pnome','Sem descrição.',$prod_tab);");
+  $retorno=array('code'=>0);
 
+  echo json_encode($retorno);
+}
 else echo json_encode(array('code'=>1,'msg'=>'Ação não reconhecida.'));
 ?>

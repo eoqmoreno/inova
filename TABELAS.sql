@@ -16,20 +16,10 @@ CREATE TABLE inova_produto_classe(
 
 CREATE TABLE inova_produto_cor(
   id_cor INT PRIMARY KEY AUTO_INCREMENT,
-  id_prodclass INT NOT NULL,
+  id_itm INT NOT NULL,
   nome_cor VARCHAR(60) NOT NULL,
   link_imagem VARCHAR(100) NOT NULL,
-  FOREIGN KEY(id_prodclass) REFERENCES inova_produto_classe(id_itm)
-);
-
-CREATE TABLE inova_catalogo(
-  id_itm INT PRIMARY KEY AUTO_INCREMENT,
-  titulo VARCHAR(60) NOT NULL,
-  link_imagem VARCHAR(100) NOT NULL,
-  descricao VARCHAR(600),
-  data DATE NOT NULL,
-  tab INT NOT NULL,
-  FOREIGN KEY(tab) REFERENCES inova_catalogo_tabs(id_tab)
+  FOREIGN KEY(id_itm) REFERENCES inova_produto_classe(id_itm)
 );
 
 CREATE TABLE inova_sys_err(
@@ -38,8 +28,3 @@ CREATE TABLE inova_sys_err(
   msg VARCHAR(300) NOT NULL,
   data DATETIME NOT NULL
 );
-
-
-
-INSERT INTO inova_catalogo VALUES(null,'Mesa Premier','mesa_premier.jpg','<p>Conforto, qualidade e praticidade</p>
-<p>Design <b>inovador</b><br/>(Encaixe lateral)</p>','2017-08-07',1);

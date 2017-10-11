@@ -78,7 +78,7 @@ function navCatalogoRemoveNext(idatual){
 
 
 function processaProdutos(produtosArr){
-  $("div.catalogobuild").html('');//Limpa catálogo
+  $("div.catalogobuild").hide(50).html('');//Limpa catálogo
 //  console.log(produtosArr);
 if(produtosArr.length>0)
 for (var id in produtosArr) {

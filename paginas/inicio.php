@@ -210,6 +210,53 @@ function addCompra(numID){
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
+  <div id="modalRegistro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gridSystemModalLabel">Registro do Cliente</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary">Registrar</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <div id="modalLogin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gridSystemModalLabel">Login do Cliente</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-12">
+
+
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" onclick="modalRegistro();" class="btn btn-warning">Registrar-se</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-primary">Entrar</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
 <script>
 function modalComprasShow(){
   $('#modalCompras').modal('show');
@@ -244,16 +291,18 @@ for(var index in itensCompra){
 	  }
 	},function(e){console.log("ERRO.");console.log(e);}
 	);
-  /*
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  modal.find('.modal-title').text('New message to ' + recipient)
-  modal.find('.modal-body input').val(recipient)*/
 }
 });
+
+
+function modalRegistro(){
+  $('#modalLogin').modal('hide');
+  $('#modalRegistro').modal('show');
+}
+
+function modalLoginShow(){
+  $('#modalLogin').modal('show');
+}
 </script>
 
 <?php

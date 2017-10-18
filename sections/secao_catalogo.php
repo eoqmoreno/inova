@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="row catalogobuild">
-      <?php //echo BCatalogo::getHTML(); ?>
+      
     </div>
   </div>
   <div id="portfolio-single-wrap">

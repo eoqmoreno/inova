@@ -60,17 +60,17 @@ $data=DBCon::dbQuery("DELETE FROM inova_catalogo WHERE id_itm=$nid;");
 
 echo json_encode($retorno);
 
-}elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "e")){//Extração
+}elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "e")){//Extração | LISTAGEM DE PRODUTOS/COMPRAS
   $nid=intval($_POST['id']);
   $retorno=array('code'=>0);
 
-  $dt_produto=DBCon::dbQuery("SELECT * FROM inova_catalogo WHERE id_itm=$nid;");
+  $dt_produto=DBCon::dbQuery("SELECT inova_produto_cor.link_imagem,inova_produto_cor.nome_cor,inova_produto_classe.titulo,inova_produto_cor.id_cor FROM inova_produto_cor INNER JOIN inova_produto_classe ON inova_produto_cor.id_itm=inova_produto_classe.id_itm WHERE inova_produto_cor.id_cor=$nid;");
   $dados_recv =  $dt_produto->fetch_array(MYSQLI_BOTH);
   $arquivo_imagem=CAPISPHP_Structure::$Produtos_Upload_Data['path_name'].$dados_recv['link_imagem'];
   $retorno['objeto']=array(
-    'img_link'=>$arquivo_imagem,
-    'nome'=>$dados_recv['titulo'],
-    'id'=>$dados_recv['id_itm']
+    'img_link'=>$arquivo_imagem, // Link com localização
+    'nome'=>$dados_recv['titulo']." - ".$dados_recv['nome_cor'], //
+    'id'=>$dados_recv['id_cor'] // ID da cor, que inclui ID do objeto (no BD)
   );
 
 echo json_encode($retorno);

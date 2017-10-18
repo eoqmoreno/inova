@@ -6,12 +6,14 @@ private static $indexes=array(
 'paginas/inicio.php'=>'inicio',
 'paginas/man_tabs.php'=>'tabs',
 'controllers/tabs_return.php'=>'tabs_access',
-'paginas/man_catalogo.php'=>'catalogo',
+'paginas/man_produtos_cor.php'=>'add_produtos_cor',
 'postar_produto.php'=>'produto_publish',
 'paginas/man_produtos.php'=>'produtos',
+'paginas/man_produtos_add.php'=>'add_produtos',
 'controllers/produtos_return.php'=>'produtos_access',
 'paginas/man_main.php'=>'gestor',
-'controllers/tabs_catalogo.php'=>'tabs_catalogo_get'
+'controllers/tabs_catalogo.php'=>'tabs_catalogo_get',
+'controllers/tabs_addproduto.php'=>'publish_products'
 );
 private static $DEFAULT='inicio';
 

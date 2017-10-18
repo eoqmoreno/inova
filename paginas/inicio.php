@@ -6,9 +6,10 @@
 
 <style>
 @keyframes changebk-contact {
-0%   {background-image: url(../images/slider/1.jpg);}
-50%  {background-image: url(../images/slider/2.jpg);}
-100% {background-image: url(../images/homescreen/homesc-inovabck.jpg);}
+<?php echo "0%   {background-image: url(".URLPos::getURLDirRoot()."/images/slider/1.jpg);}
+  50%  {background-image: url(".URLPos::getURLDirRoot()."/images/slider/2.jpg);}
+  100% {background-image: url(".URLPos::getURLDirRoot()."/images/homescreen/homesc-inovabck.jpg);}";
+?>
 }
 </style>
 
@@ -96,25 +97,35 @@ item.append(
   $('<div class="overlay"></div>').append(
     $('<div class="overlay-content"></div>').append(
       $('<div class="overlay-text"></div>').append(
-        $('<div class="folio-info"></div>').append( $('<h3></h3>').html(obj['titulo']) ).append( $('<p></p>').html('TAB ID='+obj['tab']) )
+        $('<div class="folio-info"></div>').append( $('<h3></h3>').html(obj['titulo']) ).append( $('<p></p>').html(obj['nome_cor']) ).append(
+          $("<div class='btn-group'></div>").append(
+          $("<button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></button>").html("Alterar cor <span class='caret'></span>")
+          ).append(
+          $("<ul class='dropdown-menu'></ul>").html('')
+          )
+
+          //$('<a></a>').html('Alterar cor <i class="fa fa-angle-double-down"></i>').addClass("btn").addClass("btn-danger").attr('href','javascript:alteraCor('+obj['id_cor']+');' )
+        )
       ).append(
         $('<div class="folio-overview"></div>').append(
           $('<span class="folio-link"></span>').append( $('<a class="folio-read-more" href="#"></a>').html('<i class="fa fa-link"></i>').attr('data-single_url','<?php echo URLPos::getURLDirRoot(); ?>catalogo_item.php/'+obj['id_itm']) )
         ).append(
           $('<span class="folio-expand"></span>').append( $('<a data-lightbox="portfolio"></a>').html('<i class="fa fa-search-plus"></i>').attr('href','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+obj['link_imagem'] ) )
         ).append(
-          $('<span class="folio-expand"></span>').append( $('<a></a>').html('<i class="fa fa-cart-plus"></i>').attr('href','javascript:addCompra('+obj['id_itm']+');' ) )
+          $('<span class="folio-expand"></span>').append( $('<a></a>').html('<i class="fa fa-cart-plus"></i>').attr('href','javascript:addCompra('+obj['id_cor']+');' ) )
         )
       )
     )
   )
 );
-$("div.catalogobuild").append( itemOrigin.delay(20).fadeIn() );
+console.log('Objeto inserido.');console.log(itemOrigin);
+$("div.catalogobuild").show(0).append( itemOrigin.delay(20).fadeIn() );
 
 }//Fim do loop
+
 }
 
-function flCatalogo(idvalor){
+function flCatalogo(){
 	  var nulo=new FormData();
 	  nulo.append('funcao','i');
     var proximo_nivel=1;
@@ -187,7 +198,7 @@ function addCompra(numID){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="gridSystemModalLabel">Lista de Compras</h4>
+          <h4 class="modal-title" id="gridSystemModalLabel">Lista de Pedidos</h4>
         </div>
         <div class="modal-body">
           <div class="row">

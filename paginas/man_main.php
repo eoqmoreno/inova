@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  
+
 <?php CAPISPHP_Structure::setTitl("Controle de Ferramentas"); echo(ObjetoView::$mvw->head()); ?>
 
 
@@ -61,7 +61,8 @@ $(objeto).attr("disabled",'disabled'); //Bloqueia botão
   <div class="col-xs-12 col-sm-offset-4 col-sm-4">
     <a href="<?php echo URLPos::getURLDirRoot(); ?>index.php/tabs" target="_blank" class="btn btn-success btn-lg btn-block">Gestão/Adicionar de Tabs</a>
     <a href="<?php echo URLPos::getURLDirRoot(); ?>index.php/produtos" target="_blank" class="btn btn-info btn-lg btn-block">Gestão de Produtos</a>
-    <a href="<?php echo URLPos::getURLDirRoot(); ?>index.php/catalogo" target="_blank" class="btn btn-info btn-lg btn-block">Adicionar de Produtos</a>
+    <a href="<?php echo URLPos::getURLDirRoot(); ?>index.php/add_produtos" target="_blank" class="btn btn-info btn-lg btn-block">Adicionar Produtos</a>
+    <a href="<?php echo URLPos::getURLDirRoot(); ?>index.php/add_produtos_cor" target="_blank" class="btn btn-info btn-lg btn-block">Adicionar Variedades</a>
   </div>
 </div>
 </div>

@@ -105,11 +105,10 @@ if(isset($_POST['funcao']) && ($_POST['funcao'] == "i")){//Inicial
       foreach ($tmp_arr as $itens_ret) array_push($retorno['produtos'], $itens_ret );
     }
 */
-
 $idtmp=getArrayIDsToDown($RetornoBD[getKeyBySubkey($TabPrincipal,$RetornoBD,'titulo')]['id_tab'],$RetornoBD);
 foreach ($idtmp as $val){
   $tmp_arr=getProdutosByTab(intval($val));
-  foreach ($tmp_arr as $itens_ret) array_push($retorno['produtos'], $itens_ret );
+  foreach ($tmp_arr as $itens_ret) {array_push($retorno['produtos'], $itens_ret );}
 }
 
   if(sizeof($retorno['lista'])==0) $retorno['code']=7;//COD 7 = SEM RESULTADOS DE TABS.
@@ -117,7 +116,7 @@ foreach ($idtmp as $val){
 
 
 
-}elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "nxt")){//Proximas tabs
+}elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "nxt")){//Proximas tabs, avança para a ID
   $retorno=array(
     'code'=>0,
     'lista'=>getKeyBySubkeyA($_POST['nxt-id'],$RetornoBD,'herdando'),

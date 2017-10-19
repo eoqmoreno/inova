@@ -48,13 +48,17 @@ if($dbRetorno->num_rows>0){
   while($item = $dbRetorno->fetch_array(MYSQLI_BOTH)){
     //Item só retorna uma classe. Teremos que escolher um ao acaso...
     $itm_id=$item['id_itm'];
-    //Escolhe cor ao acaso
-    $queryCores  = DBCon::dbQuery("SELECT * FROM inova_produto_cor WHERE id_itm=$itm_id ORDER BY rand() LIMIT 1;");
-    if($queryCores->num_rows==1){//Se alguma cor foi retornada
-      $cor_data = $queryCores->fetch_array(MYSQLI_BOTH);
-      $item['nome_cor']=$cor_data['nome_cor'];
-      $item['link_imagem']=$cor_data['link_imagem'];
-      $item['id_cor']=$cor_data['id_cor'];//Atribui os valores
+    $queryCores  = DBCon::dbQuery("SELECT * FROM inova_produto_cor WHERE id_itm=$itm_id;"); // ORDER BY rand() LIMIT 1
+    if($queryCores->num_rows>0){//Se alguma cor foi retornada
+      $cores=array();
+      while($cor_data = $queryCores->fetch_array(MYSQLI_BOTH)){
+        $cores[]=array(//Atribui os valores
+          'nome_cor'=>$cor_data['nome_cor'],
+          'link_imagem'=>$cor_data['link_imagem'],
+          'id_cor'=>$cor_data['id_cor']
+        );
+      }
+      $item['cores']=$cores;
       array_push($tmpv,$item); //Acrescenta ao vetor de retorno
     }
   }

@@ -70,6 +70,17 @@ function setItemCatalogo(ItmClass,classNum){
 	//alert(nomevalor);
 }
 
+function alteraCor(ObjetoBtn,chgID){
+var folioItem=$(ObjetoBtn).parent().parent().parent().parent().parent().parent().parent().parent();
+folioItem.find("div.folio-image img").attr('src',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Altera imagem visível
+var folioTextos=folioItem.find("div.overlay div.overlay-content div.overlay-text");
+folioTextos.find("div.folio-info p").html(lastProdutosArr[chgID]['nome_cor']); //Altera nome da cor no canto inferior
+console.log(folioTextos.find("div.folio-overview span.folio-expand"));
+$(folioTextos.find("div.folio-overview span.folio-expand")[0]).find("a").attr('href',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Muda imagem a ser exibida em modo album
+$(folioTextos.find("div.folio-overview span.folio-expand")[1]).find("a").attr('href',"javascript:addCompra("+lastProdutosArr[chgID]['id_cor']+");"); //Muda ID de compra
+
+}
+
 function navCatalogoRemoveNext(idatual){
   var div_menus=$("div.row.navbarscatalog").children();
   div_menus.each(function(id,obj){
@@ -77,13 +88,31 @@ function navCatalogoRemoveNext(idatual){
   });
 }
 
-
+var lastProdutosArr=[];
 function processaProdutos(produtosArr){
   $("div.catalogobuild").hide(50).html('');//Limpa catálogo
 //  console.log(produtosArr);
 if(produtosArr.length>0)
 for (var id in produtosArr) {
   var obj=produtosArr[id];
+  var qntCores=0;
+
+  var coresListaBtn=$("<ul class='dropdown-menu'></ul>");
+  for (var idval in obj['cores']){
+    lastProdutosArr[ obj['cores'][idval]['id_cor'] ]=obj['cores'][idval];
+    coresListaBtn.append(
+      $("<li></li>").append(
+        $("<a></a>").html(obj['cores'][idval]['nome_cor']).attr('onclick',"alteraCor(this,"+obj['cores'][idval]['id_cor']+");")
+      )
+    );
+    ++qntCores;
+  }
+  var corEscolhida=Math.floor(Math.random() * qntCores);
+  console.log(obj['cores']);
+  console.log('ID='+corEscolhida);
+  var escolhida={'id_cor':obj['cores'][corEscolhida]['id_cor'],
+                 'nome_cor':obj['cores'][corEscolhida]['nome_cor'],
+                 'link_imagem':obj['cores'][corEscolhida]['link_imagem'],};
     //console.log(obj);
   //  obj['id_itm'] obj['titulo'] obj['link_imagem'] obj['descricao'] obj['data'] obj['tab']
 var itemOrigin=$('<div class="col-sm-3"></div>');
@@ -91,28 +120,26 @@ var item=$('<div class="folio-item wow fadeInRightBig" data-wow-duration="1000ms
 itemOrigin.append(item);
 item.append(
   $('<div class="folio-image"></div>').append(
-    $('<img class="img-responsive" alt=""></img>').attr('src','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+obj['link_imagem'])
+    $('<img class="img-responsive" alt=""></img>').attr('src','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+escolhida['link_imagem'])
 )
 ).append(
   $('<div class="overlay"></div>').append(
     $('<div class="overlay-content"></div>').append(
       $('<div class="overlay-text"></div>').append(
-        $('<div class="folio-info"></div>').append( $('<h3></h3>').html(obj['titulo']) ).append( $('<p></p>').html(obj['nome_cor']) ).append(
+        $('<div class="folio-info"></div>').append( $('<h3></h3>').html(obj['titulo']) ).append( $('<p></p>').html(escolhida['nome_cor']) ).append(
           $("<div class='btn-group'></div>").append(
           $("<button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></button>").html("Alterar cor <span class='caret'></span>")
-          ).append(
-          $("<ul class='dropdown-menu'></ul>").html('')
-          )
+          ).append(coresListaBtn)
 
           //$('<a></a>').html('Alterar cor <i class="fa fa-angle-double-down"></i>').addClass("btn").addClass("btn-danger").attr('href','javascript:alteraCor('+obj['id_cor']+');' )
         )
       ).append(
         $('<div class="folio-overview"></div>').append(
-          $('<span class="folio-link"></span>').append( $('<a class="folio-read-more" href="#"></a>').html('<i class="fa fa-link"></i>').attr('data-single_url','<?php echo URLPos::getURLDirRoot(); ?>catalogo_item.php/'+obj['id_itm']) )
+          $('<span class="folio-link"></span>').append( $('<a class="folio-read-more" href="#"></a>').html('<i class="fa fa-link"></i>').attr('data-single_url','<?php echo URLPos::getURLDirRoot(); ?>catalogo_item.php/'+produtosArr[id]['id_itm']) )
         ).append(
-          $('<span class="folio-expand"></span>').append( $('<a data-lightbox="portfolio"></a>').html('<i class="fa fa-search-plus"></i>').attr('href','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+obj['link_imagem'] ) )
+          $('<span class="folio-expand"></span>').append( $('<a data-lightbox="portfolio"></a>').html('<i class="fa fa-search-plus"></i>').attr('href','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+escolhida['link_imagem'] ) )
         ).append(
-          $('<span class="folio-expand"></span>').append( $('<a></a>').html('<i class="fa fa-cart-plus"></i>').attr('href','javascript:addCompra('+obj['id_cor']+');' ) )
+          $('<span class="folio-expand"></span>').append( $('<a></a>').html('<i class="fa fa-cart-plus"></i>').attr('href','javascript:addCompra('+escolhida['id_cor']+');' ) )
         )
       )
     )
@@ -221,31 +248,44 @@ function addCompra(numID){
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-  <div id="modalRegistro" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div id="modalRegistro" class="modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
+      <form>
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="gridSystemModalLabel">Registro do Cliente</h4>
+          <h4 class="modal-title" id="gridSystemModalLabel">Cadastro de Cliente</h4>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-xs-12">
-
-
+              <div class="form-group">
+                <label for="nome">Nome completo</label>
+                <input type="email" class="form-control" id="nome" placeholder="Nome completo">
+              </div>
+                <div class="form-group">
+                  <label for="email">Endereço de e-mail:</label>
+                  <input type="email" class="form-control" id="email" placeholder="E-mail">
+                </div>
+                <div class="form-group">
+                  <label for="senha">Senha:</label>
+                  <input type="password" class="form-control" id="senha" placeholder="Senha">
+                </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary">Registrar</button>
+          <button id="fechar" onclick="$('#modalRegistro').modal('toggle');" type="button" class="btn btn-default">Fechar</button>
+          <button type="button" class="btn btn-primary">Entrar</button>
         </div>
+        </form>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
-  <div id="modalLogin" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div id="modalLogin" class="modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
+      <form>
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
@@ -254,20 +294,26 @@ function addCompra(numID){
         <div class="modal-body">
           <div class="row">
             <div class="col-xs-12">
-
-
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Endereço de e-mail:</label>
+                  <input type="email" class="form-control" id="email" placeholder="E-mail">
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Senha:</label>
+                  <input type="password" class="form-control" id="senha" placeholder="Senha">
+                </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" onclick="modalRegistro();" class="btn btn-warning">Registrar-se</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          <button id="fechar" onclick="$('#modalLogin').modal('toggle');" type="button" class="btn btn-default">Fechar</button>
           <button type="button" class="btn btn-primary">Entrar</button>
         </div>
+        </form>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-
 <script>
 function modalComprasShow(){
   $('#modalCompras').modal('show');

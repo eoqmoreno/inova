@@ -102,7 +102,7 @@ for (var id in produtosArr) {
     lastProdutosArr[ obj['cores'][idval]['id_cor'] ]=obj['cores'][idval];
     coresListaBtn.append(
       $("<li></li>").append(
-        $("<a></a>").html(obj['cores'][idval]['nome_cor']).attr('onclick',"alteraCor(this,"+obj['cores'][idval]['id_cor']+");")
+        $("<a></a>").html(obj['cores'][idval]['nome_cor']).attr('onclick',"alteraCor(this,"+obj['cores'][idval]['id_cor']+");").css({"cursor":"pointer"})
       )
     );
     ++qntCores;
@@ -260,23 +260,103 @@ function addCompra(numID){
           <div class="row">
             <div class="col-xs-12">
               <div class="form-group">
-                <label for="nome">Nome completo</label>
-                <input type="email" class="form-control" id="nome" placeholder="Nome completo">
+                <label for="nome">Razão social / Nome</label>
+                <input type="text" class="form-control" id="nome" placeholder="">
               </div>
+              <div class="row">
+              <div class="col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <label for="email">Endereço de e-mail:</label>
-                  <input type="email" class="form-control" id="email" placeholder="E-mail">
+                  <label for="ptipo">Tipo do cliente</label>
+                  <select class="form-control" id="ptipo" onchange="pessoaChange(this);">
+                    <option value="-1">Escolha</option>
+                    <option value="1">Pessoa física</option>
+                    <option value="2">Pessoa jurídica</option>
+                  </select>
                 </div>
+              </div>
+              <div class="col-sm-6 col-xs-12">
                 <div class="form-group">
-                  <label for="senha">Senha:</label>
-                  <input type="password" class="form-control" id="senha" placeholder="Senha">
+                  <label for="email">E-mail</label>
+                  <input type="email" class="form-control" id="email" placeholder="endereco@provedor.com">
+                </div>
+              </div>
+              </div>
+                <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" class="form-control" id="senha" placeholder="Senha">
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label for="senha2">Repetir a senha</label>
+                    <input type="password" class="form-control" id="senha2" placeholder="Digite sua senha novamente">
+                  </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label for="cep">CEP</label>
+                    <div class="input-group">
+                      <input onchange="cepDigitado(this);" type="text" class="form-control" id="cep" placeholder="XXXXX-XXX">
+                      <span class="input-group-addon">
+                        <button onclick="cepDigitado($('#cep'));" id="btnGetLocal" class="btn btn-info" type="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label for="rua">Rua</label>
+                    <input type="text" class="form-control" id="rua" placeholder="ex. Rua...">
+                  </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label for="estado">Estado</label>
+                    <select onchange="estadoChange(this);" class="form-control" id="estado">
+                      <option value="-1">Escolha um estado</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label for="cidade">Cidade</label>
+                    <select class="form-control" id="cidade">
+                      <option value="-1">Aguardando escolha de estado.</option>
+                    </select>
+                  </div>
+                </div>
+                </div>
+                <div style="display: none;" class="pessoaFisicaForm">
+                  <div class="row">
+                  <div class="col-sm-offset-2 col-sm-8 col-xs-12">
+                    <div class="form-group">
+                      <label for="cpf">CPF</label>
+                      <input type="text" class="form-control" id="cpf" placeholder="XXX.XXX.XXX-XX">
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <div style="display: none;" class="pessoaJuridicaForm">
+                  <div class="col-sm-offset-2 col-sm-8 col-xs-12">
+                    <div class="form-group">
+                      <label for="cnpj">CNPJ</label>
+                      <input type="text" class="form-control" id="cnpj" placeholder="XX.XXX.XXX/XXXX-XX">
+                    </div>
+                  </div>
                 </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
+          <span style="color:red;">* todos os campos são obrigatórios</span>
           <button id="fechar" onclick="$('#modalRegistro').modal('toggle');" type="button" class="btn btn-default">Fechar</button>
-          <button type="button" class="btn btn-primary">Entrar</button>
+          <button type="button" class="btn btn-success">Registrar</button>
         </div>
         </form>
       </div><!-- /.modal-content -->
@@ -315,6 +395,85 @@ function addCompra(numID){
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 <script>
+$("#cep").mask("99999-999");
+
+
+function pessoaChange(objeto){
+  var opcao = $(objeto).val();
+  $("div.pessoaFisicaForm").hide();
+  $("div.pessoaJuridicaForm").hide();
+if (opcao=="1") $("div.pessoaFisicaForm").show();
+else if (opcao=="2") $("div.pessoaJuridicaForm").show();
+}
+
+function cepDigitado(objeto){
+var valor=$(objeto).val();
+  if(valor.length==9){
+    $("#estado").addClass("disabled").attr("disabled","disabled");
+    $("#cidade").addClass("disabled").attr("disabled","disabled");
+    $("#rua").addClass("disabled").attr("disabled","disabled");
+    $("#btnGetLocal").addClass("disabled").attr("disabled","disabled");
+    var nulo=new FormData();
+    callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/cep_req/'+valor,nulo,
+  	function(){//BeforeSend
+  	},function(data){//Done
+      console.log(data);
+  	  if(data.code==0){
+        $("#rua").val(data.dados.rua);
+        $("#estado").val(data.dados.uf);
+        if( $("#cidade option[value='"+data.dados.cidade+"']").length > 0 )
+        $("#cidade").val(data.dados.cidade);
+        else $("#cidade").html("<option value='"+data.dados.cidade+"'>"+data.dados.cidade+"</option>"+$("#cidade").html());
+
+        $("#estado").removeClass("disabled").removeAttr("disabled");
+        $("#cidade").removeClass("disabled").removeAttr("disabled");
+        $("#rua").removeClass("disabled").removeAttr("disabled");
+        $("#btnGetLocal").removeClass("disabled").removeAttr("disabled");
+
+        }else{
+        console.log("Erro!");
+  	    console.log(data);
+  	  }
+  	},function(e){console.log("ERRO.");console.log(e);}
+  	);
+
+  }
+}
+var cidades_estados_arr;
+$('#modalRegistro').on('show.bs.modal', function (event) {
+  var nulo=new FormData();
+  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/cep_req/estados',nulo,
+  function(){//BeforeSend
+  },function(data){//Done
+    console.log(data);
+    if(data.code==0){
+      cidades_estados_arr=data.estados;
+      var lista_est="<option value='-1'>Escolha um estado</option>\n";
+      for (var uf in data.estados) {
+        var obj=data.estados[uf];
+        lista_est+="<option value='"+obj['uf']+"'>"+obj['nome']+"</option>\n";
+        console.log('Estado='+obj['nome']);
+      }
+      $("#estado").html(lista_est);
+
+      }else{
+      console.log("Erro!");
+      console.log(data);
+    }
+  },function(e){console.log("ERRO.");console.log(e);}
+  );
+});
+
+function estadoChange(obJQ){
+  var cidads=cidades_estados_arr[$(obJQ).val()].cidades;
+  var strCids="";
+  for (var id in cidads) {
+    strCids+="<option value='"+cidads[id]+"'>"+cidads[id]+"</option>"
+  }
+  $("#cidade").html(strCids);
+}
+
+
 function modalComprasShow(){
   $('#modalCompras').modal('show');
 }

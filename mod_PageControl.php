@@ -13,7 +13,8 @@ private static $indexes=array(
 'controllers/produtos_return.php'=>'produtos_access',
 'paginas/man_main.php'=>'gestor',
 'controllers/tabs_catalogo.php'=>'tabs_catalogo_get',
-'controllers/tabs_addproduto.php'=>'publish_products'
+'controllers/tabs_addproduto.php'=>'publish_products',
+'controllers/cep_request.php'=>'cep_req'
 );
 private static $DEFAULT='inicio';
 

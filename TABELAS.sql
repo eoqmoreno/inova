@@ -32,16 +32,16 @@ CREATE TABLE inova_sys_err(
 CREATE TABLE inova_cliente(
   id_cli INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(300),
+  email VARCHAR(345),
+  telefone VARCHAR(15),
+  cep VARCHAR(9),
   endereco VARCHAR(300),
   bairro VARCHAR(100),
+  cidade_estado VARCHAR(120),
   cnpj VARCHAR(18),
   cpf VARCHAR(14),
-  email VARCHAR(200),
-  insc_est VARCHAR(40),
-  cep VARCHAR(9),
-  cidade_estado VARCHAR(120),
-  telefone VARCHAR(15),
-  prazo_pgto VARCHAR(20)
-)
+);
+
+prazo_pgto VARCHAR(20)
 XX.XXX.XXX/XXXX-XX
 XXX.XXX.XXX-XX

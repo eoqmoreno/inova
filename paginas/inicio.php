@@ -11,6 +11,18 @@
   100% {background-image: url(".URLPos::getURLDirRoot()."/images/homescreen/homesc-inovabck.jpg);}";
 ?>
 }
+div#contact-us.parallax{
+   background-color: rgb(0,10,15);
+}
+#subject,#name,form#main-contact-form div.row div.col-sm-6 div.form-group #email,#teleph,#subject{
+  background-color: rgba(0, 0, 0, 0.67);
+border-color: rgba(255, 255, 255, 0.47);
+border-radius: 0;
+box-shadow: none;
+height: auto;
+resize: none;
+}
+}
 </style>
 
 <script>
@@ -80,7 +92,7 @@ $(folioTextos.find("div.folio-overview span.folio-expand")[0]).find("a").attr('h
 $(folioTextos.find("div.folio-overview span.folio-expand")[1]).find("a").attr('href',"javascript:addCompra("+lastProdutosArr[chgID]['id_cor']+");"); //Muda ID de compra
 
 }
-
+//Função responsável por remover linhas de tabs posteriores
 function navCatalogoRemoveNext(idatual){
   var div_menus=$("div.row.navbarscatalog").children();
   div_menus.each(function(id,obj){
@@ -89,6 +101,7 @@ function navCatalogoRemoveNext(idatual){
 }
 
 var lastProdutosArr=[];
+//Função chamada ao receber JSON com lista de produtos do catálogo
 function processaProdutos(produtosArr){
   $("div.catalogobuild").hide(50).html('');//Limpa catálogo
 //  console.log(produtosArr);
@@ -152,6 +165,7 @@ $("div.catalogobuild").show(0).append( itemOrigin.delay(20).fadeIn() );
 
 }
 
+//Função que invoca primeira listagem do catálogo
 function flCatalogo(){
 	  var nulo=new FormData();
 	  nulo.append('funcao','i');
@@ -263,8 +277,6 @@ function addCompra(numID){
                 <label for="nome">Razão social / Nome</label>
                 <input type="text" class="form-control" id="nome" placeholder="">
               </div>
-              <div class="row">
-              <div class="col-sm-6 col-xs-12">
                 <div class="form-group">
                   <label for="ptipo">Tipo do cliente</label>
                   <select class="form-control" id="ptipo" onchange="pessoaChange(this);">
@@ -273,7 +285,13 @@ function addCompra(numID){
                     <option value="2">Pessoa jurídica</option>
                   </select>
                 </div>
-              </div>
+              <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label for="telefone">Telefone / Celular</label>
+                    <input type="tel" class="form-control" id="telefone" placeholder="(XX) XXXXXXXXX">
+                  </div>
+                </div>
               <div class="col-sm-6 col-xs-12">
                 <div class="form-group">
                   <label for="email">E-mail</label>
@@ -309,8 +327,8 @@ function addCompra(numID){
                 </div>
                 <div class="col-sm-6 col-xs-12">
                   <div class="form-group">
-                    <label for="rua">Rua</label>
-                    <input type="text" class="form-control" id="rua" placeholder="ex. Rua...">
+                    <label for="bairro">Bairro</label>
+                    <input type="text" class="form-control" id="bairro" placeholder="Nome do bairro">
                   </div>
                 </div>
                 </div>
@@ -332,6 +350,20 @@ function addCompra(numID){
                   </div>
                 </div>
                 </div>
+                <div class="row">
+                  <div class="col-sm-6 col-xs-12">
+                    <div class="form-group">
+                      <label for="logradouro">Logradouro</label>
+                      <input type="text" class="form-control" id="logradouro" placeholder="ex. Rua...">
+                    </div>
+                  </div>
+                <div class="col-sm-6 col-xs-12">
+                  <div class="form-group">
+                    <label for="numero">Número</label>
+                    <input type="text" class="form-control" id="numero" placeholder="Nº e/ou bloco ou S/N">
+                  </div>
+                </div>
+                </div>
                 <div style="display: none;" class="pessoaFisicaForm">
                   <div class="row">
                   <div class="col-sm-offset-2 col-sm-8 col-xs-12">
@@ -343,11 +375,13 @@ function addCompra(numID){
                   </div>
                 </div>
                 <div style="display: none;" class="pessoaJuridicaForm">
+                  <div class="row">
                   <div class="col-sm-offset-2 col-sm-8 col-xs-12">
                     <div class="form-group">
                       <label for="cnpj">CNPJ</label>
                       <input type="text" class="form-control" id="cnpj" placeholder="XX.XXX.XXX/XXXX-XX">
                     </div>
+                  </div>
                   </div>
                 </div>
             </div>
@@ -355,13 +389,15 @@ function addCompra(numID){
         </div>
         <div class="modal-footer">
           <span style="color:red;">* todos os campos são obrigatórios</span>
-          <button id="fechar" onclick="$('#modalRegistro').modal('toggle');" type="button" class="btn btn-default">Fechar</button>
-          <button type="button" class="btn btn-success">Registrar</button>
+          <button id="fechar" onclick="resetarCamposRegistro();$('#modalRegistro').modal('toggle');" type="button" class="btn btn-default">Fechar</button>
+          <button type="button" onclick="registraCliente(this);" class="btn btn-success">Registrar</button>
         </div>
         </form>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+
 
   <div id="modalLogin" class="modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
@@ -375,12 +411,12 @@ function addCompra(numID){
           <div class="row">
             <div class="col-xs-12">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Endereço de e-mail:</label>
-                  <input type="email" class="form-control" id="email" placeholder="E-mail">
+                  <label for="emailLogin">E-mail:</label>
+                  <input type="email" class="form-control" id="emailLogin" placeholder="E-mail">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Senha:</label>
-                  <input type="password" class="form-control" id="senha" placeholder="Senha">
+                  <label for="senhaLogin">Senha:</label>
+                  <input type="password" class="form-control" id="senhaLogin" placeholder="Senha">
                 </div>
             </div>
           </div>
@@ -388,16 +424,20 @@ function addCompra(numID){
         <div class="modal-footer">
           <button type="button" onclick="modalRegistro();" class="btn btn-warning">Registrar-se</button>
           <button id="fechar" onclick="$('#modalLogin').modal('toggle');" type="button" class="btn btn-default">Fechar</button>
-          <button type="button" class="btn btn-primary">Entrar</button>
+          <button type="button" onclick="doLogin();" class="btn btn-primary">Entrar</button>
         </div>
         </form>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 <script>
+//Máscaras dos formulários
+$("#telefone").mask("(99) 999999999");
 $("#cep").mask("99999-999");
+$("#cpf").mask("999.999.999-99");
+$("#cnpj").mask("99.999.999/9999-99");
 
-
+//Função de troca entre opções de pessoa física ou jurídica
 function pessoaChange(objeto){
   var opcao = $(objeto).val();
   $("div.pessoaFisicaForm").hide();
@@ -405,54 +445,77 @@ function pessoaChange(objeto){
 if (opcao=="1") $("div.pessoaFisicaForm").show();
 else if (opcao=="2") $("div.pessoaJuridicaForm").show();
 }
+//Função que insere classe de desabilitado, ou remove
+function setarHabilitado(objeto,estado){
+  if(!estado) objeto.addClass("disabled").attr("disabled","disabled");
+  else objeto.removeClass("disabled").removeAttr("disabled");
+}
 
+//Função de recolher dados via CEP
 function cepDigitado(objeto){
 var valor=$(objeto).val();
-  if(valor.length==9){
-    $("#estado").addClass("disabled").attr("disabled","disabled");
-    $("#cidade").addClass("disabled").attr("disabled","disabled");
-    $("#rua").addClass("disabled").attr("disabled","disabled");
-    $("#btnGetLocal").addClass("disabled").attr("disabled","disabled");
+  if(valor.length==9){ //Se CEP tem 9 números
+    setarHabilitado($("#estado"),false); //Desabilita campos de endereço
+    setarHabilitado($("#cidade"),false);
+    setarHabilitado($("#logradouro"),false);
+    setarHabilitado($("#btnGetLocal"),false);
+    setarHabilitado($("#bairro"),false);
+    setarHabilitado($("#complemento"),false);
     var nulo=new FormData();
     callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/cep_req/'+valor,nulo,
   	function(){//BeforeSend
   	},function(data){//Done
-      console.log(data);
   	  if(data.code==0){
-        $("#rua").val(data.dados.rua);
+        $("#logradouro").val(data.dados.logradouro);
         $("#estado").val(data.dados.uf);
-        if( $("#cidade option[value='"+data.dados.cidade+"']").length > 0 )
-        $("#cidade").val(data.dados.cidade);
-        else $("#cidade").html("<option value='"+data.dados.cidade+"'>"+data.dados.cidade+"</option>"+$("#cidade").html());
+        if( $("#cidade option[value='"+data.dados.localidade+"']").length > 0 )
+        $("#cidade").val(data.dados.localidade);
+        else $("#cidade").html("<option value='"+data.dados.localidade+"'>"+data.dados.localidade+"</option>"+$("#cidade").html());
+        $("#bairro").val(data.dados.bairro);
 
         $("#estado").removeClass("disabled").removeAttr("disabled");
         $("#cidade").removeClass("disabled").removeAttr("disabled");
-        $("#rua").removeClass("disabled").removeAttr("disabled");
+        $("#logradouro").removeClass("disabled").removeAttr("disabled");
         $("#btnGetLocal").removeClass("disabled").removeAttr("disabled");
+        setarHabilitado($("#estado"),true); //Habilita campos de endereço ao final, após preenchê-los
+        setarHabilitado($("#cidade"),true);
+        setarHabilitado($("#logradouro"),true);
+        setarHabilitado($("#btnGetLocal"),true);
+        setarHabilitado($("#bairro"),true);
+        setarHabilitado($("#complemento"),true);
 
         }else{
         console.log("Erro!");
   	    console.log(data);
   	  }
-  	},function(e){console.log("ERRO.");console.log(e);}
+  	},function(e){
+      setarHabilitado($("#estado"),true); //Se ocorreu erro, habilita campos
+      setarHabilitado($("#cidade"),true);
+      setarHabilitado($("#logradouro"),true);
+      setarHabilitado($("#btnGetLocal"),true);
+      setarHabilitado($("#bairro"),true);
+      setarHabilitado($("#complemento"),true);
+      alert('CEP inválido.'); //E alerta CEP inválido
+      console.log("ERRO.");console.log(e);
+  }
   	);
 
   }
 }
+
 var cidades_estados_arr;
+//Quando modal de registro inicia, requisita campo de estados e cidades
 $('#modalRegistro').on('show.bs.modal', function (event) {
   var nulo=new FormData();
   callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/cep_req/estados',nulo,
   function(){//BeforeSend
   },function(data){//Done
-    console.log(data);
     if(data.code==0){
       cidades_estados_arr=data.estados;
       var lista_est="<option value='-1'>Escolha um estado</option>\n";
       for (var uf in data.estados) {
         var obj=data.estados[uf];
         lista_est+="<option value='"+obj['uf']+"'>"+obj['nome']+"</option>\n";
-        console.log('Estado='+obj['nome']);
       }
       $("#estado").html(lista_est);
 
@@ -464,6 +527,112 @@ $('#modalRegistro').on('show.bs.modal', function (event) {
   );
 });
 
+function apresentaErro(objeto,verdadeiro){
+  if(verdadeiro) objeto.parent().addClass("has-error");
+  else objeto.parent().removeClass("has-error");
+}
+
+function apresentaSucesso(objeto,verdadeiro){
+  if(verdadeiro) objeto.parent().addClass("has-success");
+  else objeto.parent().removeClass("has-success");
+}
+
+//Função que reseta ALERTAS campos de registro
+function resetarCamposRegistro(){
+apresentaErro( $("#nome") , false ); apresentaSucesso( $("#nome") , false );
+apresentaErro( $("#ptipo") , false ); apresentaSucesso( $("#ptipo") , false );
+apresentaErro( $("#telefone") , false ); apresentaSucesso( $("#telefone") , false );
+apresentaErro( $("#email") , false ); apresentaSucesso( $("#email") , false );
+apresentaErro( $("#senha") , false ); apresentaSucesso( $("#senha") , false );
+apresentaErro( $("#senha2") , false ); apresentaSucesso( $("#senha2") , false );
+apresentaErro( $("#cep") , false ); apresentaSucesso( $("#cep") , false );
+apresentaErro( $("#bairro") , false ); apresentaSucesso( $("#bairro") , false );
+apresentaErro( $("#estado") , false ); apresentaSucesso( $("#estado") , false );
+apresentaErro( $("#cidade") , false ); apresentaSucesso( $("#cidade") , false );
+apresentaErro( $("#logradouro") , false ); apresentaSucesso( $("#logradouro") , false );
+apresentaErro( $("#numero") , false ); apresentaSucesso( $("#numero") , false );
+apresentaErro( $("#cpf") , false ); apresentaSucesso( $("#cpf") , false );
+apresentaErro( $("#cnpj") , false ); apresentaSucesso( $("#cnpj") , false );
+}
+
+//Função de envio do formulário de registro
+function registraCliente(objeto){
+resetarCamposRegistro();
+  //Prossegue
+  var nomeStt = $("#nome").val().length>5; //Nome com >5 caracteres
+  var tipoCliStt = $("#ptipo").val()!=='-1'; //tipo de cliente selecionado
+  var telefoneStt = $("#telefone").val().length>=13; //Se telefone tem 14 ou mais caracteres. (8 e 9 dígitos, sem '-')
+  var emailStt = $("#email").val().indexOf('@')>0;// O @ do e-mail deve estar além da primeira caractere
+  var senha1Stt = $("#senha").val().length>4;//Senha contem mais de 4 caracteres
+  var senha2Stt = $("#senha").val() == $("#senha2").val(); //Se senhas estão iguais
+  var cepStt = $("#cep").val().length==9; // Se CEP tem numero correto de chars
+  var bairroStt = $("#bairro").val().length>=1; //Se existe algo escrito em Bairro
+  var estadoStt = $("#estado").val()!=="-1";//Se algum estado foi escolhido
+  var cidadeStt = $("#cidade").val()!=="-1";//Se alguma cidade foi escolhida
+  var logradouroStt = $("#logradouro").val().length>=1; //Se existe algo escrito em Logradouro
+  var numeroStt = $("#numero").val().length>=1; //Se existe algo escrito em Número
+
+  if(!nomeStt) apresentaErro( $("#nome") , true ); else apresentaSucesso( $("#nome") , true );
+  if(!tipoCliStt) apresentaErro( $("#ptipo") , true ); else apresentaSucesso( $("#ptipo") , true );
+  if(!telefoneStt) apresentaErro( $("#telefone") , true ); else apresentaSucesso( $("#telefone") , true );
+  if(!emailStt) apresentaErro( $("#email") , true ); else apresentaSucesso( $("#email") , true );
+  if(!senha1Stt) apresentaErro( $("#senha") , true ); else apresentaSucesso( $("#senha") , true );
+  if(!senha2Stt) apresentaErro( $("#senha2") , true ); else apresentaSucesso( $("#senha2") , true );
+  if(!cepStt) apresentaErro( $("#cep") , true ); else apresentaSucesso( $("#cep") , true );
+  if(!bairroStt) apresentaErro( $("#bairro") , true ); else apresentaSucesso( $("#bairro") , true );
+  if(!estadoStt) apresentaErro( $("#estado") , true ); else apresentaSucesso( $("#estado") , true );
+  if(!cidadeStt) apresentaErro( $("#cidade") , true ); else apresentaSucesso( $("#cidade") , true );
+  if(!logradouroStt) apresentaErro( $("#logradouro") , true ); else apresentaSucesso( $("#logradouro") , true );
+  if(!numeroStt) apresentaErro( $("#numero") , true ); else apresentaSucesso( $("#numero") , true );
+
+  var identificacaoStt=false;
+  if( $("#ptipo").val() == "1" ){ // 1 == pessoa física
+    identificacaoStt=$("#cpf").val().length==14;
+    if(!identificacaoStt) apresentaErro( $("#cpf") , true ); else apresentaSucesso( $("#cpf") , true );
+  }else if( $("#ptipo").val() == "2" ){ //2 == pessoa jurídica
+    identificacaoStt=$("#cnpj").val().length==18;
+    if(!identificacaoStt) apresentaErro( $("#cnpj") , true ); else apresentaSucesso( $("#cnpj") , true );
+  }
+
+  var sucesso = nomeStt&&tipoCliStt&&telefoneStt&&emailStt&&senha1Stt&&senha2Stt&&cepStt&&bairroStt&&estadoStt&&cidadeStt&&logradouroStt&&numeroStt;
+  console.log(sucesso);
+  if(sucesso){
+  var dados=new FormData();
+  dados.append('nome',$("#nome").val());
+  dados.append('cpf',$("#cpf").val());
+  dados.append('cnpj',$("#cnpj").val());
+  dados.append('telefone',$("#telefone").val());
+  dados.append('email',$("#email").val());
+  dados.append('senha',$("#senha").val());
+  dados.append('cep',$("#cep").val());
+  dados.append('bairro',$("#bairro").val());
+  dados.append('uf',$("#estado").val());
+  dados.append('estado', cidades_estados_arr[$("#estado").val()]['nome'] );
+  dados.append('cidade',$("#cidade").val());
+  dados.append('logradouro',$("#logradouro").val());
+  dados.append('numero',$("#numero").val());
+
+callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/cliente_reg/cadastro',dados,
+function(){//BeforeSend
+
+setarHabilitado($(objeto),false);
+},function(data){//Done
+  setarHabilitado($(objeto),true);
+  if(data.code==0){
+    console.log(data.msg);//Exibe o "OK!" no console
+    $('#modalRegistro').modal('hide'); //Fecha a tela de cadastro
+    $('#modalLogin').modal('show'); //Abre a tela de login
+    $("#emailLogin").val($("#email").val());
+    apresentaSucesso( $("#emailLogin") , true );
+  }else if (data.code>0) alert(data.msg);
+  else {alert('Erro.');console.log(data);}
+},function(e){console.log("ERRO=");console.log(e);setarHabilitado($(objeto),true);}
+);
+} //Fim de IF SUCESSO
+
+}
+
+
 function estadoChange(obJQ){
   var cidads=cidades_estados_arr[$(obJQ).val()].cidades;
   var strCids="";
@@ -471,6 +640,10 @@ function estadoChange(obJQ){
     strCids+="<option value='"+cidads[id]+"'>"+cidads[id]+"</option>"
   }
   $("#cidade").html(strCids);
+}
+
+function doLogin(){
+  // senhaLogin e emailLogin
 }
 
 

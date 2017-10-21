@@ -3,7 +3,7 @@
 ?>
 <section style="padding:0 0;" id="contact">
 
-  <div id="contact-us" class="parallax animador">
+  <div id="contact-us" class="parallax">
     <div class="container">
       <div class="row">
         <div style="margin-top:29px;" class="heading text-center col-sm-12 wow fadeInUp" data-wow-duration="700ms" data-wow-delay="300ms">
@@ -77,7 +77,7 @@
               <form id="formulario-trabalhe-conosco" name="formulario-trabalhe-conosco" method="post" action="contato_send.php">
                 <div class="row">
                   <div class="col-sm-12 row">
-                    <div style="background-color:rgba(255,255,255,0.4);border-radius:5px;" class="input-group">
+                    <div style="background-color:rgba(0,0,0,0.4);border-radius:5px;padding-right: 10px;" class="input-group">
                       <span class="input-group-addon" id="sizing-addon2"><h5><i class="glyphicon glyphicon-link" style="color:black;" aria-hidden="true"></i></i></h5></span>
                       <input style="margin-top: 12px;" accept=".pdf,.jpg,.jpeg,.png,.bmp" type="file" name="anexo" id="anexo" aria-describedby="sizing-addon2" required="required" />
                     </div>

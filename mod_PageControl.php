@@ -14,7 +14,8 @@ private static $indexes=array(
 'paginas/man_main.php'=>'gestor',
 'controllers/tabs_catalogo.php'=>'tabs_catalogo_get',
 'controllers/tabs_addproduto.php'=>'publish_products',
-'controllers/cep_request.php'=>'cep_req'
+'controllers/cep_request.php'=>'cep_req',
+'controllers/registro_cliente.php'=>'cliente_reg'
 );
 private static $DEFAULT='inicio';
 

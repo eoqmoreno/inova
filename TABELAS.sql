@@ -31,17 +31,17 @@ CREATE TABLE inova_sys_err(
 
 CREATE TABLE inova_cliente(
   id_cli INT PRIMARY KEY AUTO_INCREMENT,
-  nome VARCHAR(300),
-  email VARCHAR(345),
-  telefone VARCHAR(15),
+  nome VARCHAR(300) NOT NULL,
+  passwd VARCHAR(100) NOT NULL,
+  email VARCHAR(345) NOT NULL,
+  telefone VARCHAR(15) NOT NULL,
   cep VARCHAR(9),
-  endereco VARCHAR(300),
+  numero VARCHAR(10) NOT NULL,
+  logradouro VARCHAR(300) NOT NULL,
   bairro VARCHAR(100),
-  cidade_estado VARCHAR(120),
+  cidade VARCHAR(120) NOT NULL,
+  estado VARCHAR(20) NOT NULL,
+  uf VARCHAR(2) NOT NULL,
   cnpj VARCHAR(18),
-  cpf VARCHAR(14),
+  cpf VARCHAR(14)
 );
-
-prazo_pgto VARCHAR(20)
-XX.XXX.XXX/XXXX-XX
-XXX.XXX.XXX-XX

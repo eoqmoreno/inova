@@ -2,7 +2,9 @@
 if( isset(URLPos::getURLObjects()[2])&&(strlen(URLPos::getURLObjects()[2])==9) ){
 header('Content-Type: application/json');
 $cep = URLPos::getURLObjects()[2];
-$data_get=file_get_contents("https://webmaniabr.com/api/1/cep/".$cep."/?app_key=wxIyUdsEdS5EFAjWrt7PeMFXfiN4QFZ7&app_secret=6THBoFJUrZnd67BR0sYHXaoKaq3fA83ez90ufvKy6lkUlCpR");
+//$data_get=file_get_contents("https://webmaniabr.com/api/1/cep/".$cep."/?app_key=wxIyUdsEdS5EFAjWrt7PeMFXfiN4QFZ7&app_secret=6THBoFJUrZnd67BR0sYHXaoKaq3fA83ez90ufvKy6lkUlCpR");
+$cep = str_replace('-','',$cep);
+$data_get=file_get_contents("https://viacep.com.br/ws/".$cep."/json/");
 //endereco | bairro | cidade | uf
 $array_dados=json_decode($data_get);
 $array_dados->uf=substr($array_dados->uf, 0, 2);

@@ -256,7 +256,7 @@ function addCompra(numID){
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-          <button type="button" class="btn btn-primary">Validar pedido</button>
+          <button type="button" onclick="FinalizarPedido();" class="btn btn-primary">Validar pedido</button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -424,7 +424,7 @@ function addCompra(numID){
         <div class="modal-footer">
           <button type="button" onclick="modalRegistro();" class="btn btn-warning">Registrar-se</button>
           <button id="fechar" onclick="$('#modalLogin').modal('toggle');" type="button" class="btn btn-default">Fechar</button>
-          <button type="button" onclick="doLogin();" class="btn btn-primary">Entrar</button>
+          <button type="button" onclick="doLogin(this);" class="btn btn-primary">Entrar</button>
         </div>
         </form>
       </div><!-- /.modal-content -->
@@ -642,8 +642,34 @@ function estadoChange(obJQ){
   $("#cidade").html(strCids);
 }
 
-function doLogin(){
-  // senhaLogin e emailLogin
+function doLogin(botn){
+  setarHabilitado($(botn),false);
+
+
+  var nulo=new FormData();
+  nulo.append('unm',$("#emailLogin").val());
+  nulo.append('pass',$("#senhaLogin").val());
+
+  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/logg_utils/login',nulo,
+	function(){//BeforeSend
+	},function(data){//Done
+    console.log(data);
+	  if(data.code==0){
+      $(botn).hide(200);
+      apresentaSucesso($("#emailLogin"),true);
+      apresentaSucesso($("#senhaLogin"),true);
+      $("#modalLogin").modal("hide");
+      window.location.reload();
+    }else if(data.code>0){
+    alert(data.msg);
+    apresentaErro($("#emailLogin"),true);
+    apresentaErro($("#senhaLogin"),true);
+    }else{
+	    console.log(data);
+	  }
+    setarHabilitado($(botn),true);
+	},function(e){console.log("ERRO.");console.log(e);setarHabilitado($(botn),true);}
+	);
 }
 
 
@@ -671,7 +697,7 @@ for(var index in itensCompra){
         unidades = itensCompra[ data.objeto['id'] ]['quant'];
         }
 
-        item.html("<td><img height='60px' src='"+data.objeto['img_link']+"'></img></td><td><h4>"+data.objeto['nome']+"</h4><h4>Unidade(s): "+unidades+"</td><td><a class=\"btn btn-danger\" onclick=\"remvProduto("+data.objeto['id']+",this);\"><span class=\"glyphicon glyphicon-remove\"></span></a></td>");
+        item.html("<td><img height='70px' src='"+data.objeto['img_link']+"'></img></td><td><h4>"+data.objeto['nome']+"</h4><h4>Unidade(s): "+unidades+"</td><td><a class=\"btn btn-danger\" onclick=\"remvProduto("+data.objeto['id']+");\"><span class=\"glyphicon glyphicon-remove\"></span></a></td>");
         tmDelayExec+=(++itmCont)*10;
 	      tbbody.append( item.hide().delay(tmDelayExec).fadeIn() );
 	  }else{
@@ -683,6 +709,18 @@ for(var index in itensCompra){
 }
 });
 
+function limpaPedidos(){
+  for(var obj in itensCompra){
+  itensCompra.splice(obj, 1);
+  }
+  updateListaCompras();
+}
+
+function remvProduto(prodID){
+itensCompra.splice(prodID, 1);
+$('#modalCompras').modal("show"); //Força re-verificação da lista
+updateListaCompras();//Atualiza numero
+}
 
 function modalRegistro(){
   $('#modalLogin').modal('hide');
@@ -692,6 +730,187 @@ function modalRegistro(){
 function modalLoginShow(){
   $('#modalLogin').modal('show');
 }
+</script>
+
+<div id="modalFinalComp" class="modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <form>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Finalizar Envio do Pedido</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <label for="nomeDestin">Nome:</label>
+            <label id="nomeDestin">#</label>
+          </div>
+
+          <div class="col-xs-12">
+            <label for="cpfcnpjDestin">CPF/CNPJ:</label>
+            <label id="cpfcnpjDestin">#</label>
+          </div>
+        </div><div class="row" style="padding-top:12px;">
+          <div class="col-xs-6">
+            <label for="enderecDestin">Endereço:</label>
+            <label id="enderecDestin">#</label>
+          </div>
+          <div class="col-xs-6">
+            <label for="bairroDestin">Bairro:</label>
+            <label id="bairroDestin">#</label>
+          </div>
+
+          <div class="col-xs-6">
+            <label for="cidadeDestin">Cidade:</label>
+            <label id="cidadeDestin">#</label>
+          </div>
+          <div class="col-xs-6">
+            <label for="estUfDestin">Estado/UF:</label>
+            <label id="estUfDestin">#</label>
+          </div>
+        </div><div class="row" style="padding-top:12px;">
+          <div class="col-xs-6">
+            <label for="telefonDestin">Telefone:</label>
+            <label id="telefonDestin">#</label>
+          </div>
+          <div class="col-xs-6">
+            <label for="emailDestin">E-mail:</label>
+            <label id="emailDestin">#</label>
+          </div>
+        </div><div class="row" style="padding-top:12px;">
+          <div class="col-xs-12">
+            <table class="table table-striped">
+              <thead>
+                <tr><th>Produto</th><th>Unidades</th></tr>
+              </thead>
+              <tbody id="tab-produtos-lista-final">
+                <tr><td style="text-align:center;" colspan="4">Aguarde</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-xs-12">
+              <div class="form-group">
+                <label for="represNome">Representante:</label>
+                <input type="text" class="form-control" id="represNome" placeholder="Nome do Representante">
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="confirmarPedido(this);" class="btn btn-success">Confirmar Pedido</button>
+        <button id="cancela-pedido" onclick="$('#modalFinalComp').modal('toggle');" type="button" class="btn btn-default">Cancelar Pedido</button>
+      </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+function confirmarPedido(btnClick){
+//Bloqueia o botão... btnClick
+setarHabilitado($(btnClick),false);
+var dados = new FormData();
+dados.append('represent',$("#represNome").val());
+dados.append('produtos',JSON.stringify(itensCompra));
+callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/pedido/criar',dados,
+function(){//BeforeSend
+},function(data){//Done
+  console.log(data);
+  if(data.code==0){
+      //DEU CERTO
+      finalizarPedidoAtivo=false;
+      $("#modalFinalComp").modal("hide");
+      $("#modalCompras").modal("hide");
+      limpaPedidos();
+  }else{
+    setarHabilitado($(btnClick),true);
+    console.log(data);
+  }
+},function(e){console.log("ERRO.");console.log(e);}
+);
+
+}
+
+
+var finalizarPedidoAtivo=false;
+function FinalizarPedido(){
+  $('#modalFinalComp').modal('show');
+  finalizarPedidoAtivo=true;
+  $('#modalCompras').modal("show");
+}
+
+$('#modalFinalComp').on('show.bs.modal', function (event) {
+  var nada = new FormData();
+  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/logg_utils/dados',nada,
+	function(){//BeforeSend
+	},function(data){//Done
+    console.log(data);
+	  if(data.code==0){
+      $("#nomeDestin").html(data.dados.nome);
+      if(data.dados.cpf!=="") $("#cpfcnpjDestin").html(data.dados.cpf);
+      if(data.dados.cnpj!=="") $("#cpfcnpjDestin").html(data.dados.cnpj);
+      $("#enderecDestin").html(data.dados.logradouro+", "+data.dados.numero);
+      $("#bairroDestin").html(data.dados.bairro);
+      $("#cidadeDestin").html(data.dados.cidade);
+      $("#estUfDestin").html(data.dados.estado+"/"+data.dados.uf);
+      $("#telefonDestin").html(data.dados.telefone);
+      $("#emailDestin").html(data.dados.email);
+
+    }else{
+	    console.log(data);
+	  }
+	},function(e){console.log("ERRO.");console.log(e);}
+	);
+
+
+  $("#tab-produtos-lista-final").html('');
+for(var index in itensCompra){
+  var nulo=new FormData();
+  nulo.append('funcao','e');
+  nulo.append('id',index);
+
+  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/produtos_access',nulo,
+	function(){//BeforeSend
+	},function(data){//Done
+    console.log(data);
+	  if(data.code==0){
+      var tbbody=$("#tab-produtos-lista-final");
+        var item= $("<tr></tr>");
+        var unidades=1;
+        if(itensCompra[index]!==undefined){
+        unidades = itensCompra[ data.objeto['id'] ]['quant'];
+        }
+
+        item.html("<td>"+data.objeto['nome']+"</td><td>"+unidades+"</td>");
+        //tmDelayExec+=(++itmCont)*10;
+	      tbbody.append( item ); //.hide().delay(tmDelayExec).fadeIn()
+	  }else{
+	    $("#tab-produtos-lista-final").append( $('<div class="form_status"></div>').html('<p class="text-warning">Ops... Parece que aconteceu um problema.<br/>Abra o console para ver os dados.</p>').fadeIn().delay(20000).fadeOut() );
+	    console.log(data);
+	  }
+	},function(e){console.log("ERRO.");console.log(e);}
+	);
+}
+});
+
+var desejouCancelar=false;
+$('#modalFinalComp').on('hide.bs.modal', function (event) {
+  if(finalizarPedidoAtivo){
+    if(confirm('Deseja cancelar o envio do pedido?')){
+      finalizarPedidoAtivo=false;
+      desejouCancelar=true;
+      //E mais alguma coisa pra limpar a lista
+    }else desejouCancelar=false;
+  }
+});
+
+$('#modalFinalComp').on('hidden.bs.modal', function (event) {
+  if(!desejouCancelar) FinalizarPedido();
+});
+
+
+
 </script>
 
 <?php

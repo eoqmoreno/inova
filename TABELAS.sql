@@ -45,3 +45,19 @@ CREATE TABLE inova_cliente(
   cnpj VARCHAR(18),
   cpf VARCHAR(14)
 );
+
+CREATE TABLE inova_pedido(
+  cpli_id INT PRIMARY KEY AUTO_INCREMENT,
+  datinicio DATETIME NOT NULL,
+  id_cli INT NOT NULL,
+  repres_nome VARCHAR(200) NOT NULL
+);
+
+CREATE TABLE inova_pedido_produtos(
+  id_pedido INT PRIMARY KEY AUTO_INCREMENT,
+  cpli_id INT NOT NULL,
+  id_cor INT NOT NULL,
+  qnt_cor INT NOT NULL,
+  FOREIGN KEY(cpli_id) REFERENCES inova_pedido(cpli_id),
+  FOREIGN KEY(id_cor) REFERENCES inova_produto_cor(id_cor)
+);

@@ -16,6 +16,7 @@ include_once('./mod_BuildCatalogo.php'); //Funções de catálogo
 include_once('./mod_Sectioner.php'); //Funções de catálogo
 include_once('./mod_FileUploads.php'); //Ferramenta de apoio para uploads.
 include_once('./mod_PHPMailer.php');
+include_once('./mod_Cookies.php'); //Códigos simplificados para uso de cookies com PHP
 
 //Regras para estrutura HTML da página:
 class CAPISPHP_Structure{
@@ -29,8 +30,8 @@ class CAPISPHP_Structure{
   public static $COPYRIGHT="GNU GENERAL PUBLIC LICENSE v3";
   public static $descricao="Inova - Indústria e Comércio de Utilidades para o Lar";
   public static $titulo="";
-  public static $corTema="#ffffff";
-  public static $keywrds="";
+  public static $corTema="#028fcc";
+  public static $keywrds="poltrona,cadeira,plástico,inova,utilidades,artefatos,qualidade,ceará,indústria,comércio,inmetro";
 
   public static $UsarMetaProp=false;
   public static $METAPROP_Language="pt-br";

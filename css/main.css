@@ -362,7 +362,7 @@ div.form-group input,div.form-group select{
 .navbar-nav li.scroll{
 cursor: pointer;
 }
-.navbar-nav li.scroll:hover{
+ul.navbar-nav li:hover{
 background-color: rgba(255,255,255,0.5);
 }
 

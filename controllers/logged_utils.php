@@ -28,5 +28,11 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="dados") )
     Cookie::del("UID");
   }
   echo json_encode( $retorno );
+}if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="logout") ){
+  if(Cookie::get("UID")!==false){
+  $retorno = array('code'=>0,'msg'=>'OK!');
+  Cookie::del("UID");
+}else $retorno = array('code'=>1,'msg'=>'O usuário não estava logado. Sessão encerrada.');
+  echo json_encode( $retorno );
 }
 ?>

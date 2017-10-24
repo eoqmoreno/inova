@@ -66,7 +66,7 @@ echo json_encode($retorno);
 
   $dt_produto=DBCon::dbQuery("SELECT inova_produto_cor.link_imagem,inova_produto_cor.nome_cor,inova_produto_classe.titulo,inova_produto_cor.id_cor FROM inova_produto_cor INNER JOIN inova_produto_classe ON inova_produto_cor.id_itm=inova_produto_classe.id_itm WHERE inova_produto_cor.id_cor=$nid;");
   $dados_recv =  $dt_produto->fetch_array(MYSQLI_BOTH);
-  $arquivo_imagem=CAPISPHP_Structure::$Produtos_Upload_Data['path_name'].$dados_recv['link_imagem'];
+  $arquivo_imagem=URLPos::getURLDirRoot().CAPISPHP_Structure::$Produtos_Upload_Data['path_name'].$dados_recv['link_imagem'];
   $retorno['objeto']=array(
     'img_link'=>$arquivo_imagem, // Link com localização
     'nome'=>$dados_recv['titulo']." - ".$dados_recv['nome_cor'], //

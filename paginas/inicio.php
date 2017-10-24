@@ -151,9 +151,7 @@ item.append(
           $('<span class="folio-link"></span>').append( $('<a class="folio-read-more" href="#"></a>').html('<i class="fa fa-link"></i>').attr('data-single_url','<?php echo URLPos::getURLDirRoot(); ?>catalogo_item.php/'+produtosArr[id]['id_itm']) )
         ).append(
           $('<span class="folio-expand"></span>').append( $('<a data-lightbox="portfolio"></a>').html('<i class="fa fa-search-plus"></i>').attr('href','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+escolhida['link_imagem'] ) )
-        ).append(
-          $('<span class="folio-expand"></span>').append( $('<a></a>').html('<i class="fa fa-cart-plus"></i>').attr('href','javascript:addCompra('+escolhida['id_cor']+');' ) )
-        )
+        ) <?php if(Cookie::get("UID")!==false) echo('.append($("<span class=\"folio-expand\"></span>").append( $("<a></a>").html("<i class=\"fa fa-cart-plus\"></i>").attr("href","javascript:addCompra("+escolhida["id_cor"]+");" ) ))'); ?>
       )
     )
   )
@@ -234,7 +232,7 @@ function addCompra(numID){
 
 <body onload="flCatalogo();">
 
-  <div id="modalCompras" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div id="modalCompras" class="modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -710,9 +708,7 @@ for(var index in itensCompra){
 });
 
 function limpaPedidos(){
-  for(var obj in itensCompra){
-  itensCompra.splice(obj, 1);
-  }
+  itensCompra=[];
   updateListaCompras();
 }
 
@@ -809,26 +805,34 @@ function modalLoginShow(){
 <script>
 function confirmarPedido(btnClick){
 //Bloqueia o botão... btnClick
-setarHabilitado($(btnClick),false);
-var dados = new FormData();
-dados.append('represent',$("#represNome").val());
-dados.append('produtos',JSON.stringify(itensCompra));
-callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/pedido/criar',dados,
-function(){//BeforeSend
-},function(data){//Done
-  console.log(data);
-  if(data.code==0){
+if($("#represNome").val().length<4){
+  apresentaErro($("#represNome"),true);
+}else{
+  apresentaErro($("#represNome"),false);
+  setarHabilitado($(btnClick),false);
+  var dados = new FormData();
+  dados.append('represent',$("#represNome").val());
+  dados.append('produtos',JSON.stringify(itensCompra));
+  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/pedido/criar',dados,
+  function(){//BeforeSend
+  },function(data){//Done
+    console.log(data);
+    if(data.code==0){
       //DEU CERTO
       finalizarPedidoAtivo=false;
+      desejouCancelar=true;
       $("#modalFinalComp").modal("hide");
       $("#modalCompras").modal("hide");
+      setarHabilitado($(btnClick),true);
       limpaPedidos();
-  }else{
-    setarHabilitado($(btnClick),true);
-    console.log(data);
-  }
-},function(e){console.log("ERRO.");console.log(e);}
-);
+      showAlert("Pedido Enviado!","Agradecemos pela preferência. Seu pedido será avaliado pela nossa equipe, e logo que possível entraremos em contato.",14000);
+    }else{
+      setarHabilitado($(btnClick),true);
+      console.log(data);
+    }
+  },function(e){console.log("ERRO.");console.log(e);}
+  );
+}//Fim do ELSE
 
 }
 
@@ -910,7 +914,91 @@ $('#modalFinalComp').on('hidden.bs.modal', function (event) {
 });
 
 
+</script>
+<div id="modalAlert" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <form>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabelTitle"></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <label id="modalAlertConteudo"></label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
+<script>
+
+function showAlert(titulo,mensagem,tempo){
+  $("#gridSystemModalLabelTitle").html(titulo);
+  $("#modalAlertConteudo").html(mensagem);
+  $("#modalAlert").modal("show");
+  setTimeout(function(){ $("#modalAlert").modal("hide"); }, tempo);
+
+  console.log("Mensagem exibida.");
+}
+
+</script>
+
+<div id="modalCliente" class="modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Opções do Cliente</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12 col-sm-offset-2 col-sm-8">
+            <button onclick="logoutCliente(this);" class="btn btn-danger btn-lg btn-block">Sair</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" onclick="$('#modalCliente').modal('toggle');" data-dismiss="modal">Fechar</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+function logoutCliente(btnObj){
+setarHabilitado($(btnObj),false);
+$("#modalCliente").modal("hide");
+showAlert("Aguarde...","Encerrando sessão aberta.",20000);
+  var dados = new FormData();
+  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/logg_utils/logout',dados,
+  function(){//BeforeSend
+  },function(data){//Done
+    console.log(data);
+    if(data.code==0){
+      window.location.reload();
+    }else{
+      console.log(data);
+    }
+    setarHabilitado($(btnObj),true);
+  },function(e){console.log("ERRO.");console.log(e);setarHabilitado($(btnObj),true);}
+  );
+
+}
+
+function clienteModal(){
+  $("#modalCliente").modal("show");
+}
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+});
 </script>
 
 <?php

@@ -14,6 +14,8 @@ CREATE TABLE inova_produto_classe(
   FOREIGN KEY(tab) REFERENCES inova_catalogo_tabs(id_tab)
 );
 
+ALTER TABLE `inova_produto_classe` CHANGE `preco` `preco` DECIMAL(6,2) NULL DEFAULT '0.00';
+
 CREATE TABLE inova_produto_cor(
   id_cor INT PRIMARY KEY AUTO_INCREMENT,
   id_itm INT NOT NULL,
@@ -29,11 +31,21 @@ CREATE TABLE inova_sys_err(
   data DATETIME NOT NULL
 );
 
-CREATE TABLE inova_cliente(
-  id_cli INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE inova_representante(
+  id_rep INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(300) NOT NULL,
   passwd VARCHAR(100) NOT NULL,
   email VARCHAR(345) NOT NULL,
+  telefone VARCHAR(15) NOT NULL,
+  cpf VARCHAR(14)
+);
+
+CREATE TABLE inova_pedido(
+  ped_id INT PRIMARY KEY AUTO_INCREMENT,
+  datpedido DATETIME NOT NULL,
+  repres_id INT DEFAULT 0,
+  nome_cliente VARCHAR(300) NOT NULL,
+  email VARCHAR(345),
   telefone VARCHAR(15) NOT NULL,
   cep VARCHAR(9),
   numero VARCHAR(10) NOT NULL,
@@ -46,18 +58,12 @@ CREATE TABLE inova_cliente(
   cpf VARCHAR(14)
 );
 
-CREATE TABLE inova_pedido(
-  cpli_id INT PRIMARY KEY AUTO_INCREMENT,
-  datinicio DATETIME NOT NULL,
-  id_cli INT NOT NULL,
-  repres_nome VARCHAR(200) NOT NULL
-);
-
-CREATE TABLE inova_pedido_produtos(
-  id_pedido INT PRIMARY KEY AUTO_INCREMENT,
-  cpli_id INT NOT NULL,
+CREATE TABLE inova_pedido_itens(
+  id_item INT PRIMARY KEY AUTO_INCREMENT,
+  ped_id INT NOT NULL,
   id_cor INT NOT NULL,
+  preco_unit DECIMAL(6,2) NOT NULL,
   qnt_cor INT NOT NULL,
-  FOREIGN KEY(cpli_id) REFERENCES inova_pedido(cpli_id),
+  FOREIGN KEY(ped_id) REFERENCES inova_pedido(ped_id),
   FOREIGN KEY(id_cor) REFERENCES inova_produto_cor(id_cor)
 );

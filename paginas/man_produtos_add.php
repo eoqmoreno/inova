@@ -8,7 +8,9 @@
 <link href="<?php echo URLPos::getURLDirRoot(); ?>css/responsive.css" rel="stylesheet">
 <link href="<?php echo URLPos::getURLDirRoot(); ?>css/widgEditor.css" rel="stylesheet">
 <script src="<?php echo URLPos::getURLDirRoot(); ?>js/widgEditor.js"></script>
-
+<script>
+$("#preco").mask('0000,00');
+</script>
 </head><!--/head-->
 <body>
   <article>
@@ -18,9 +20,19 @@
 				<form id="posta_publica" enctype="multipart/form-data" method="POST" action="<?php echo URLPos::getURLDirRoot(); ?>index.php/publish_products">
           <br/><br/>
         <input id="tipo" name="tipo" value="1" type="hidden"/>
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
 				<input class="form-control" placeholder="Nome do produto" id="titulo" name="titulo" type="text"/><br/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12">
         <textarea rows="15" placeholder="Produto" class="form-control widgEditor nothing" id="conteudo" name="conteudo"></textarea>
-				<select class="form-control" name="tab" id="tab" type="text"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <select class="form-control" name="tab" id="tab" type="text"/>
 <?php
 $data=DBCon::dbQuery("SELECT * FROM inova_catalogo_tabs;");
 if($data->num_rows>0){
@@ -30,6 +42,12 @@ if($data->num_rows>0){
 }
 ?>
         </select>
+      </div>
+      <!--
+      <div class="col-md-4">
+        <input class="form-control" placeholder="0000,00" id="preco" name="preco" type="text"/><br/>
+      </div> -->
+    </div>
         <br/>
 				<button type="submit" class="btn btn-primary">Publicar</button>
 				</div>

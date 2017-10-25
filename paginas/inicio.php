@@ -151,7 +151,8 @@ item.append(
           $('<span class="folio-link"></span>').append( $('<a class="folio-read-more" href="#"></a>').html('<i class="fa fa-link"></i>').attr('data-single_url','<?php echo URLPos::getURLDirRoot(); ?>catalogo_item.php/'+produtosArr[id]['id_itm']) )
         ).append(
           $('<span class="folio-expand"></span>').append( $('<a data-lightbox="portfolio"></a>').html('<i class="fa fa-search-plus"></i>').attr('href','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+escolhida['link_imagem'] ) )
-        ) <?php if(Cookie::get("UID")!==false) echo('.append($("<span class=\"folio-expand\"></span>").append( $("<a></a>").html("<i class=\"fa fa-cart-plus\"></i>").attr("href","javascript:addCompra("+escolhida["id_cor"]+");" ) ))'); ?>
+        ).append($("<span class=\"folio-expand\"></span>").append( $("<a></a>").html("<i class=\"fa fa-cart-plus\"></i>").attr("href","javascript:addCompra("+escolhida["id_cor"]+");" ) ))
+        <?php /*if(Cookie::get("UID")!==false) echo(''); */ ?>
       )
     )
   )
@@ -403,7 +404,7 @@ function addCompra(numID){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="gridSystemModalLabel">Login do Cliente</h4>
+          <h4 class="modal-title" id="gridSystemModalLabel">Login do Representante</h4>
         </div>
         <div class="modal-body">
           <div class="row">
@@ -720,7 +721,7 @@ updateListaCompras();//Atualiza numero
 
 function modalRegistro(){
   $('#modalLogin').modal('hide');
-  $('#modalRegistro').modal('show');
+  $('#modalRegistroRepresentante').modal('show');
 }
 
 function modalLoginShow(){
@@ -740,12 +741,12 @@ function modalLoginShow(){
         <div class="row">
           <div class="col-xs-12">
             <label for="nomeDestin">Nome:</label>
-            <label id="nomeDestin">#</label>
+            <label id="nomeDestin"><input type="text" class="form-control" id="cpfRepr" placeholder="XXX.XXX.XXX-XX"></label>
           </div>
 
           <div class="col-xs-12">
             <label for="cpfcnpjDestin">CPF/CNPJ:</label>
-            <label id="cpfcnpjDestin">#</label>
+            <label id="cpfcnpjDestin"><input type="text" class="form-control" id="cpfRepr" placeholder="XXX.XXX.XXX-XX"></label>
           </div>
         </div><div class="row" style="padding-top:12px;">
           <div class="col-xs-6">
@@ -955,7 +956,7 @@ function showAlert(titulo,mensagem,tempo){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridSystemModalLabel">Opções do Cliente</h4>
+        <h4 class="modal-title" id="gridSystemModalLabel">Opções do Representante</h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -999,6 +1000,124 @@ function clienteModal(){
 $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 });
+</script>
+
+<div id="modalRegistroRepresentante" class="modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+  <div class="modal-dialog" role="document">
+    <form>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Cadastro de Representante</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <label for="nome">Nome</label>
+              <input type="text" class="form-control" id="nomeRepr" placeholder="">
+            </div>
+            <div class="row">
+              <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                  <label for="telefone">Telefone / Celular</label>
+                  <input type="tel" class="form-control" id="telefoneRepr" placeholder="(XX) XXXXXXXXX">
+                </div>
+              </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="emailRepr" placeholder="endereco@provedor.com">
+              </div>
+            </div>
+            </div>
+              <div class="row">
+              <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                  <label for="senha">Senha <small>(no mínimo 5 caracteres)</small></label>
+                  <input type="password" class="form-control" id="senhaRepr" placeholder="Senha">
+                </div>
+              </div>
+              <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                  <label for="senha2">Repetir a senha</label>
+                  <input type="password" class="form-control" id="senha2Repr" placeholder="Digite sua senha novamente">
+                </div>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-offset-2 col-sm-8 col-xs-12">
+                  <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" class="form-control" id="cpfRepr" placeholder="XXX.XXX.XXX-XX">
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <span style="color:red;">* todos os campos são obrigatórios</span>
+        <button id="fechar" onclick="resetarCamposRegistro();$('#modalRegistroRepresentante').modal('toggle');" type="button" class="btn btn-default">Fechar</button>
+        <button type="button" onclick="registraRepres(this);" class="btn btn-success">Registrar</button>
+      </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+function registraRepres(objeto){
+//resetarCamposRegistro();
+  //Prossegue
+  var nomeStt = $("#nomeRepr").val().length>5; //Nome com >5 caracteres
+  var telefoneStt = $("#telefoneRepr").val().length>=13; //Se telefone tem 14 ou mais caracteres. (8 e 9 dígitos, sem '-')
+  var emailStt = $("#emailRepr").val().indexOf('@')>0;// O @ do e-mail deve estar além da primeira caractere
+  var senha1Stt = $("#senhaRepr").val().length>4;//Senha contem mais de 4 caracteres
+  var senha2Stt = $("#senhaRepr").val() == $("#senha2Repr").val(); //Se senhas estão iguais
+
+  if(!nomeStt) apresentaErro( $("#nomeRepr") , true ); else apresentaSucesso( $("#nomeRepr") , true );
+  if(!telefoneStt) apresentaErro( $("#telefoneRepr") , true ); else apresentaSucesso( $("#telefoneRepr") , true );
+  if(!emailStt) apresentaErro( $("#emailRepr") , true ); else apresentaSucesso( $("#emailRepr") , true );
+  if(!senha1Stt) apresentaErro( $("#senhaRepr") , true ); else apresentaSucesso( $("#senhaRepr") , true );
+  if(!senha2Stt) apresentaErro( $("#senha2Repr") , true ); else apresentaSucesso( $("#senha2Repr") , true );
+
+  var identificacaoStt=$("#cpfRepr").val().length==14;
+    if(!identificacaoStt) apresentaErro( $("#cpfRepr") , true ); else apresentaSucesso( $("#cpfRepr") , true );
+
+
+  var sucesso = nomeStt&&telefoneStt&&emailStt&&senha1Stt&&senha2Stt;
+  console.log(sucesso);
+  if(sucesso){
+  var dados=new FormData();
+  dados.append('nome',$("#nomeRepr").val());
+  dados.append('cpf',$("#cpfRepr").val());
+  dados.append('telefone',$("#telefoneRepr").val());
+  dados.append('email',$("#emailRepr").val());
+  dados.append('senha',$("#senhaRepr").val());
+
+callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/representante/cadastro',dados,
+function(){//BeforeSend
+
+setarHabilitado($(objeto),false);
+},function(data){//Done
+  setarHabilitado($(objeto),true);
+  if(data.code==0){
+    console.log(data.msg);//Exibe o "OK!" no console
+    $('#modalRegistroRepresentante').modal('hide'); //Fecha a tela de cadastro
+    $('#modalLogin').modal('show'); //Abre a tela de login
+    $("#emailLogin").val($("#emailRepr").val());
+    apresentaSucesso( $("#emailLogin") , true );
+  }else if (data.code>0) alert(data.msg);
+  else {alert('Erro.');console.log(data);}
+},function(e){console.log("ERRO=");console.log(e);setarHabilitado($(objeto),true);}
+);
+} //Fim de IF SUCESSO
+
+}
+
+$("#telefoneRepr").mask("(99) 999999999");
+$("#cpfRepr").mask("999.999.999-99");
 </script>
 
 <?php

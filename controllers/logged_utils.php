@@ -17,16 +17,19 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="dados") )
 
   echo json_encode( $retorno );
 }if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="login") ){
-  $retorno = array('code'=>0,'msg'=>'OK!');
+  $retorno = array('code'=>2,'msg'=>'Comando SQL não pôde ser executado.');
   $mail=$_POST["unm"];$upass=$_POST["pass"];
-  $data=DBCon::dbQuery("SELECT * FROM inova_cliente WHERE email='$mail' AND passwd='$upass';");
-  if($data->num_rows==1){
-    $procFetch=$data->fetch_array(MYSQLI_BOTH);
-    Cookie::set("UID",intval($procFetch['id_cli']));
-  }else{
-    $retorno = array('code'=>1,'msg'=>'E-mail ou senha incorretos. Verifique seus dados.');
-    Cookie::del("UID");
-  }
+  $data=DBCon::dbQuery("SELECT * FROM inova_representante WHERE email='$mail' AND passwd='$upass';");
+  if($data){
+    if($data->num_rows==1){
+      $procFetch=$data->fetch_array(MYSQLI_BOTH);
+      Cookie::set("UID",intval($procFetch['id_rep']));
+      $retorno = array('code'=>0,'msg'=>'OK!');
+    }else{
+      $retorno = array('code'=>1,'msg'=>'E-mail ou senha incorretos. Verifique seus dados.');
+      Cookie::del("UID");
+    }
+    }
   echo json_encode( $retorno );
 }if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="logout") ){
   if(Cookie::get("UID")!==false){

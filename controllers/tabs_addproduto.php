@@ -3,10 +3,12 @@
 if( array_key_exists('tipo',$_POST)&&($_POST['tipo']=='1') ){
 
   if(array_key_exists('titulo',$_POST)&&array_key_exists('conteudo',$_POST)&&(intval($_POST["tab"])>-1)){
-    $titulo=$_POST["titulo"];$conteudo=$_POST["conteudo"];$tab_num=intval($_POST["tab"]);
-    echo('Sucesso.');
+    $titulo=$_POST["titulo"];$conteudo=$_POST["conteudo"];$tab_num=intval($_POST["tab"]); //$preco=floatval( str_replace(",",".",$_POST["preco"]) );
     $resu=DBCon::dbQuery("INSERT INTO inova_produto_classe VALUES(null,'$titulo','$conteudo',$tab_num);");
+  if($resu){
+    echo('Sucesso.');
     echo('<br/>Query executada.<script>window.history.back();</script>');
+  }else echo('Falha na execução do comando de inserção.');
   //header('location: ');
 //echo('Publicado com sucesso.');
 

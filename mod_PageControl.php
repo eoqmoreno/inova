@@ -16,6 +16,7 @@ private static $indexes=array(
 'controllers/tabs_addproduto.php'=>'publish_products',
 'controllers/cep_request.php'=>'cep_req',
 'controllers/registro_cliente.php'=>'cliente_reg',
+'controllers/registro_representante.php'=>'representante',
 'controllers/logged_utils.php'=>'logg_utils',
 'controllers/pedido_close.php'=>'pedido'
 );

@@ -55,7 +55,9 @@ CREATE TABLE inova_pedido(
   estado VARCHAR(20) NOT NULL,
   uf VARCHAR(2) NOT NULL,
   cnpj VARCHAR(18),
-  cpf VARCHAR(14)
+  cpf VARCHAR(14),
+  prazo_pgto_dias INT NOT NULL,
+  condicao_pgto VARCHAR(15)
 );
 
 CREATE TABLE inova_pedido_itens(

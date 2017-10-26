@@ -491,43 +491,6 @@ apresentaErro( $("#cnpj") , false ); apresentaSucesso( $("#cnpj") , false );
 
 //Função de envio do formulário de registro
 function registraCliente(objeto){
-resetarCamposRegistro();
-  //Prossegue
-  var nomeStt = $("#nome").val().length>5; //Nome com >5 caracteres
-  var tipoCliStt = $("#ptipo").val()!=='-1'; //tipo de cliente selecionado
-  var telefoneStt = $("#telefone").val().length>=13; //Se telefone tem 14 ou mais caracteres. (8 e 9 dígitos, sem '-')
-  var emailStt = $("#email").val().indexOf('@')>0;// O @ do e-mail deve estar além da primeira caractere
-  var senha1Stt = $("#senha").val().length>4;//Senha contem mais de 4 caracteres
-  var senha2Stt = $("#senha").val() == $("#senha2").val(); //Se senhas estão iguais
-  var cepStt = $("#cep").val().length==9; // Se CEP tem numero correto de chars
-  var bairroStt = $("#bairro").val().length>=1; //Se existe algo escrito em Bairro
-  var estadoStt = $("#estado").val()!=="-1";//Se algum estado foi escolhido
-  var cidadeStt = $("#cidade").val()!=="-1";//Se alguma cidade foi escolhida
-  var logradouroStt = $("#logradouro").val().length>=1; //Se existe algo escrito em Logradouro
-  var numeroStt = $("#numero").val().length>=1; //Se existe algo escrito em Número
-
-  if(!nomeStt) apresentaErro( $("#nome") , true ); else apresentaSucesso( $("#nome") , true );
-  if(!tipoCliStt) apresentaErro( $("#ptipo") , true ); else apresentaSucesso( $("#ptipo") , true );
-  if(!telefoneStt) apresentaErro( $("#telefone") , true ); else apresentaSucesso( $("#telefone") , true );
-  if(!emailStt) apresentaErro( $("#email") , true ); else apresentaSucesso( $("#email") , true );
-  if(!senha1Stt) apresentaErro( $("#senha") , true ); else apresentaSucesso( $("#senha") , true );
-  if(!senha2Stt) apresentaErro( $("#senha2") , true ); else apresentaSucesso( $("#senha2") , true );
-  if(!cepStt) apresentaErro( $("#cep") , true ); else apresentaSucesso( $("#cep") , true );
-  if(!bairroStt) apresentaErro( $("#bairro") , true ); else apresentaSucesso( $("#bairro") , true );
-  if(!estadoStt) apresentaErro( $("#estado") , true ); else apresentaSucesso( $("#estado") , true );
-  if(!cidadeStt) apresentaErro( $("#cidade") , true ); else apresentaSucesso( $("#cidade") , true );
-  if(!logradouroStt) apresentaErro( $("#logradouro") , true ); else apresentaSucesso( $("#logradouro") , true );
-  if(!numeroStt) apresentaErro( $("#numero") , true ); else apresentaSucesso( $("#numero") , true );
-
-  var identificacaoStt=false;
-  if( $("#ptipo").val() == "1" ){ // 1 == pessoa física
-    identificacaoStt=$("#cpf").val().length==14;
-    if(!identificacaoStt) apresentaErro( $("#cpf") , true ); else apresentaSucesso( $("#cpf") , true );
-  }else if( $("#ptipo").val() == "2" ){ //2 == pessoa jurídica
-    identificacaoStt=$("#cnpj").val().length==18;
-    if(!identificacaoStt) apresentaErro( $("#cnpj") , true ); else apresentaSucesso( $("#cnpj") , true );
-  }
-
   var sucesso = nomeStt&&tipoCliStt&&telefoneStt&&emailStt&&senha1Stt&&senha2Stt&&cepStt&&bairroStt&&estadoStt&&cidadeStt&&logradouroStt&&numeroStt;
   console.log(sucesso);
   if(sucesso){
@@ -670,7 +633,7 @@ function modalLoginShow(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridSystemModalLabel">Finalizar Envio <?php if(Usuario::$ativo) echo('do Pedido'); else echo('do Orçamento'); ?></h4>
+        <h4 class="modal-title" id="gridSystemModalLabel">Finalizar Envio <?php if(Usuario::$ativo) echo('do Pedido'); else echo('de Pedido de Orçamento'); ?></h4>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -762,6 +725,33 @@ function modalLoginShow(){
             </table>
           </div>
         </div>
+        <div class="row" style="padding-top:12px;">
+          <div class="col-xs-12 col-md-6">
+              <label for="condpgto">Condição de Pagamento</label>
+              <select class="form-control normalForm" id="condpgto">
+                <option value="-1">Escolha a condição</option>
+                <option value="Boleto Bancário">Boleto Bancário</option>
+                <option value="Cheque">Cheque</option>
+                <option value="Transferência Bancária">Transferência Bancária</option>
+                <option value="Em Espécie">Em Espécie</option>
+              </select>
+          </div>
+          <div class="col-xs-12 col-md-6">
+              <label for="przpgto">Prazo de Pagamento</label>
+              <select class="form-control normalForm" id="przpgto" onchange="pessoaChangePrazo(this);">
+                <option value="-1">Escolha o prazo</option>
+                <option value="30">Prazo médio: 30 dias</option>
+                <option value="45">Prazo médio: 45 dias</option>
+                <option value="60">Prazo médio: 60 dias</option>
+                <option value="90">Prazo médio: 90 dias</option>
+                <option value="120">Prazo médio: 120 dias</option>
+                <option value="?">Digitar nº de dias</option>
+              </select>
+          </div>
+        </div>
+
+
+
       </div>
       <div class="modal-footer">
         <button type="button" onclick="confirmarPedido(this);" class="btn btn-success">Confirmar <?php if(Usuario::$ativo) echo('Pedido'); else echo('Orçamento'); ?></button>
@@ -783,6 +773,18 @@ $('#telefonClient').blur(function(event) {
       $('#telefonClient').mask('(00) 0000-00009');
    }
 });
+
+function pessoaChangePrazo(combobox){
+  var escolh = $(combobox).val();
+  if(escolh=="?"){
+    var nprazo = prompt("Prefere um prazo de quantos dias? (digite apenas números)","150");
+    if(!isNaN(nprazo)&&(nprazo!='0')){
+      var diasPrazo = parseInt(nprazo);
+      $(combobox).html($(combobox).html()+"<option value='"+diasPrazo+"'>Prazo médio: "+diasPrazo+" dias</option>");
+      $(combobox).val(diasPrazo);
+    } else alert('Número de dias digitados inválido.\nTem certeza que "'+nprazo+'" é um número?');
+  }
+}
 
 var cidades_estados_arr;
 //Quando modal de registro inicia, requisita campo de estados e cidades
@@ -867,11 +869,60 @@ var valor=$(objeto).val();
 }
 
 function confirmarPedido(btnClick){
+  resetarCamposRegistro();
+
+  var nomeClient=$("#nomeClient"),
+  tipoCliStt=$("#ptipo"),
+  cep=$("#cep"),
+  telefonClient=$("#telefonClient"),
+  emailClient=$("#emailClient"),
+  bairroClient=$("#bairroClient"),
+  estadoClient=$("#estadoClient"),
+  cidadeClient=$("#cidadeClient"),
+  logradClient=$("#logradClient"),
+  numeroClient=$("#numeroClient");
+
+
+    //Prossegue
+    var nomeStt = nomeClient.val().length>5; //Nome com >5 caracteres
+    var tipoCliStt = tipoCliStt.val()!=='-1'; //tipo de cliente selecionado
+    var cepStt = cep.val().length==9; // Se CEP tem numero correto de chars
+    var telefoneStt = telefonClient.val().length>=13; //Se telefone tem 14 ou mais caracteres. (8 e 9 dígitos, sem '-')
+    var emailStt = emailClient.val().indexOf('@')>0;// O @ do e-mail deve estar além da primeira caractere
+    var bairroStt = bairroClient.val().length>=1; //Se existe algo escrito em Bairro
+    var estadoStt = estadoClient.val()!=="-1";//Se algum estado foi escolhido
+    var cidadeStt = cidadeClient.val()!=="-1";//Se alguma cidade foi escolhida
+    var logradouroStt = logradClient.val().length>=1; //Se existe algo escrito em Logradouro
+    var numeroStt = numeroClient.val().length>=1; //Se existe algo escrito em Número
+
+    if(!nomeStt) apresentaErro( nomeClient , true ); else apresentaSucesso( nomeClient , true );
+    if(!tipoCliStt) apresentaErro( tipoCliStt , true ); else apresentaSucesso( tipoCliStt , true );
+    if(!telefoneStt) apresentaErro( telefonClient , true ); else apresentaSucesso( telefonClient , true );
+    if(!emailStt) apresentaErro( emailClient , true ); else apresentaSucesso( emailClient , true );
+    if(!bairroStt) apresentaErro( bairroClient , true ); else apresentaSucesso( bairroClient , true );
+    if(!estadoStt) apresentaErro( estadoStt , true ); else apresentaSucesso( estadoStt , true );
+    if(!cidadeStt) apresentaErro( cidadeStt , true ); else apresentaSucesso( cidadeStt , true );
+    if(!logradouroStt) apresentaErro( logradouroStt , true ); else apresentaSucesso( logradouroStt , true );
+    if(!numeroStt) apresentaErro( numeroClient , true ); else apresentaSucesso( numeroClient , true );
+    if(!cepStt) apresentaErro( cep , true ); else apresentaSucesso( cep , true );
+
+  var identificacaoStt=false;
+  if( tipoCliStt.val() == "1" ){ // 1 == pessoa física
+    identificacaoStt=$("#cpfCSet").val().length==14;
+    if(!identificacaoStt) apresentaErro( $("#cpf") , true ); else apresentaSucesso( $("#cpf") , true );
+  }else if( tipoCliStt.val() == "2" ){ //2 == pessoa jurídica
+    identificacaoStt=$("#cnpjCSet").val().length==18;
+    if(!identificacaoStt) apresentaErro( $("#cnpj") , true ); else apresentaSucesso( $("#cnpj") , true );
+  }
+
+
+
+
 //Bloqueia o botão... btnClick
-if($("#represNome").val().length<4){
-  apresentaErro($("#represNome"),true);
+if($("#nomeClient").val().length<4){
+  apresentaErro($("#"),true);
 }else{
-  apresentaErro($("#represNome"),false);
+  apresentaErro($("#nomeClient"),false);
   setarHabilitado($(btnClick),false);
   var dados = new FormData();
   dados.append('represent',$("#represNome").val());

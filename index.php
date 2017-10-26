@@ -4,6 +4,20 @@ include('CAPISPHP.php');
 class ObjetoView{
   public static $mvw;
 }
+class Usuario{
+  public static $ativo=false;
+}
+
+if(Cookie::get("UID")){
+$UID = intval(Cookie::get("UID"));
+$data=DBCon::dbQuery("SELECT * FROM inova_representante WHERE id_rep=$UID;");
+if($data){
+  if($data->num_rows==1){//Se achar algum resultado válido...
+Usuario::$ativo=true;
+    }else Cookie::del("UID"); //Se não houver alguém com ID, 'desloga'
+
+}
+}
 
 ObjetoView::$mvw = new MainView();
 ObjetoView::$mvw->AddStyle("css/bootstrap.min.css");

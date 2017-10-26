@@ -30,23 +30,23 @@
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="text" id="name" class="form-control" placeholder="Nome *" required="required">
+                      <input type="text" id="name" class="form-control blackyStyle" placeholder="Nome *" required="required">
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="email" id="email" class="form-control" placeholder="Endereço de email">
+                      <input type="email" id="email" class="form-control blackyStyle" placeholder="Endereço de email">
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <input type="text" id="teleph" class="form-control" data-mask="(99) 99999-9999" placeholder="(99) 99999-9999 *">
+                      <input type="text" id="teleph" class="form-control blackyStyle" data-mask="(99) 99999-9999" placeholder="(99) 99999-9999 *">
                     </div>
                   </div>
 
                   <div class="col-sm-6">
                     <div class="form-group">
-                      <select style="color:#fff;" id="subject" class="form-control" required="required">
+                      <select style="color:#fff;" id="subject" class="form-control blackyStyle" required="required">
                         <option value="-1">Escolha uma opção *</option>
                         <option value="Contato">Contato</option>
                         <option value="Crítica">Crítica</option>
@@ -58,7 +58,7 @@
                   </div>
                   <div class="col-sm-12">
                     <div class="form-group">
-                      <textarea name="message" id="message" class="form-control" rows="4" placeholder="Digite sua mensagem *" required="required"></textarea>
+                      <textarea name="message" id="message" class="form-control blackyStyle" rows="4" placeholder="Digite sua mensagem *" required="required"></textarea>
                     </div>
                   </div>
                   <div class="form-group">

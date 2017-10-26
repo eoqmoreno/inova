@@ -45,6 +45,8 @@
           <li class="scroll"><a href="#certificacoes">Certificações</a></li>
           <li class="scroll"><a href="#contact">Contato</a></li>
           <?php
+
+
         if(!Cookie::get("UID")){
           echo('<li><a onclick="modalLoginShow();" href="#inicio">Login</a></li>');
         }else{
@@ -54,11 +56,14 @@
             $U_Data=array();
             if($data->num_rows==1){//Se achar algum resultado válido...
               $FRow = $data->fetch_array(MYSQLI_BOTH);
-              echo('<li><a onclick="clienteModal();" href="#inicio" data-toggle="tooltip" data-placement="bottom" title="Seja bem-vindo(a) '.$FRow['nome'].'">Perfil</a></li>
-              <li><a onclick="modalComprasShow();" href="#portfolio"><span id="itens-comprados" class="badge">0</span> itens no pedido</a></li>');
+              echo('<li><a onclick="clienteModal();" href="#inicio" data-toggle="tooltip" data-placement="bottom" title="Seja bem-vindo(a) '.$FRow['nome'].'">Representante</a></li>');
+
             }else Cookie::del("UID"); //Se não houver alguém com ID, 'desloga'
+
           }
         }
+        if(Usuario::$ativo) $palavra="pedido"; else $palavra="orçamento";
+        echo('<li><a onclick="modalComprasShow();" href="#portfolio"><span id="itens-comprados" class="badge">0</span> itens no '.$palavra.'</a></li>');
           ?>
 
         </ul>

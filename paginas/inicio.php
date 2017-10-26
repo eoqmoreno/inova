@@ -2,7 +2,22 @@
 <html lang="pt">
 <head>
 
-<?php echo(ObjetoView::$mvw->head(true)); ?>
+<?php
+class Usuario{
+  public static $ativo=false;
+}
+if(Cookie::get("UID")){
+$UID = intval(Cookie::get("UID"));
+$data=DBCon::dbQuery("SELECT * FROM inova_representante WHERE id_rep=$UID;");
+if($data){
+  if($data->num_rows==1){//Se achar algum resultado válido...
+Usuario::$ativo=true;
+    }else Cookie::del("UID"); //Se não houver alguém com ID, 'desloga'
+
+}
+}
+
+echo(ObjetoView::$mvw->head(true)); ?>
 
 <style>
 @keyframes changebk-contact {
@@ -238,7 +253,7 @@ function addCompra(numID){
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="gridSystemModalLabel">Lista de Pedidos</h4>
+          <h4 class="modal-title" id="gridSystemModalLabel">Lista <?php if(Usuario::$ativo) echo('de Pedidos'); else echo('do orçamento'); ?></h4>
         </div>
         <div class="modal-body">
           <div class="row">
@@ -255,7 +270,7 @@ function addCompra(numID){
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-          <button type="button" onclick="FinalizarPedido();" class="btn btn-primary">Validar pedido</button>
+          <button type="button" onclick="FinalizarPedido();" class="btn btn-primary">Validar <?php if(Usuario::$ativo) echo('pedido'); else echo('orçamento'); ?></button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -317,10 +332,6 @@ function addCompra(numID){
                   <div class="form-group">
                     <label for="cep">CEP</label>
                     <div class="input-group">
-                      <input onchange="cepDigitado(this);" type="text" class="form-control" id="cep" placeholder="XXXXX-XXX">
-                      <span class="input-group-addon">
-                        <button onclick="cepDigitado($('#cep'));" id="btnGetLocal" class="btn btn-info" type="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -450,82 +461,6 @@ function setarHabilitado(objeto,estado){
   else objeto.removeClass("disabled").removeAttr("disabled");
 }
 
-//Função de recolher dados via CEP
-function cepDigitado(objeto){
-var valor=$(objeto).val();
-  if(valor.length==9){ //Se CEP tem 9 números
-    setarHabilitado($("#estado"),false); //Desabilita campos de endereço
-    setarHabilitado($("#cidade"),false);
-    setarHabilitado($("#logradouro"),false);
-    setarHabilitado($("#btnGetLocal"),false);
-    setarHabilitado($("#bairro"),false);
-    setarHabilitado($("#complemento"),false);
-    var nulo=new FormData();
-    callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/cep_req/'+valor,nulo,
-  	function(){//BeforeSend
-  	},function(data){//Done
-  	  if(data.code==0){
-        $("#logradouro").val(data.dados.logradouro);
-        $("#estado").val(data.dados.uf);
-        if( $("#cidade option[value='"+data.dados.localidade+"']").length > 0 )
-        $("#cidade").val(data.dados.localidade);
-        else $("#cidade").html("<option value='"+data.dados.localidade+"'>"+data.dados.localidade+"</option>"+$("#cidade").html());
-        $("#bairro").val(data.dados.bairro);
-
-        $("#estado").removeClass("disabled").removeAttr("disabled");
-        $("#cidade").removeClass("disabled").removeAttr("disabled");
-        $("#logradouro").removeClass("disabled").removeAttr("disabled");
-        $("#btnGetLocal").removeClass("disabled").removeAttr("disabled");
-        setarHabilitado($("#estado"),true); //Habilita campos de endereço ao final, após preenchê-los
-        setarHabilitado($("#cidade"),true);
-        setarHabilitado($("#logradouro"),true);
-        setarHabilitado($("#btnGetLocal"),true);
-        setarHabilitado($("#bairro"),true);
-        setarHabilitado($("#complemento"),true);
-
-        }else{
-        console.log("Erro!");
-  	    console.log(data);
-  	  }
-  	},function(e){
-      setarHabilitado($("#estado"),true); //Se ocorreu erro, habilita campos
-      setarHabilitado($("#cidade"),true);
-      setarHabilitado($("#logradouro"),true);
-      setarHabilitado($("#btnGetLocal"),true);
-      setarHabilitado($("#bairro"),true);
-      setarHabilitado($("#complemento"),true);
-      alert('CEP inválido.'); //E alerta CEP inválido
-      console.log("ERRO.");console.log(e);
-  }
-  	);
-
-  }
-}
-
-var cidades_estados_arr;
-//Quando modal de registro inicia, requisita campo de estados e cidades
-$('#modalRegistro').on('show.bs.modal', function (event) {
-  var nulo=new FormData();
-  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/cep_req/estados',nulo,
-  function(){//BeforeSend
-  },function(data){//Done
-    if(data.code==0){
-      cidades_estados_arr=data.estados;
-      var lista_est="<option value='-1'>Escolha um estado</option>\n";
-      for (var uf in data.estados) {
-        var obj=data.estados[uf];
-        lista_est+="<option value='"+obj['uf']+"'>"+obj['nome']+"</option>\n";
-      }
-      $("#estado").html(lista_est);
-
-      }else{
-      console.log("Erro!");
-      console.log(data);
-    }
-  },function(e){console.log("ERRO.");console.log(e);}
-  );
-});
-
 function apresentaErro(objeto,verdadeiro){
   if(verdadeiro) objeto.parent().addClass("has-error");
   else objeto.parent().removeClass("has-error");
@@ -638,7 +573,7 @@ function estadoChange(obJQ){
   for (var id in cidads) {
     strCids+="<option value='"+cidads[id]+"'>"+cidads[id]+"</option>"
   }
-  $("#cidade").html(strCids);
+  $("#cidadeClient").html(strCids);
 }
 
 function doLogin(botn){
@@ -735,45 +670,85 @@ function modalLoginShow(){
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="gridSystemModalLabel">Finalizar Envio do Pedido</h4>
+        <h4 class="modal-title" id="gridSystemModalLabel">Finalizar Envio <?php if(Usuario::$ativo) echo('do Pedido'); else echo('do Orçamento'); ?></h4>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-xs-12">
-            <label for="nomeDestin">Nome:</label>
-            <label id="nomeDestin"><input type="text" class="form-control" id="cpfRepr" placeholder="XXX.XXX.XXX-XX"></label>
+            <label for="nomeClient">Nome / Razão Social</label>
+            <input type="text" class="form-control normalForm" id="nomeClient" placeholder="Nome / Razão Social">
           </div>
 
-          <div class="col-xs-12">
-            <label for="cpfcnpjDestin">CPF/CNPJ:</label>
-            <label id="cpfcnpjDestin"><input type="text" class="form-control" id="cpfRepr" placeholder="XXX.XXX.XXX-XX"></label>
-          </div>
-        </div><div class="row" style="padding-top:12px;">
-          <div class="col-xs-6">
-            <label for="enderecDestin">Endereço:</label>
-            <label id="enderecDestin">#</label>
-          </div>
-          <div class="col-xs-6">
-            <label for="bairroDestin">Bairro:</label>
-            <label id="bairroDestin">#</label>
+          <div class="col-xs-12 col-md-6">
+              <label for="ptipo">Tipo do cliente</label>
+              <select class="form-control normalForm" id="ptipo" onchange="pessoaChangePedido(this);">
+                <option value="-1">Escolha</option>
+                <option value="1">Pessoa física</option>
+                <option value="2">Pessoa jurídica</option>
+              </select>
           </div>
 
-          <div class="col-xs-6">
-            <label for="cidadeDestin">Cidade:</label>
-            <label id="cidadeDestin">#</label>
+          <div class="col-xs-12 col-md-6">
+            <div style="display: none;" id="cnpjClientSet">
+              <label for="cnpjCSet">CNPJ</label>
+              <input type="text" class="form-control normalForm" id="cnpjCSet" data-mask="" clearifnotmatch="true" placeholder="XX.XXX.XXX/XXXX-XX" />
+            </div>
+            <div style="display: none;" id="cpfClientSet">
+              <label for="cpfCSet">CPF</label>
+              <input type="text" class="form-control normalForm" id="cpfCSet" data-mask="999.999.999-99" placeholder="XXX.XXX.XXX-XX" />
+            </div>
           </div>
-          <div class="col-xs-6">
-            <label for="estUfDestin">Estado/UF:</label>
-            <label id="estUfDestin">#</label>
+        </div>
+
+        <div class="row" style="padding-top:12px;">
+          <div class="col-md-6 col-xs-12">
+            <div style="margin-bottom: 0px;" class="form-group">
+              <label for="cep">CEP</label>
+              <div class="input-group">
+                <input onchange="cepDigitado(this);" type="text" class="form-control" id="cep" placeholder="XXXXX-XXX">
+                <span class="input-group-addon">
+                  <button onclick="cepDigitado($('#cep'));" id="btnGetLocal" class="btn btn-info" type="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span></button>
+                </span>
+              </div>
+            </div>
           </div>
-        </div><div class="row" style="padding-top:12px;">
-          <div class="col-xs-6">
-            <label for="telefonDestin">Telefone:</label>
-            <label id="telefonDestin">#</label>
+          <div class="col-xs-12 col-md-6">
+            <label for="numeroClient">Número</label>
+            <input type="text" class="form-control normalForm" id="numeroClient" placeholder="Nº, bloco ou SN">
           </div>
-          <div class="col-xs-6">
-            <label for="emailDestin">E-mail:</label>
-            <label id="emailDestin">#</label>
+        </div>
+
+        <div class="row" style="padding-top:12px;">
+          <div class="col-xs-12 col-md-6">
+            <label for="logradClient">Logradouro</label>
+            <input type="text" class="form-control normalForm" id="logradClient" placeholder="Ex.: Rua X">
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label for="bairroClient">Bairro</label>
+            <input type="text" class="form-control normalForm" id="bairroClient" placeholder="Nome do Bairro">
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label for="estUfDestin">Estado/UF</label>
+            <select onchange="estadoChange(this);" class="form-control normalForm" id="estadoClient">
+              <option value="-1">Escolha um estado</option>
+            </select>
+          </div>
+
+          <div class="col-xs-12 col-md-6">
+            <label for="cidadeClient">Cidade</label>
+            <select class="form-control normalForm" id="cidadeClient">
+              <option value="-1">Aguardando escolha de estado.</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" style="padding-top:12px;">
+          <div class="col-xs-12 col-md-6">
+            <label for="telefonClient">Telefone</label>
+            <input type="text" class="form-control normalForm" id="telefonClient" placeholder="(XX) XXXXXXXX">
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <label for="emailClient">E-mail</label>
+            <input type="text" class="form-control normalForm" id="emailClient" placeholder="exemplo@provedor.com">
           </div>
         </div><div class="row" style="padding-top:12px;">
           <div class="col-xs-12">
@@ -786,16 +761,10 @@ function modalLoginShow(){
               </tbody>
             </table>
           </div>
-          <div class="col-xs-12">
-              <div class="form-group">
-                <label for="represNome">Representante:</label>
-                <input type="text" class="form-control" id="represNome" placeholder="Nome do Representante">
-              </div>
-          </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" onclick="confirmarPedido(this);" class="btn btn-success">Confirmar Pedido</button>
+        <button type="button" onclick="confirmarPedido(this);" class="btn btn-success">Confirmar <?php if(Usuario::$ativo) echo('Pedido'); else echo('Orçamento'); ?></button>
         <button id="cancela-pedido" onclick="$('#modalFinalComp').modal('toggle');" type="button" class="btn btn-default">Cancelar Pedido</button>
       </div>
       </form>
@@ -804,6 +773,99 @@ function modalLoginShow(){
 </div><!-- /.modal -->
 
 <script>
+$("#cnpjCSet").mask("00.000.000/0000-00",{clearIfNotMatch:true});
+$("#cpfCSet").mask("000.000.000-00",{clearIfNotMatch:true});
+$("#telefonClient").mask("(00) 0000-00009");
+$('#telefonClient').blur(function(event) {
+   if($(this).val().length == 15){ // Celular com 9 dígitos + 2 dígitos DDD e 4 da máscara
+      $('#telefonClient').mask('(00) 00000-0009'); //(85) 99773-4701 | (85) 3332-9102
+   } else {
+      $('#telefonClient').mask('(00) 0000-00009');
+   }
+});
+
+var cidades_estados_arr;
+//Quando modal de registro inicia, requisita campo de estados e cidades
+$('#modalFinalComp').on('show.bs.modal', function (event) {
+  var nulo=new FormData();
+  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/cep_req/estados',nulo,
+  function(){//BeforeSend
+  },function(data){//Done
+    if(data.code==0){
+      cidades_estados_arr=data.estados;
+      var lista_est="<option value='-1'>Escolha um estado</option>\n";
+      for (var uf in data.estados) {
+        var obj=data.estados[uf];
+        lista_est+="<option value='"+obj['uf']+"'>"+obj['nome']+"</option>\n";
+      }
+      $("#estadoClient").html(lista_est);
+
+      }else{
+      console.log("Erro!");
+      console.log(data);
+    }
+  },function(e){console.log("ERRO.");console.log(e);}
+  );
+});
+
+
+function pessoaChangePedido(objeto){
+  var opcao = $(objeto).val();
+  $("#cnpjClientSet").hide();
+  $("#cpfClientSet").hide();
+if (opcao=="1") $("#cpfClientSet").show();
+else if (opcao=="2") $("#cnpjClientSet").show();
+}
+
+//Função de recolher dados via CEP
+function cepDigitado(objeto){
+var valor=$(objeto).val();
+  if(valor.length==9){ //Se CEP tem 9 números
+    setarHabilitado($("#estadoClient"),false); //Desabilita campos de endereço
+    setarHabilitado($("#cidadeClient"),false);
+    setarHabilitado($("#logradClient"),false);
+    setarHabilitado($("#btnGetLocal"),false);
+    setarHabilitado($("#bairroClient"),false);
+    var nulo=new FormData();
+    callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/cep_req/'+valor,nulo,
+  	function(){//BeforeSend
+  	},function(data){//Done
+  	  if(data.code==0){
+        $("#logradClient").val(data.dados.logradouro);
+        $("#estadoClient").val(data.dados.uf);
+        if( $("#cidadeClient option[value='"+data.dados.localidade+"']").length > 0 )
+        $("#cidadeClient").val(data.dados.localidade);
+        else $("#cidadeClient").html("<option value='"+data.dados.localidade+"'>"+data.dados.localidade+"</option>"+$("#cidadeClient").html());
+        $("#bairroClient").val(data.dados.bairro);
+
+        $("#estadoClient").removeClass("disabled").removeAttr("disabled");
+        $("#cidadeClient").removeClass("disabled").removeAttr("disabled");
+        $("#logradClient").removeClass("disabled").removeAttr("disabled");
+        $("#btnGetLocal").removeClass("disabled").removeAttr("disabled");
+        setarHabilitado($("#estadoClient"),true); //Habilita campos de endereço ao final, após preenchê-los
+        setarHabilitado($("#cidadeClient"),true);
+        setarHabilitado($("#logradClient"),true);
+        setarHabilitado($("#btnGetLocal"),true);
+        setarHabilitado($("#bairroClient"),true);
+
+        }else{
+        console.log("Erro!");
+  	    console.log(data);
+  	  }
+  	},function(e){
+      setarHabilitado($("#estadoClient"),true); //Se ocorreu erro, habilita campos
+      setarHabilitado($("#cidadeClient"),true);
+      setarHabilitado($("#logradClient"),true);
+      setarHabilitado($("#btnGetLocal"),true);
+      setarHabilitado($("#bairroClient"),true);
+      alert('CEP inválido.'); //E alerta CEP inválido
+      console.log("ERRO.");console.log(e);
+  }
+  	);
+
+  }
+}
+
 function confirmarPedido(btnClick){
 //Bloqueia o botão... btnClick
 if($("#represNome").val().length<4){
@@ -839,6 +901,7 @@ if($("#represNome").val().length<4){
 
 
 var finalizarPedidoAtivo=false;
+
 function FinalizarPedido(){
   $('#modalFinalComp').modal('show');
   finalizarPedidoAtivo=true;
@@ -846,27 +909,16 @@ function FinalizarPedido(){
 }
 
 $('#modalFinalComp').on('show.bs.modal', function (event) {
+/*
   var nada = new FormData();
-  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/logg_utils/dados',nada,
+  callbackajx('index.php/logg_utils/dados',nada,
 	function(){//BeforeSend
 	},function(data){//Done
-    console.log(data);
-	  if(data.code==0){
-      $("#nomeDestin").html(data.dados.nome);
-      if(data.dados.cpf!=="") $("#cpfcnpjDestin").html(data.dados.cpf);
-      if(data.dados.cnpj!=="") $("#cpfcnpjDestin").html(data.dados.cnpj);
-      $("#enderecDestin").html(data.dados.logradouro+", "+data.dados.numero);
-      $("#bairroDestin").html(data.dados.bairro);
-      $("#cidadeDestin").html(data.dados.cidade);
-      $("#estUfDestin").html(data.dados.estado+"/"+data.dados.uf);
-      $("#telefonDestin").html(data.dados.telefone);
-      $("#emailDestin").html(data.dados.email);
 
-    }else{
-	    console.log(data);
-	  }
-	},function(e){console.log("ERRO.");console.log(e);}
-	);
+  },function(e){console.log("ERRO.");console.log(e);}
+
+});
+*/
 
 
   $("#tab-produtos-lista-final").html('');

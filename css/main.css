@@ -156,9 +156,9 @@ section {
 /*************************
 ********Home CSS**********
 **************************/
-div.form-group input,div.form-group select{
-  background-color: #fff;
-  border: 1px solid #ccc;
+div.form-group input,div.form-group select, .normalForm{
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
 }
 
 

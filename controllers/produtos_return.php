@@ -27,8 +27,8 @@ if($data->num_rows>0){
 }
 
 
-$data=DBCon::dbQuery("SELECT inova_catalogo.id_itm \"id_itm\",inova_catalogo.titulo \"itm_titulo\",inova_catalogo_tabs.id_tab \"id_tab\",inova_catalogo_tabs.titulo \"tab_titulo\"
-   FROM inova_catalogo INNER JOIN inova_catalogo_tabs ON inova_catalogo.tab=inova_catalogo_tabs.id_tab ORDER BY inova_catalogo_tabs.herdando,inova_catalogo_tabs.titulo ASC;");
+$data=DBCon::dbQuery("SELECT inova_produto_classe.id_itm \"id_itm\",inova_produto_classe.titulo \"itm_titulo\",inova_catalogo_tabs.id_tab \"id_tab\",inova_catalogo_tabs.titulo \"tab_titulo\"
+   FROM inova_produto_classe INNER JOIN inova_catalogo_tabs ON inova_produto_classe.tab=inova_catalogo_tabs.id_tab ORDER BY inova_catalogo_tabs.herdando,inova_catalogo_tabs.titulo ASC;");
 
 
 $retorno=array('code'=>0,'lista'=>array());
@@ -60,5 +60,28 @@ $data=DBCon::dbQuery("DELETE FROM inova_catalogo WHERE id_itm=$nid;");
 
 echo json_encode($retorno);
 
-}else echo json_encode(array('code'=>1,'msg'=>'Ação não reconhecida.'));
+}elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "e")){//Extração | LISTAGEM DE PRODUTOS/COMPRAS
+  $nid=intval($_POST['id']);
+  $retorno=array('code'=>0);
+
+  $dt_produto=DBCon::dbQuery("SELECT inova_produto_cor.link_imagem,inova_produto_cor.nome_cor,inova_produto_classe.titulo,inova_produto_cor.id_cor FROM inova_produto_cor INNER JOIN inova_produto_classe ON inova_produto_cor.id_itm=inova_produto_classe.id_itm WHERE inova_produto_cor.id_cor=$nid;");
+  $dados_recv =  $dt_produto->fetch_array(MYSQLI_BOTH);
+  $arquivo_imagem=CAPISPHP_Structure::$Produtos_Upload_Data['path_name'].$dados_recv['link_imagem'];
+  $retorno['objeto']=array(
+    'img_link'=>$arquivo_imagem, // Link com localização
+    'nome'=>$dados_recv['titulo']." - ".$dados_recv['nome_cor'], //
+    'id'=>$dados_recv['id_cor'] // ID da cor, que inclui ID do objeto (no BD)
+  );
+
+echo json_encode($retorno);
+
+}elseif(isset($_POST['funcao']) && ($_POST['funcao'] == "a")){//Acréscimo
+  $pnome=$_POST['nome'];
+  $prod_tab=intval($_POST['tab']);
+  $data=DBCon::dbQuery("INSERT INTO inova_produto_classe VALUES(null,'$pnome','Sem descrição.',$prod_tab);");
+  $retorno=array('code'=>0);
+
+  echo json_encode($retorno);
+}
+else echo json_encode(array('code'=>1,'msg'=>'Ação não reconhecida.'));
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 ?>
-  <section id="servicos">
+  <section style="padding:29px 0;" id="servicos">
     <div class="container">
       <div class="heading wow fadeInUp col-sm-12" data-wow-duration="1000ms" data-wow-delay="300ms">
         <div class="row">

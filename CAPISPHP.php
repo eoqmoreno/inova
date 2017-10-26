@@ -16,6 +16,7 @@ include_once('./mod_BuildCatalogo.php'); //Funções de catálogo
 include_once('./mod_Sectioner.php'); //Funções de catálogo
 include_once('./mod_FileUploads.php'); //Ferramenta de apoio para uploads.
 include_once('./mod_PHPMailer.php');
+include_once('./mod_Cookies.php'); //Códigos simplificados para uso de cookies com PHP
 
 //Regras para estrutura HTML da página:
 class CAPISPHP_Structure{
@@ -29,8 +30,8 @@ class CAPISPHP_Structure{
   public static $COPYRIGHT="GNU GENERAL PUBLIC LICENSE v3";
   public static $descricao="Inova - Indústria e Comércio de Utilidades para o Lar";
   public static $titulo="";
-  public static $corTema="#ffffff";
-  public static $keywrds="";
+  public static $corTema="#028fcc";
+  public static $keywrds="poltrona,cadeira,plástico,inova,utilidades,artefatos,qualidade,ceará,indústria,comércio,inmetro";
 
   public static $UsarMetaProp=false;
   public static $METAPROP_Language="pt-br";
@@ -70,7 +71,7 @@ function AddStyle($dataAdd){self::AddHead("<link href='".URLPos::getURLDirRoot()
 
 //Função final para exibir conteúdo
 function head($indexar=false){
-$this->AddRawMeta('charset="utf-8"');
+$this->AddRawMeta('http-equiv="Content-type" content="text/html; charset=utf-8"');
 $this->AddRawMeta('http-equiv="X-UA-Compatible" content="IE=edge"');
 $this->AddMeta('viewport','width=device-width, initial-scale=1, maximum-scale=1');
 
@@ -86,17 +87,10 @@ $this->AddMeta('COPYRIGHT',CAPISPHP_Structure::$COPYRIGHT);
 //GOOGLE METATAGS:
 $this->AddMeta('google',"notranslate");
 $this->AddMeta('google',"nositelinkssearchbox");
-$this->AddMeta('google',"notranslate");
-$this->AddMeta('google',"notranslate");
-$this->AddMeta('google',"notranslate");
-$this->AddMeta('google',"notranslate");
-$this->AddMeta('google',"notranslate");
-$this->AddMeta('google',"notranslate");
 
 $this->AddMeta('RATING','GENERAL');
 $this->AddMeta('DISTRIBUTION','GLOBAL');
 $this->AddMeta('RESOURCE-TYPE','DOCUMENT');
-$this->AddMeta('Robots','INDEX,FOLLOW');
 
 if(CAPISPHP_Structure::$UsarMetaProp){
 $this->AddRawMeta('property="og:locale" content="'.CAPISPHP_Structure::$METAPROP_Locale.'"');

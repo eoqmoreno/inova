@@ -22,8 +22,9 @@ public static function dbQuery($sql,$systm="NONE"){
   $RESU=$mdb->query($sql);
   if(!$RESU){
     $data=date("Y-m-d H:i:s");
-    $dberr=$RESU->error;
-    self::dbQuery("INSERT INTO inova_sys_err VALUES(null,'$systm','$dberr','$data');");
+    $dberr=$mdb->error . " | COMANDO= ".$sql;
+    $mdb->query("INSERT INTO inova_sys_err VALUES(null,'$systm','$dberr','$data');");
+    return false;
   }else return $RESU;
 }
 }

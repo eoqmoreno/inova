@@ -2,17 +2,18 @@
 
 ?>
 <section style="padding:0 0;" id="contact">
+
   <div id="contact-us" class="parallax">
     <div class="container">
       <div class="row">
-        <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+        <div style="margin-top:29px;" class="heading text-center col-sm-12 wow fadeInUp" data-wow-duration="700ms" data-wow-delay="300ms">
           <h2>CONTATO</h2>
         </div>
       </div>
       <div class="col-sm-6">
-      <div class="contact-form wow fadeIn" data-wow-duration="1000ms" data-wow-delay="600ms">
+      <div class="contact-form wow fadeIn" data-wow-duration="500ms" data-wow-delay="200ms">
         <div class="row">
-          <div class="col-sm-offset-3 col-sm-6">
+          <div class="col-sm-12">
             <ul class="nav nav-tabs" role="tablist">
               <li role="presentation" class="active"><a href="#fale-conosco" aria-controls="fale-conosco" role="tab" data-toggle="tab"><i class="fa fa-user-o" aria-hidden="true"></i> SAC</a></li>
               <li role="presentation"><a href="#trabalhe-conosco" aria-controls="trabalhe-conosco" role="tab" data-toggle="tab"><i class="fa fa-handshake-o" aria-hidden="true"></i> Trabalhe Conosco</a></li>
@@ -76,7 +77,7 @@
               <form id="formulario-trabalhe-conosco" name="formulario-trabalhe-conosco" method="post" action="contato_send.php">
                 <div class="row">
                   <div class="col-sm-12 row">
-                    <div style="background-color:rgba(255,255,255,0.4);border-radius:5px;" class="input-group">
+                    <div style="background-color:rgba(0,0,0,0.4);border-radius:5px;padding-right: 10px;" class="input-group">
                       <span class="input-group-addon" id="sizing-addon2"><h5><i class="glyphicon glyphicon-link" style="color:black;" aria-hidden="true"></i></i></h5></span>
                       <input style="margin-top: 12px;" accept=".pdf,.jpg,.jpeg,.png,.bmp" type="file" name="anexo" id="anexo" aria-describedby="sizing-addon2" required="required" />
                     </div>
@@ -99,7 +100,7 @@
               <p>Ou solicite uma visita por outros meios:</p>
               <ul class="address">
                 <li><i class="fa fa-phone"></i> <span> Telefones:</span> (85) 3293-1000 | (85) 99251-6999  </li>
-                <li><i class="fa fa-envelope"></i> <span> Email da empresa:</span><a href="mailto:inovautilidades@inovautilidades.com.br"> inovautilidades@inovautilidades.com.br</a></li>
+                <li><i class="fa fa-envelope"></i> <span> Email da empresa:</span><a href="mailto:inova@inovautilidades.com.br"> inova@inovautilidades.com.br</a></li>
                 <li><i class="fa fa-envelope"></i> <span> Fale com o Financeiro:</span><a href="mailto:financeiro@inovautilidades.com.br"> financeiro@inovautilidades.com.br</a></li>
                 <li><i class="fa fa-envelope"></i> <span> Fale com o Comercial:</span><a href="mailto:comercial@inovautilidades.com.br"> comercial@inovautilidades.com.br</a></li>
                 <li>

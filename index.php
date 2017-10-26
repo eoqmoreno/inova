@@ -23,6 +23,8 @@ ObjetoView::$mvw->AddScript("js/wow.min.js");
 ObjetoView::$mvw->AddScript("js/mousescroll.js");
 ObjetoView::$mvw->AddScript("js/smoothscroll.js");
 ObjetoView::$mvw->AddScript("js/lightbox.min.js");
+ObjetoView::$mvw->AddScript("js/bootstrap.min.js");
+ObjetoView::$mvw->AddScript("js/html5shiv.js");
 ObjetoView::$mvw->AddScript("js/jquery.mask.js");
 ObjetoView::$mvw->AddScript("js/main.js");
 

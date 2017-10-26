@@ -9,7 +9,6 @@
           <div class="animated jackInTheBox"><center><img class="img-responsive" src="<?php echo URLPos::getURLDirRoot(); ?>images/logo_mini.png" alt="Inova Utilidades"></center></div>
           <h1 style="font-size:1em;" class="animated fadeInRightBig">Nossos <span>produtos</span> são <span>projetados</span> pensando no seu bem estar</h1>
           <!--<p class="animated fadeInRightBig">Nossos <span>móveis</span> são <span>projetados</span> pensando no seu bem estar.</p>-->
-
         </div>
       </div>
       <div class="item" style="background-image: url(<?php echo URLPos::getURLDirRoot(); ?>images/slider/2.jpg)">
@@ -40,12 +39,33 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li class="scroll active"><a href="#inicio">Início</a></li>
-          <li class="scroll"><a href="#sobre-nos">A Empresa</a></li>
+          <li class="scroll active"><a href="#sobre-nos">A Empresa</a></li>
           <li style="background-color:rgba(255,255,255,0.2);" class="scroll"><a href="#portfolio">Catálogo de Produtos</a></li>
           <li class="scroll"><a href="#servicos">Serviços</a></li>
           <li class="scroll"><a href="#certificacoes">Certificações</a></li>
           <li class="scroll"><a href="#contact">Contato</a></li>
+          <?php
+
+
+        if(!Cookie::get("UID")){
+          echo('<li><a onclick="modalLoginShow();" href="#inicio">Login</a></li>');
+        }else{
+          $UID = intval(Cookie::get("UID"));
+          $data=DBCon::dbQuery("SELECT * FROM inova_representante WHERE id_rep=$UID;");
+          if($data){
+            $U_Data=array();
+            if($data->num_rows==1){//Se achar algum resultado válido...
+              $FRow = $data->fetch_array(MYSQLI_BOTH);
+              echo('<li><a onclick="clienteModal();" href="#inicio" data-toggle="tooltip" data-placement="bottom" title="Seja bem-vindo(a) '.$FRow['nome'].'">Representante</a></li>');
+
+            }else Cookie::del("UID"); //Se não houver alguém com ID, 'desloga'
+
+          }
+        }
+        if(Usuario::$ativo) $palavra="pedido"; else $palavra="orçamento";
+        echo('<li><a onclick="modalComprasShow();" href="#portfolio"><span id="itens-comprados" class="badge">0</span> itens no '.$palavra.'</a></li>');
+          ?>
+
         </ul>
       </div>
     </div>

@@ -6,24 +6,22 @@ CREATE TABLE inova_catalogo_tabs(
 
 INSERT INTO inova_catalogo_tabs VALUES(1,"Produtos",1);
 
-CREATE TABLE inova_catalogo(
+CREATE TABLE inova_produto_classe(
   id_itm INT PRIMARY KEY AUTO_INCREMENT,
   titulo VARCHAR(60) NOT NULL,
-  link_imagem VARCHAR(100) NOT NULL,
   descricao VARCHAR(600),
-  data DATE NOT NULL,
   tab INT NOT NULL,
   FOREIGN KEY(tab) REFERENCES inova_catalogo_tabs(id_tab)
 );
 
-CREATE TABLE inova_contatos(
-  id_con INT PRIMARY KEY AUTO_INCREMENT,
-  nome VARCHAR(200) NOT NULL,
-  assunto VARCHAR(30) NOT NULL,
-  telefone VARCHAR(15) NOT NULL,
-  email VARCHAR(200),
-  mensagem VARCHAR(800) NOT NULL,
-  data_msg DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00'
+ALTER TABLE `inova_produto_classe` CHANGE `preco` `preco` DECIMAL(6,2) NULL DEFAULT '0.00';
+
+CREATE TABLE inova_produto_cor(
+  id_cor INT PRIMARY KEY AUTO_INCREMENT,
+  id_itm INT NOT NULL,
+  nome_cor VARCHAR(60) NOT NULL,
+  link_imagem VARCHAR(100) NOT NULL,
+  FOREIGN KEY(id_itm) REFERENCES inova_produto_classe(id_itm)
 );
 
 CREATE TABLE inova_sys_err(
@@ -33,14 +31,39 @@ CREATE TABLE inova_sys_err(
   data DATETIME NOT NULL
 );
 
+CREATE TABLE inova_representante(
+  id_rep INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(300) NOT NULL,
+  passwd VARCHAR(100) NOT NULL,
+  email VARCHAR(345) NOT NULL,
+  telefone VARCHAR(15) NOT NULL,
+  cpf VARCHAR(14)
+);
 
-INSERT INTO inova_catalogo_tabs VALUES(null,"Poltronas Monobloco");
-INSERT INTO inova_catalogo_tabs VALUES(null,"Poltronas Pés de Alumínio");
-INSERT INTO inova_catalogo_tabs VALUES(null,"Cadeiras");
-INSERT INTO inova_catalogo_tabs VALUES(null,"Roupeiros");
-INSERT INTO inova_catalogo_tabs VALUES(null,"Banquetas");
-INSERT INTO inova_catalogo_tabs VALUES(null,"Mesas");
+CREATE TABLE inova_pedido(
+  ped_id INT PRIMARY KEY AUTO_INCREMENT,
+  datpedido DATETIME NOT NULL,
+  repres_id INT DEFAULT 0,
+  nome_cliente VARCHAR(300) NOT NULL,
+  email VARCHAR(345),
+  telefone VARCHAR(15) NOT NULL,
+  cep VARCHAR(9),
+  numero VARCHAR(10) NOT NULL,
+  logradouro VARCHAR(300) NOT NULL,
+  bairro VARCHAR(100),
+  cidade VARCHAR(120) NOT NULL,
+  estado VARCHAR(20) NOT NULL,
+  uf VARCHAR(2) NOT NULL,
+  cnpj VARCHAR(18),
+  cpf VARCHAR(14)
+);
 
-
-INSERT INTO inova_catalogo VALUES(null,'Mesa Premier','mesa_premier.jpg','<p>Conforto, qualidade e praticidade</p>
-<p>Design <b>inovador</b><br/>(Encaixe lateral)</p>','2017-08-07',1);
+CREATE TABLE inova_pedido_itens(
+  id_item INT PRIMARY KEY AUTO_INCREMENT,
+  ped_id INT NOT NULL,
+  id_cor INT NOT NULL,
+  preco_unit DECIMAL(6,2) NOT NULL,
+  qnt_cor INT NOT NULL,
+  FOREIGN KEY(ped_id) REFERENCES inova_pedido(ped_id),
+  FOREIGN KEY(id_cor) REFERENCES inova_produto_cor(id_cor)
+);

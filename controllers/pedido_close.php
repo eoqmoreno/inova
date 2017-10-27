@@ -96,7 +96,7 @@ $repres_nome="";
     //$msend->addDestino('financeiro@inoplast.com.br');
 
     $msend->addDestino("jeimison.ti@gmail.com");
-    //$msend->addDestino("financeiro@inoplast.com.br");
+    $msend->addDestino("financeiro@inoplast.com.br");
 
     $extras_headertb_exists=Usuario::$ativo?"<th>Preço</th>":"";
     $email_envio='<html>

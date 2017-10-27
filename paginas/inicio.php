@@ -27,6 +27,7 @@ resize: none;
 </style>
 
 <script>
+var debug_lvl=0;
 
 $('.nav-tabs a').click(function (e) {
   e.preventDefault()
@@ -72,9 +73,8 @@ function setItemCatalogo(ItmClass,classNum){
              }//Evitar processamento desnecessário...
 	    }
 	  }else if(data.code>0){
-	    $('div.jumbotron').append( $('<div class="form_status"></div>').html('<p class="text-warning">Ops... Parece que aconteceu um problema.<br/>Erro cód.: '+data.code+' -> '+data.msg+'</p>').fadeIn().delay(20000).fadeOut() );
+	     if(debug_lvl>1) console.log(data.code+' -> '+data.msg);
 	  }else{
-	    $('div.jumbotron').append( $('<div class="form_status"></div>').html('<p class="text-warning">Ops... Parece que aconteceu um problema.<br/>Abra o console para ver os dados.</p>').fadeIn().delay(20000).fadeOut() );
 	    console.log(data);
 	  }
 	},function(e){console.log("ERRO. Verifique a variável ab.");console.log(e);}
@@ -88,7 +88,7 @@ var folioItem=$(ObjetoBtn).parent().parent().parent().parent().parent().parent()
 folioItem.find("div.folio-image img").attr('src',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Altera imagem visível
 var folioTextos=folioItem.find("div.overlay div.overlay-content div.overlay-text");
 folioTextos.find("div.folio-info p").html(lastProdutosArr[chgID]['nome_cor']); //Altera nome da cor no canto inferior
-console.log(folioTextos.find("div.folio-overview span.folio-expand"));
+if(debug_lvl>1) console.log(folioTextos.find("div.folio-overview span.folio-expand"));
 $(folioTextos.find("div.folio-overview span.folio-expand")[0]).find("a").attr('href',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Muda imagem a ser exibida em modo album
 $(folioTextos.find("div.folio-overview span.folio-expand")[1]).find("a").attr('href',"javascript:addCompra("+lastProdutosArr[chgID]['id_cor']+");"); //Muda ID de compra
 
@@ -122,8 +122,8 @@ for (var id in produtosArr) {
     ++qntCores;
   }
   var corEscolhida=Math.floor(Math.random() * qntCores);
-  console.log(obj['cores']);
-  console.log('ID='+corEscolhida);
+  if(debug_lvl>1)console.log(obj['cores']);
+  if(debug_lvl>3)console.log('ID='+corEscolhida);
   var escolhida={'id_cor':obj['cores'][corEscolhida]['id_cor'],
                  'nome_cor':obj['cores'][corEscolhida]['nome_cor'],
                  'link_imagem':obj['cores'][corEscolhida]['link_imagem'],};
@@ -158,7 +158,7 @@ item.append(
     )
   )
 );
-console.log('Objeto inserido.');console.log(itemOrigin);
+if(debug_lvl>2){console.log('Objeto inserido.');console.log(itemOrigin);}
 $("div.catalogobuild").show(0).append( itemOrigin.delay(20).fadeIn() );
 
 }//Fim do loop
@@ -178,7 +178,7 @@ function flCatalogo(){
 	callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/tabs_catalogo_get',nulo,
 	function(){//BeforeSend
 	},function(data){//Done
-    console.log(data);
+    if(debug_lvl>2)console.log(data);
     processaProdutos(data.produtos);
     div_menus.append(menu.append(submenu));
 	  if((data.code==0)||(data.code==7)){
@@ -208,6 +208,7 @@ function updateListaCompras(){
   var qnt=0;
   for (var val in itensCompra) ++qnt;
   $("#itens-comprados").html(qnt);
+  setarHabilitado($("#botaoFinalizarPedido"),qnt>0);
 }
 
 function addCompra(numID){
@@ -256,7 +257,7 @@ function addCompra(numID){
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-          <button type="button" onclick="FinalizarPedido();" class="btn btn-primary">Validar <?php if(Usuario::$ativo) echo('pedido'); else echo('orçamento'); ?></button>
+          <button id="botaoFinalizarPedido" type="button" onclick="FinalizarPedido();" class="btn disabled btn-primary">Validar <?php if(Usuario::$ativo) echo('pedido'); else echo('orçamento'); ?></button>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -347,7 +348,7 @@ apresentaErro( $("#przpgto") , false ); apresentaSucesso( $("#przpgto") , false 
 //Função de envio do formulário de registro
 function registraCliente(objeto){
   var sucesso = nomeStt&&tipoCliStt&&telefoneStt&&emailStt&&senha1Stt&&senha2Stt&&cepStt&&bairroStt&&estadoStt&&cidadeStt&&logradouroStt&&numeroStt;
-  console.log(sucesso);
+  if(debug_lvl>3)console.log(sucesso);
   if(sucesso){
   var dados=new FormData();
   dados.append('nome',$("#nome").val());
@@ -371,7 +372,7 @@ setarHabilitado($(objeto),false);
 },function(data){//Done
   setarHabilitado($(objeto),true);
   if(data.code==0){
-    console.log(data.msg);//Exibe o "OK!" no console
+    if(debug_lvl>1)console.log(data.msg);//Exibe o "OK!" no console
     $('#modalRegistro').modal('hide'); //Fecha a tela de cadastro
     $('#modalLogin').modal('show'); //Abre a tela de login
     $("#emailLogin").val($("#email").val());
@@ -405,7 +406,7 @@ function doLogin(botn){
   callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/logg_utils/login',nulo,
 	function(){//BeforeSend
 	},function(data){//Done
-    console.log(data);
+    if(debug_lvl>2)console.log(data);
 	  if(data.code==0){
       $(botn).hide(200);
       apresentaSucesso($("#emailLogin"),true);
@@ -440,7 +441,7 @@ for(var index in itensCompra){
   callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/produtos_access',nulo,
 	function(){//BeforeSend
 	},function(data){//Done
-    console.log(data);
+    if(debug_lvl>2)console.log(data);
 	  if(data.code==0){
       var tbbody=$("#tab-produtos-lista");
         var item= $("<tr></tr>");
@@ -449,7 +450,7 @@ for(var index in itensCompra){
         unidades = itensCompra[ data.objeto['id'] ]['quant'];
         }
 
-        item.html("<td><img height='70px' src='"+data.objeto['img_link']+"'></img></td><td><h4>"+data.objeto['nome']+"</h4><h4>Unidade(s): "+unidades+"</td><td><a class=\"btn btn-danger\" onclick=\"remvProduto("+data.objeto['id']+");\"><span class=\"glyphicon glyphicon-remove\"></span></a></td>");
+        item.html("<td><img height='70px' src='<?php echo URLPos::getURLDirRoot(); ?>"+data.objeto['img_link']+"'></img></td><td><h4>"+data.objeto['nome']+"</h4><h4>Unidade(s): "+unidades+"</td><td><a class=\"btn btn-danger\" onclick=\"remvProduto("+data.objeto['id']+");\"><span class=\"glyphicon glyphicon-remove\"></span></a></td>");
         tmDelayExec+=(++itmCont)*10;
 	      tbbody.append( item.hide().delay(tmDelayExec).fadeIn() );
 	  }else{
@@ -808,6 +809,14 @@ function confirmarPedido(btnClick){
 
 
 if(tudoPronto){
+  //Variáveis necessárias para fechar os modais
+  finalizarPedidoAtivo=false;
+  desejouCancelar=true;
+
+  $("#modalFinalComp").modal("hide");
+  $("#modalCompras").modal("hide");
+  var formLoad = showAlert("Aguarde, por favor...","Estamos registrando suas informações.",0);
+
   setarHabilitado($(btnClick),false);
   var dados = new FormData();
   dados.append('cliente',nomeClient.val());
@@ -836,22 +845,24 @@ if(tudoPronto){
   callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/pedido/criar',dados,
   function(){//BeforeSend
   },function(data){//Done
-    console.log(data);
+    if(debug_lvl>2)console.log(data);
     if(data.code==0){
       //DEU CERTO
       finalizarPedidoAtivo=false;
       desejouCancelar=true;
-      $("#modalFinalComp").modal("hide");
-      $("#modalCompras").modal("hide");
+
+      formLoad.modal("hide");
       setarHabilitado($(btnClick),true);
       limpaPedidos();
       var frase = usuarioLogado? "Pedido Enviado!":"Orçamento Solicitado!";
       showAlert(frase,"Agradecemos pela preferência. Nossa equipe irá avaliar os dados enviados, e logo que possível entraremos em contato.",12000);
     }else{
+      formLoad.modal("hide");
       setarHabilitado($(btnClick),true);
-      console.log(data);
+      alert(data);
+      $("#modalFinalComp").modal("show");
     }
-  },function(e){console.log("ERRO.");console.log(e);}
+  },function(e){console.log("ERRO.");console.log(e);formLoad.modal("hide");}
   );
 }//Fim do SUCESSO COM CAMPOS
 
@@ -877,7 +888,7 @@ for(var index in itensCompra){
   callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/produtos_access',nulo,
 	function(){//BeforeSend
 	},function(data){//Done
-    console.log(data);
+    if(debug_lvl>2)console.log(data);
 	  if(data.code==0){
       var tbbody=$("#tab-produtos-lista-final");
         var item= $("<tr></tr>");
@@ -917,7 +928,7 @@ $('#modalFinalComp').on('hidden.bs.modal', function (event) {
 
 
 </script>
-<div id="modalAlert" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+<div id="modalAlert" class="modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
   <div class="modal-dialog" role="document">
     <form>
     <div class="modal-content">
@@ -944,10 +955,13 @@ $('#modalFinalComp').on('hidden.bs.modal', function (event) {
 function showAlert(titulo,mensagem,tempo){
   $("#gridSystemModalLabelTitle").html(titulo);
   $("#modalAlertConteudo").html(mensagem);
-  $("#modalAlert").modal("show");
-  setTimeout(function(){ $("#modalAlert").modal("hide"); }, tempo);
-
-  console.log("Mensagem exibida.");
+  if(tempo!=0){
+    setTimeout(function(){
+      $("#modalAlert").modal("hide");
+    }, tempo);
+  }
+  if(debug_lvl>1) console.log("Mensagem exibida.");
+  return $("#modalAlert").modal("show");
 }
 
 </script>
@@ -982,7 +996,7 @@ showAlert("Aguarde...","Encerrando sessão aberta.",20000);
   callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/logg_utils/logout',dados,
   function(){//BeforeSend
   },function(data){//Done
-    console.log(data);
+    if(debug_lvl>2) console.log(data);
     if(data.code==0){
       window.location.reload();
     }else{
@@ -1088,8 +1102,13 @@ function registraRepres(objeto){
 
 
   var sucesso = nomeStt&&telefoneStt&&emailStt&&senha1Stt&&senha2Stt;
-  console.log(sucesso);
+  if(debug_lvl>3) console.log(sucesso);
   if(sucesso){
+    $('#modalRegistroRepresentante').modal('hide'); //Fecha a tela de cadastro
+    $('#modalLogin').modal('hide');
+    //Fecha modais ativos, e inicia somente um
+    var formLoad = showAlert("Aguarde...","Estamos registrando suas informações.<br/>Ao fim do processo, verifique seu e-mail.",0);
+
   var dados=new FormData();
   dados.append('nome',$("#nomeRepr").val());
   dados.append('cpf',$("#cpfRepr").val());
@@ -1104,13 +1123,13 @@ setarHabilitado($(objeto),false);
 },function(data){//Done
   setarHabilitado($(objeto),true);
   if(data.code==0){
-    console.log(data.msg);//Exibe o "OK!" no console
-    $('#modalRegistroRepresentante').modal('hide'); //Fecha a tela de cadastro
+    if(debug_lvl>1) console.log(data.msg);//Exibe o "OK!" no console
+    formLoad.modal('hide');
     $('#modalLogin').modal('show'); //Abre a tela de login
     $("#emailLogin").val($("#emailRepr").val());
     apresentaSucesso( $("#emailLogin") , true );
-  }else if (data.code>0) alert(data.msg);
-  else {alert('Erro.');console.log(data);}
+  }else if (data.code>0) {alert(data.msg); formLoad.modal('hide');}
+  else {alert('Erro.');console.log(data); formLoad.modal('hide');}
 },function(e){console.log("ERRO=");console.log(e);setarHabilitado($(objeto),true);}
 );
 } //Fim de IF SUCESSO

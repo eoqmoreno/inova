@@ -5,13 +5,20 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="cadastro"
   {
     header('Content-Type: application/json');
     $retorno = array('code'=>0,'msg'=>"OK!");
-    $existe = false;
-
-    if($_POST['cpf']!=""){
-    $buscaCPF=DBCon::dbQuery("SELECT * FROM inova_representante WHERE cpf=\"".$_POST['cpf']."\";"); // Consulta de CEP já existe
-    $existe = $existe || $buscaCPF->num_rows>0;
+    $cpf_valido=false;
+    if(!empty($_POST['cpf'])){
+      $cpf_valido=validaCPF($_POST['cpf']);
     }
-    if(!$existe){ //Se tudo retorna FALSO, prossegue
+
+      if(!$cpf_valido) $retorno=array('code'=>3,'msg'=>'O CPF digitado não é válido. Verifique os dados e tente novamente.');
+
+    $existe = false;
+    if(!empty($_POST['cpf'])){
+    $buscaCPF=DBCon::dbQuery("SELECT * FROM inova_representante WHERE cpf=\"".$_POST['cpf']."\";"); // Consulta de CEP já existe
+    $existe = $buscaCPF->num_rows>0;
+      if($existe) $retorno = array('code'=>1,'msg'=>"As credenciais já estão cadastradas. Caso tenha problemas, entre em contato pelo SAC.");
+    }
+    if(!$existe&&$cpf_valido){ //Se tudo retorna FALSO, prossegue
       $nome = $_POST["nome"];$CPF = $_POST["cpf"]; $email = $_POST["email"];
       $telefone = $_POST["telefone"]; $senha = $_POST["senha"];
 
@@ -63,7 +70,7 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="cadastro"
         $msend->enviar();
       }
 
-    }else{$retorno = array('code'=>1,'msg'=>"As credenciais já estão cadastradas. Caso tenha problemas, entre em contato pelo SAC.");}
+    }
 
     echo(json_encode($retorno));
 

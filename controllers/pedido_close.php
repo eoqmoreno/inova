@@ -17,6 +17,15 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="criar") )
   $condicao_pgto = $_POST["condpgto"];
   $prazo_pgto_dias = intval($_POST["przpgto"]);
 
+$dados_ok=true;
+if(!empty($CPF)){
+  $dados_ok=validaCPF($CPF);
+}
+if(!empty($cnpj)){
+  $dados_ok=validar_cnpj($cnpj);
+}
+
+
   $REP_ID = 0;
   if( Usuario::$ativo ) $REP_ID=intval(Cookie::get("UID"));
 
@@ -26,6 +35,7 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="criar") )
   $query="INSERT INTO inova_pedido VALUES(null,CURRENT_TIMESTAMP(),$REP_ID,'$cliente','$email','$telefone','$cep','$numero','$logradouro','$bairro','$cidade','$estado','$uf','$cnpj','$CPF',$prazo_pgto_dias,'$condicao_pgto');";
   $RESU=$dbCon->query($query);
   if(!$RESU) $retorno = array('code'=>2,'msg'=>"A sequência SQL não pôde ser executada. Erro:".$dbCon->error);
+  elseif(!$dados_ok) $retorno = array('code'=>5,'msg'=>"O CPF/CNPJ digitado não é válido.");
   else{//Se deu para fazer o registro...
 
     $pedido_id= $dbCon->insert_id;
@@ -39,7 +49,19 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="criar") )
 
 
     //A partir daqui é referente ao e-mail para a empresa.
-$repres_nome="IRINEU";
+$repres_nome="";
+  if($REP_ID!==0){
+    $query="SELECT * FROM inova_representante WHERE id_rep=$REP_ID";
+    $RESU_REP=$dbCon->query($query);
+    $dados_representante=$RESU_REP->fetch_array(MYSQLI_BOTH);
+    $r_nome=$dados_representante['nome'];
+    $r_mail=$dados_representante['email'];$r_telef=$dados_representante['telefone'];
+    $linha_repres="<tr><th></th><th colspan=\"2\">Representante</th><th></th></tr>
+    <tr><th>Nome:</th><td style=\"text-align:left;\">$r_nome</td> <th>Telefone:</th><td style=\"text-align:left;\">$r_telef</td></tr>
+    <tr><th>E-mail:</th><td style=\"text-align:left;\">$r_mail</td><td></td><td></td></tr>\n<br/>\n";
+  }
+
+
     //$cliente_dados=$dbCon->query("SELECT * FROM inova_cliente WHERE id_cli=$UID;");
     //$arr_cliData=$cliente_dados->fetch_array(MYSQLI_BOTH);
     $cpfoucnpj="";
@@ -58,12 +80,17 @@ $repres_nome="IRINEU";
 
     $listaFinalStr="";
     foreach ($arr_produtos as $produto){
-      $listaFinalStr.="<tr><td>".$produto['nome']."</td><td>".$produto['quant']."</td></tr>";
+      $listaFinalStr.="<tr><td>".$produto['nome']."</td><td>".$produto['quant']."</td>".(Usuario::$ativo?"<td>". str_replace('.',',',$produto['preco']) ."</td>":"")."</tr>";
     }
 
 
     $msend = new ModulePHPMailer(CAPISPHP_Structure::$MailerData);
-    $msend->SetAssunto("Confirmação de Pedido nº ".$pedido_id." - INOVAWEB");
+
+
+    $AssuntoTitulo=Usuario::$ativo?"Conf. de Pedido":"Solic. de Orçamento";
+
+
+    $msend->SetAssunto("$AssuntoTitulo No. $pedido_id - INOVAWEB");
     $msend->SetNomeOrigem($cliente.' - INOVAWEB');
     //$msend->addDestino('comercial@inovautilidades.com.br');
     //$msend->addDestino('financeiro@inoplast.com.br');
@@ -72,11 +99,9 @@ $repres_nome="IRINEU";
     //$msend->addDestino("financeiro@inoplast.com.br");
 
     $extras_headertb_exists=Usuario::$ativo?"<th>Preço</th>":"";
-    $msend->SetMensagem('<html>
+    $email_envio='<html>
     <head>
       <meta charset="UTF-8">
-      <meta name="description" content="">
-      <meta name="keywords" content="">
       <meta name="author" content="Inova Utilidades">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <style>
@@ -91,31 +116,34 @@ $repres_nome="IRINEU";
     <body><center>
     <div style="text-align:center;">
       <table border="0" style="width:100%;text-align:center;">
+      '.( $REP_ID!==0 ?$linha_repres:"").'
         <theader>
-          <tr><th></th><th></th><th></th><th></th></tr>
+          <tr><th></th><th colspan="2">Cliente</th><th></th></tr>
         </theader>
         <tbody>
-          <tr><td>Nome:</td><td>'.$cliente.'</td><td></td><td></td></tr>
-          <tr><td>CPF/CNPJ:</td><td>'.$cpfoucnpj.'</td><td></td><td></td></tr>
-          <tr><td>Endereço:</td><td>'.$logradouro.', '.$numero.'</td><td>Bairro:</td><td>'.$bairro.'</td></tr>
-          <tr><td>Cidade:</td><td>'.$cidade.'</td><td>Estado/UF:</td><td>'.$estado.'/'.$uf.'</td></tr>
-          <tr><td>Telefone:</td><td>'.$telefone.'</td><td>E-mail:</td><td>'.$email.'</td></tr>
+          <tr><th>Nome:</th><td style="text-align:left;">'.$cliente.'</td><td></td><td></td></tr>
+          <tr><th>CPF/CNPJ:</th><td style="text-align:left;">'.$cpfoucnpj.'</td><td></td><td></td></tr>
+          <tr><th>Endereço:</th><td style="text-align:left;">'.$logradouro.', '.$numero.'</td><th>Bairro:</th><td style="text-align:left;">'.$bairro.'</td></tr>
+          <tr><th>Cidade:</th><td style="text-align:left;">'.$cidade.'</td><th>Estado/UF:</th><td style="text-align:left;">'.$estado.'/'.$uf.'</td></tr>
+          <tr><th>Telefone:</th><td style="text-align:left;">'.$telefone.'</td><th>E-mail:</th><td style="text-align:left;">'.$email.'</td></tr>
+          <tr><td colspan="4"></td></tr>
+          <tr><th>Condição de Pag.:</th><td style="text-align:left;">'.$condicao_pgto.'</td><th>Prz. de Pagamento:</th><td style="text-align:left;">Prazo médio de <b>'.$prazo_pgto_dias.'</b> dias</td></tr>
+
         </tbody>
       </table>
       <br/><br/>
-      <table border="0" style="width:100%;text-align:center;">
-        <theader>
+      <table border="1" style="width:100%;text-align:center;">
           <tr><th>Produto</th><th>Quantidade</th>'.$extras_headertb_exists.'</tr>
-        </theader>
         <tbody>
           '.$listaFinalStr.'
         </tbody>
       </table>
-      <h3>Representante:<label style="padding-left:20px;">'.$repres_nome.'</label></h3>
     </div></center>
     </body>
-    </html>');
-    if( $msend->enviar() ) echo('Enviado!'); else echo('Não foi enviado.');
+    </html>';
+
+    $msend->SetMensagem($email_envio);
+    if( !$msend->enviar() ) $retorno=array('code'=>3,'msg'=>'E-mail não enviado. MSG='.$msend->ErroMsg);
 
   }
   echo(json_encode($retorno));

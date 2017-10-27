@@ -10,10 +10,18 @@ function __construct($inp_rules){
 	$this->mail->CharSet = 'UTF-8';
 	$this->mail->Port = $this->mailRules['porta'];
 	$this->mail->SMTPSecure = $this->mailRules['SMTPSec'];
+
+	$this->mail->SMTPOptions = array(
+    	'ssl' => array(
+        	'verify_peer' => false,
+        	'verify_peer_name' => false,
+        	'allow_self_signed' => true
+    	)
+		);
 	$this->mail->SMTPAuth = true;
-	$this->mail->SMTPDebug = 0; //2=Desativa depuração
+	$this->mail->SMTPDebug = 0; //0=Desativa depuração ----- 4:MAX
 	$this->mail->Debugoutput = 'html';
-	$this->mail->Host = $this->mailRules['host'];
+	$this->mail->Host = gethostbyname($this->mailRules['host']);
 	$this->mail->Username = $this->mailRules['email'];
 	$this->mail->Password = $this->mailRules['passwd'];
 	$this->mail->setLanguage('pt_br', './libs/phpmailer/language/');

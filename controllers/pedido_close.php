@@ -35,7 +35,8 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="criar") )
         $insercaoProduto = $dbCon->query("INSERT INTO inova_pedido_itens VALUES(null,$pedido_id,".$valor->id.",'".$preco."',".$valor->quant.");");
       }
     }
-    echo(json_encode(array('code' => 0, 'msg'=>'Pedido No. '.$pedido_id )));
+    $retorno = array('code' => 0, 'msg'=>'Pedido No. '.$pedido_id );
+
 
     //A partir daqui é referente ao e-mail para a empresa.
 $repres_nome="IRINEU";
@@ -44,7 +45,6 @@ $repres_nome="IRINEU";
     $cpfoucnpj="";
     if($CPF!=="")$cpfoucnpj=$CPF;
     elseif ($cnpj!=="")$cpfoucnpj=$cnpj;
-
     $arr_produtos=array();//Cria vetor
     //Recebe lista do pedido
     $listaPedido=$dbCon->query("SELECT inova_pedido_itens.id_cor,inova_pedido_itens.qnt_cor,inova_pedido_itens.preco_unit FROM inova_pedido_itens INNER JOIN inova_pedido ON inova_pedido_itens.ped_id=inova_pedido.ped_id WHERE inova_pedido.ped_id=$pedido_id;");
@@ -115,9 +115,10 @@ $repres_nome="IRINEU";
     </div></center>
     </body>
     </html>');
-    $msend->enviar();
+    if( $msend->enviar() ) echo('Enviado!'); else echo('Não foi enviado.');
 
   }
+  echo(json_encode($retorno));
 }
 
 ?>

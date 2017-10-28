@@ -17,7 +17,6 @@ include_once('./mod_Sectioner.php'); //Funções de catálogo
 include_once('./mod_FileUploads.php'); //Ferramenta de apoio para uploads.
 include_once('./mod_PHPMailer.php');
 include_once('./mod_Cookies.php'); //Códigos simplificados para uso de cookies com PHP
-include_once('./mod_CountAccess.php'); //Ferramenta de estudo de acessos
 
 //Regras para estrutura HTML da página:
 class CAPISPHP_Structure{

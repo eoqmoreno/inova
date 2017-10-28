@@ -82,7 +82,6 @@ CREATE TABLE acessos_cidades(
 CREATE TABLE acessos_dados(
   id_acs INT PRIMARY KEY AUTO_INCREMENT,
   ip_addr VARCHAR(39) NOT NULL,
-  ip_prox VARCHAR(39) NOT NULL,
   provedor_id VARCHAR(200),
   provedor VARCHAR(200),
   id_cidade INT,

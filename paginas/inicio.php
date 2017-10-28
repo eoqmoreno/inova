@@ -3,9 +3,6 @@
 <head>
 
 <?php
-
-CountAccess::acesso($_SERVER);
-
 echo(ObjetoView::$mvw->head(true));
 ?>
 
@@ -32,6 +29,27 @@ resize: none;
 </style>
 
 <script>
+
+$(function(){
+var nulo = new FormData();
+callbackajx('http://ip-api.com/json/',nulo,
+function(){
+},function(data){
+  var dados_ip=new FormData();
+  dados_ip.append('client',JSON.stringify(data));
+  callbackajx('<?php echo URLPos::getURLDirRoot(); ?>index.php/ip',dados_ip,
+  function(){
+  },function(data){//Done
+
+  },function(e){console.log(e);}
+  );
+
+},function(e){console.log(e);}
+);
+
+
+});
+
 var debug_lvl=0;
 
 $('.nav-tabs a').click(function (e) {

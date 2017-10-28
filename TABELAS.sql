@@ -69,3 +69,23 @@ CREATE TABLE inova_pedido_itens(
   FOREIGN KEY(ped_id) REFERENCES inova_pedido(ped_id),
   FOREIGN KEY(id_cor) REFERENCES inova_produto_cor(id_cor)
 );
+
+CREATE TABLE acessos_cidades(
+  id_cidade INT PRIMARY KEY AUTO_INCREMENT,
+  nome_cidade VARCHAR(200) NOT NULL,
+  estado_nome VARCHAR(100) NOT NULL,
+  uf VARCHAR(10) NOT NULL,
+  pais VARCHAR(200) NOT NULL,
+  cep VARCHAR(9) NOT NULL
+);
+
+CREATE TABLE acessos_dados(
+  id_acs INT PRIMARY KEY AUTO_INCREMENT,
+  ip_addr VARCHAR(39) NOT NULL,
+  ip_prox VARCHAR(39) NOT NULL,
+  provedor_id VARCHAR(200),
+  provedor VARCHAR(200),
+  id_cidade INT,
+  horario DATETIME NOT NULL,
+  FOREIGN KEY(id_cidade) REFERENCES acessos_cidades(id_cidade)
+);

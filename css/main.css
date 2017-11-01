@@ -162,6 +162,8 @@ section {
 }
 
 
+
+
 #home-slider {
   overflow: hidden;
   position: relative;
@@ -460,6 +462,13 @@ section{
 
 center a img.img-responsive{
   width:25%;
+}
+
+.itemMiniblock{
+width: 140px !important;
+TEXT-ALIGN: center !important;
+padding-bottom: 18px !important;
+padding-top: 22px !important;
 }
 
 }

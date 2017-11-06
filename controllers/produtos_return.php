@@ -17,7 +17,7 @@ function getFullStrName($id_origem,$full_arr){
 
 header('Content-Type: application/json');
 if(isset($_POST['funcao']) && ($_POST['funcao'] == "c")){//Consulta
-$data=DBCon::dbQuery("SELECT * FROM inova_catalogo_tabs WHERE id_tab<>herdando ORDER BY id_tab ASC;");
+$data=DBCon::dbQuery("SELECT * FROM inova_catalogo_tabs WHERE id_tab<>herdando ORDER BY herdando,titulo ASC;");
 
 if($data->num_rows>0){
   $all_tabs_arr=array();

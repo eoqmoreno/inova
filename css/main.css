@@ -358,7 +358,8 @@ section {
 ********About CSS*******
 **************************/
 #sobre-nos{
-  background-image: url(../images/about-bg.jpg);
+  /*background-image: url(../images/about-bg.jpg);*/
+  background-image: url(../images/aempresa/1.jpg);
   /*padding: 60px 0;*/
 }
 .navbar-nav li.scroll{

@@ -236,7 +236,7 @@ form_wwu.prepend( form_status.html('<p class="text-warning">Por favor, escolha u
 	function initialize_map() {
 		var myLatlng = new google.maps.LatLng(latitude,longitude);
 		var mapOptions = {
-			zoom: 17,
+			zoom: 15,
 			scrollwheel: false,
 			mapTypeId: 'satellite',
 			center: myLatlng
@@ -244,14 +244,49 @@ form_wwu.prepend( form_status.html('<p class="text-warning">Por favor, escolha u
 		var map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
 
 		var contentString = '';
-		var infowindow = new google.maps.InfoWindow({
-			content: '<div class="map-content"><ul class="address">' + $('.address').html() + '</ul></div>'
-		});
+
+		var msg = '<div id="iw-container">' +
+									'<div class="iw-title">Porcelain Factory of Vista Alegre</div>' +
+									'<div class="iw-content">' +
+										'<div class="iw-subTitle">History</div>' +
+										'<img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83">' +
+										'<p>Founded in 1824, the Porcelain Factory of Vista Alegre was the first industrial unit dedicated to porcelain production in Portugal. For the foundation and success of this risky industrial development was crucial the spirit of persistence of its founder, José Ferreira Pinto Basto. Leading figure in Portuguese society of the nineteenth century farm owner, daring dealer, wisely incorporated the liberal ideas of the century, having become "the first example of free enterprise" in Portugal.</p>' +
+										'<div class="iw-subTitle">Contacts</div>' +
+										'<p>VISTA ALEGRE ATLANTIS, SA<br>3830-292 Ílhavo - Portugal<br>'+
+										'<br>Phone. +351 234 320 600<br>e-mail: geral@vaa.pt<br>www: www.myvistaalegre.com</p>'+
+									'</div>' +
+									'<div class="iw-bottom-gradient"></div>' +
+								'</div>';'<img style="width:90px;" class="img-responsive" src="../images/logo_mini.png" alt="Inova Utilidades">'
+								var infowindow = new google.maps.InfoWindow({
+									content: msg,
+									maxWidth: 350
+								});
+
+
+google.maps.event.addListener(infowindow, 'domready', function() {
+var iwOuter = $('.gm-style-iw');
+iwBackground.children(':nth-child(4)').css({'display' : 'none'});
+iwOuter.parent().parent().css({left: '115px'});
+iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
+iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index' : '1'});
+var iwCloseBtn = iwOuter.next();
+iwCloseBtn.css({opacity: '1', right: '38px', top: '3px', border: '7px solid #48b5e9', 'border-radius': '13px', 'box-shadow': '0 0 5px #3990B9'});
+	if($('.iw-content').height() < 140){
+      $('.iw-bottom-gradient').css({display: 'none'});
+  }
+	iwCloseBtn.mouseout(function(){
+	      $(this).css({opacity: '1'});
+	});
+});
 		var marker = new google.maps.Marker({
 			position: myLatlng,
-			map: map
+			label:"N",
+			map: map,
+			title:"Inova Utilidades"
 		});
 		google.maps.event.addListener(marker, 'click', function() {
+
 			infowindow.open(map,marker);
 		});
 

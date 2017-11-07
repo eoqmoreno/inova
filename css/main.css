@@ -359,7 +359,8 @@ section {
 **************************/
 #sobre-nos{
   /*background-image: url(../images/about-bg.jpg);*/
-  background-image: url(../images/aempresa/1.jpg);
+  background-image: url(../images/Site_Replace/INOVA-1.jpg);
+  opacity:.7;
   /*padding: 60px 0;*/
 }
 .navbar-nav li.scroll{
@@ -370,11 +371,10 @@ background-color: rgba(255,255,255,0.5);
 }
 
 
-.anim-background{
+.anim-background-2{
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 0%;
-  background-attachment: fixed;
 
   /*animation-name: animacao-bg;*/
   animation-name: changebk-contact;
@@ -383,15 +383,33 @@ background-color: rgba(255,255,255,0.5);
   animation-direction: alternate;
 }
 
+.anim-background{
+animation-name: changebk-contact;
+animation-timing-function: ease-in-out;
+
+animation-iteration-count: infinite;
+
+animation-direction: normal;
+}
+
+.anim-background-present{
+animation-name: changebk-presentation;
+animation-timing-function: ease-in-out;
+
+animation-iteration-count: infinite;
+
+animation-direction: normal;
+}
+
+
+
 @media (min-width:767px) {
-  .anim-background{
-    animation-duration: 30s;
-  }
+  .anim-background{animation-duration: 120s;}
+  .anim-background-present{animation-duration: 120s;}
 }
 @media (max-width:767px) {
-  .anim-background{
-    animation-duration: 360s;
-  }
+  .anim-background{animation-duration: 60s;}
+  .anim-background-present{animation-duration: 60s;}
 }
 
 @keyframes animacao-bg {

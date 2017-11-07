@@ -2,10 +2,10 @@
 
 ?>
   <section id="sobre-nos" class="parallax anim-background">
-    <div class="container" style="background: rgba(2, 143, 204, 0.8);box-shadow: 0px 0px 0px 5px rgba(255, 141, 6, 0.2);border-radius: 25px;padding: 10px;">
+    <div class="container" style="z-index:20;background: rgba(2, 143, 204, 0.8);box-shadow: 0px 0px 0px 5px rgba(255, 141, 6, 0.2);border-radius: 25px;padding: 10px;">
       <div style="width:100%;">
         <div class="col-sm-12 col-xs-12">
-          <div class="about-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
+          <div class="about-info wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms" style="opacity:1;">
 
 <div class="col-xs-12">
 <h2>A Empresa</h2>

@@ -40,7 +40,7 @@
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right">
           <li class="scroll active"><a href="#sobre-nos">A Empresa</a></li>
-          <li style="background-color:rgba(255,255,255,0.2);" class="scroll"><a href="#portfolio">Catálogo de Produtos</a></li>
+          <li style="background-color:rgba(255,255,255,0.2);" class="scroll"><a class="itemMiniblock" href="#portfolio">Catálogo de Produtos</a></li>
           <li class="scroll"><a href="#servicos">Serviços</a></li>
           <li class="scroll"><a href="#certificacoes">Certificações</a></li>
           <li class="scroll"><a href="#contact">Contato</a></li>
@@ -48,7 +48,7 @@
 
 
         if(!Cookie::get("UID")){
-          echo('<li><a onclick="modalLoginShow();" href="#inicio">Login</a></li>');
+          echo('<li><a class="itemMiniblock" onclick="modalLoginShow();" href="#inicio">Login do Representante</a></li>');
         }else{
           $UID = intval(Cookie::get("UID"));
           $data=DBCon::dbQuery("SELECT * FROM inova_representante WHERE id_rep=$UID;");
@@ -63,7 +63,7 @@
           }
         }
         if(Usuario::$ativo) $palavra="pedido"; else $palavra="orçamento";
-        echo('<li><a onclick="modalComprasShow();" href="#portfolio"><span id="itens-comprados" class="badge">0</span> itens no '.$palavra.'</a></li>');
+        echo('<li><a class="itemMiniblock" onclick="modalComprasShow();" href="#portfolio"><span id="itens-comprados" class="badge">0</span> itens no '.$palavra.'</a></li>');
           ?>
 
         </ul>

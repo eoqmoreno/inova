@@ -162,6 +162,8 @@ section {
 }
 
 
+
+
 #home-slider {
   overflow: hidden;
   position: relative;
@@ -356,7 +358,8 @@ section {
 ********About CSS*******
 **************************/
 #sobre-nos{
-  background-image: url(../images/about-bg.jpg);
+  /*background-image: url(../images/about-bg.jpg);*/
+  background-image: url(../images/aempresa/1.jpg);
   /*padding: 60px 0;*/
 }
 .navbar-nav li.scroll{
@@ -461,6 +464,13 @@ section{
 
 center a img.img-responsive{
   width:25%;
+}
+
+.itemMiniblock{
+width: 140px !important;
+TEXT-ALIGN: center !important;
+padding-bottom: 18px !important;
+padding-top: 22px !important;
 }
 
 }

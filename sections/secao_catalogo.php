@@ -6,7 +6,7 @@
     <div class="row">
       <div class="heading text-center col-sm-8 col-sm-offset-2 wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
         <h2 class="title_catalogo">Catálogo de Produtos</h2>
-        <p><a target="_blank" href="<?php echo URLPos::getURLDirRoot(); ?>/catalogo.pdf" class="btn btn-success"><i class="fa fa-cloud-download" aria-hidden="true"></i> Baixar Catálogo em <b>PDF</b></a></p>
+        <p><a target="_blank" href="<?php echo URLPos::getURLDirRoot(); ?>catalogo.pdf" class="btn btn-success"><i class="fa fa-cloud-download" aria-hidden="true"></i> Baixar Catálogo em <b>PDF</b></a></p>
       </div>
     </div>
   </div>

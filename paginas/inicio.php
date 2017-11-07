@@ -8,9 +8,15 @@ echo(ObjetoView::$mvw->head(true));
 
 <style>
 @keyframes changebk-contact {
-<?php echo "0%   {background-image: url(".URLPos::getURLDirRoot()."/images/slider/1.jpg);}
-  50%  {background-image: url(".URLPos::getURLDirRoot()."/images/slider/2.jpg);}
-  100% {background-image: url(".URLPos::getURLDirRoot()."/images/homescreen/homesc-inovabck.jpg);}";
+<?php echo "  0%   {background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-1.jpg); background-position: 0%;}
+  5% {background-position: 100%;}
+  10% {background-position: 0%;}
+  15%  {background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-2.jpg); background-position: 0%; transition: opacity 1s ease-in-out;}
+  20% {background-position: 100%;}
+  25% {background-position: 0%;}
+  30% {background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-3.jpg); background-position: 0%;}
+
+  ";
 ?>
 }
 div#contact-us.parallax{

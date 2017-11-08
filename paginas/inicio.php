@@ -172,7 +172,7 @@ function alteraCor(ObjetoBtn,chgID){
 var folioItem=$(ObjetoBtn).parent().parent().parent().parent().parent().parent().parent().parent();
 folioItem.find("div.folio-image img").attr('src',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Altera imagem visível
 var folioTextos=folioItem.find("div.overlay div.overlay-content div.overlay-text");
-folioTextos.find("div.folio-info p").html(lastProdutosArr[chgID]['nome_cor']); //Altera nome da cor no canto inferior
+folioTextos.find("div.folio-info p")[0].html(lastProdutosArr[chgID]['nome_cor']); //Altera nome da cor no canto inferior
 if(debug_lvl>1) console.log(folioTextos.find("div.folio-overview span.folio-expand"));
 $(folioTextos.find("div.folio-overview span.folio-expand")[0]).find("a").attr('href',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Muda imagem a ser exibida em modo album
 $(folioTextos.find("div.folio-overview span.folio-expand")[1]).find("a").attr('href',"javascript:addCompra("+lastProdutosArr[chgID]['id_cor']+");"); //Muda ID de compra

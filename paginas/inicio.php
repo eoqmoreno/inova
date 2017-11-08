@@ -195,6 +195,7 @@ if(produtosArr.length>0)
 for (var id in produtosArr) {
   var obj=produtosArr[id];
   var qntCores=0;
+  var descric=obj['descricao'];
 
   var coresListaBtn=$("<ul class='dropdown-menu'></ul>");
   for (var idval in obj['cores']){
@@ -233,12 +234,20 @@ item.append(
           //$('<a></a>').html('Alterar cor <i class="fa fa-angle-double-down"></i>').addClass("btn").addClass("btn-danger").attr('href','javascript:alteraCor('+obj['id_cor']+');' )
         )
       ).append(
-        $('<div class="folio-overview"></div>').append(
+        $('<div class="folio-overview"></div>')/*.append(
           $('<span class="folio-link"></span>').append( $('<a class="folio-read-more" href="#"></a>').html('<i class="fa fa-link"></i>').attr('data-single_url','<?php echo URLPos::getURLDirRoot(); ?>catalogo_item.php/'+produtosArr[id]['id_itm']) )
-        ).append(
-          $('<span class="folio-expand"></span>').append( $('<a data-lightbox="portfolio"></a>').html('<i class="fa fa-search-plus"></i>').attr('href','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+escolhida['link_imagem'] ) )
-        ).append($("<span class=\"folio-expand\"></span>").append( $("<a></a>").html("<i class=\"fa fa-cart-plus\"></i>").attr("href","javascript:addCompra("+escolhida["id_cor"]+");" ) ))
+        )*/.append(
+          $('<span class="folio-link"></span>').append( $('<a data-lightbox="portfolio"></a>').html('<i class="fa fa-search-plus"></i><br/>Aproximar').attr('href','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+escolhida['link_imagem'] ) )
+        ).append($("<span class=\"folio-expand\"></span>").append( $("<a></a>").html("<i class=\"fa fa-cart-plus\"></i><br/>Adicionar").attr("href","javascript:addCompra("+escolhida["id_cor"]+");" ) ))
         <?php /*if(Cookie::get("UID")!==false) echo(''); */ ?>
+      ).append(
+        $('<div class="folio-info"></div>').append(
+          $('<br/>')
+        ).append(
+          $('<p></p>').html('Descrição:')
+        ).append(
+          $('<p></p>').addClass("descricao").html(descric)
+        )
       )
     )
   )

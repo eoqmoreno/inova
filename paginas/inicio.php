@@ -176,8 +176,8 @@ var folioTextos=folioItem.find("div.overlay div.overlay-content div.overlay-text
 folioTextos.find("div.folio-info.nome p").html(lastProdutosArr[chgID]['nome_cor']); //Altera nome da cor no canto inferior
 
 if(debug_lvl>1) console.log(folioTextos.find("div.folio-overview span.folio-expand"));
-$(folioTextos.find("div.folio-overview span.folio-expand")[0]).find("a").attr('href',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Muda imagem a ser exibida em modo album
-$(folioTextos.find("div.folio-overview span.folio-expand")[1]).find("a").attr('href',"javascript:addCompra("+lastProdutosArr[chgID]['id_cor']+");"); //Muda ID de compra
+$(folioTextos.find("div.folio-overview span.folio-link")).find("a").attr('href',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Muda imagem a ser exibida em modo album
+$(folioTextos.find("div.folio-overview span.folio-expand")).find("a").attr('href',"javascript:addCompra("+lastProdutosArr[chgID]['id_cor']+");"); //Muda ID de compra
 
 }
 //Função responsável por remover linhas de tabs posteriores

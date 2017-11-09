@@ -80,14 +80,17 @@ $repres_nome="";
 
     $listaFinalStr="";
     $somatorio = 0.0;
+    $itens = 0;
     foreach ($arr_produtos as $produto){
       $listaFinalStr.="<tr><td>".$produto['nome']."</td><td>".$produto['quant']."</td>".(Usuario::$ativo?"<td>". str_replace('.',',',$produto['preco']) ."</td>":"")."</tr>";
-      if(Usuario::$ativo && ( ( floatval($produto['preco'])*floatval($produto['quant']) ) != 0) )
+      if(Usuario::$ativo && ( ( floatval($produto['preco'])*floatval($produto['quant']) ) != 0) ){
         $somatorio += floatval($produto['preco'])*floatval($produto['quant']);
+        $itens+=intval($produto['quant']);
+      }
     }
 
     if(Usuario::$ativo){
-      $listaFinalStr.="<tr><th style=\"text-align:center;\" colspan='2'>Valor Total</th><th>R$ ".printf("%01.2f", $somatorio)."</th></tr>";
+      $listaFinalStr.="<tr><th style=\"text-align:center;\">Valor Total</th><th style=\"text-align:center;\">$itens itens</th><th>R$ ".sprintf("%01.2f", $somatorio)."</th></tr>";
     }
 
 

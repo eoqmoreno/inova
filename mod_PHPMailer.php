@@ -29,7 +29,7 @@ if(array_key_exists('use_html', $this->mailRules))	$this->mail->isHTML($this->ma
 }
 
 function addDestino($email,$nome=""){if($nome!="")$this->mail->addAddress($email,$nome);else $this->mail->addAddress($email);}
-function SetNomeOrigem($nome,$emailFonte=""){$this->mailRules['from_name']=$nome;if($emailFonte!="") $this->mailRules['from_email']=$emailFonte}
+function SetNomeOrigem($nome,$emailFonte=""){$this->mailRules['from_name']=$nome;if($emailFonte!="") $this->mailRules['from_email']=$emailFonte;}
 function SetAssunto($assuntomsg){$this->mail->Subject=$assuntomsg;}
 function SetMensagem($msg){$this->corpoEmail=$msg;}
 function AddAnexo($endereco,$optionnome=''){if($optionnome=='')$this->mail->addAttachment($endereco);else $this->mail->addAttachment($endereco,$optionnome);}

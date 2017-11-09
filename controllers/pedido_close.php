@@ -4,7 +4,6 @@ function formatMoney($number, $fractional=false) {
         $number = sprintf('%.2f', $number);
     }
 	$number = str_replace('.',',',$number);
-
     while (true) {
         $replaced = preg_replace('/(-?\d+)(\d\d
 
@@ -16,7 +15,7 @@ function formatMoney($number, $fractional=false) {
         }
     }
     return $number;
-}
+} 
 
 if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="criar") ){
   header('Content-Type: application/json');
@@ -101,7 +100,7 @@ $repres_nome="";
     $somatorio = 0.0;
     $itens = 0;
     foreach ($arr_produtos as $produto){
-      $listaFinalStr.="<tr><td>".$produto['nome']."</td><td>".$produto['quant']."</td>".(Usuario::$ativo?"<td>R$ ". formatMoney($produto['preco']) ."</td>":"")."</tr>";
+      $listaFinalStr.="<tr><td>".$produto['nome']."</td><td>".$produto['quant']."</td>".(Usuario::$ativo?"<td>R$ ". formatMoney(floatval($produto['preco']),true) ."</td>":"")."</tr>";
       if(Usuario::$ativo && ( ( floatval($produto['preco'])*floatval($produto['quant']) ) != 0) ){
         $somatorio += floatval($produto['preco'])*floatval($produto['quant']);
         $itens+=intval($produto['quant']);
@@ -109,7 +108,7 @@ $repres_nome="";
     }
 
     if(Usuario::$ativo){
-      $listaFinalStr.="<tr><th style=\"text-align:center;\">Valor Total</th><th style=\"text-align:center;\">$itens itens</th><th>R$ ".formatMoney($somatorio)."</th></tr>";
+      $listaFinalStr.="<tr><th style=\"text-align:center;\">Valor Total</th><th style=\"text-align:center;\">$itens itens</th><th>R$ ".formatMoney($somatorio,true)."</th></tr>";
     }
 
 

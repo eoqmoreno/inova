@@ -29,23 +29,35 @@ if(array_key_exists('use_html', $this->mailRules))	$this->mail->isHTML($this->ma
 }
 
 function addDestino($email,$nome=""){if($nome!="")$this->mail->addAddress($email,$nome);else $this->mail->addAddress($email);}
-function SetNomeOrigem($nome){$this->mailRules['from_name']=$nome;}
+function SetNomeOrigem($nome,$emailFonte=""){$this->mailRules['from_name']=$nome;if($emailFonte!="") $this->mailRules['from_email']=$emailFonte}
 function SetAssunto($assuntomsg){$this->mail->Subject=$assuntomsg;}
 function SetMensagem($msg){$this->corpoEmail=$msg;}
 function AddAnexo($endereco,$optionnome=''){if($optionnome=='')$this->mail->addAttachment($endereco);else $this->mail->addAttachment($endereco,$optionnome);}
 
 function enviar(){
+	//Verifica presença do corpo de e-mail
 		if(!isset($this->corpoEmail)){
 			$this->ErrorNum=2;$this->ErroMsg="Não existe mensagem para ser enviada.";
 		}
+	//Verifica presença do do nome de destinatário
 		if(!array_key_exists('from_name', $this->mailRules)){
 			$this->ErrorNum=3;$this->ErroMsg="Nome de origem não foi definido.";
 		}
 
 		if($this->ErrorNum>0) {return false;}
 
+		//Define nome e e-mail do remetente.
+	if(!array_key_exists('from_email', $this->mailRules)){
+		$this->mail->setFrom($this->mailRules['email'],$this->mailRules['from_name']);
+	}else{
+		$this->mail->setFrom($this->mailRules['from_email'],$this->mailRules['from_name']);
+	}
+	//Define corpo do e-mail
 	$this->mail->Body=$this->corpoEmail;
-	$this->mail->setFrom($this->mailRules['email'],$this->mailRules['from_name']);
+
+
+
+
 	if (!$this->mail->send()){
 		$this->ErroMsg=$this->mail->ErrorInfo;
 		$this->ErrorNum=1;//Erro MAILER.

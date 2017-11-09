@@ -79,8 +79,15 @@ $repres_nome="";
     }
 
     $listaFinalStr="";
+    $somatorio = 0.0;
     foreach ($arr_produtos as $produto){
       $listaFinalStr.="<tr><td>".$produto['nome']."</td><td>".$produto['quant']."</td>".(Usuario::$ativo?"<td>". str_replace('.',',',$produto['preco']) ."</td>":"")."</tr>";
+      if(Usuario::$ativo && ( ( floatval($produto['preco'])*floatval($produto['quant']) ) != 0) )
+        $somatorio += floatval($produto['preco'])*floatval($produto['quant']);
+    }
+
+    if(Usuario::$ativo){
+      $listaFinalStr.="<tr><th style=\"text-align:center;\" colspan='2'>Valor Total</th><th>R$ ".printf("%01.2f", $somatorio)."</th></tr>";
     }
 
 
@@ -91,7 +98,7 @@ $repres_nome="";
 
 
     $msend->SetAssunto("$AssuntoTitulo No. $pedido_id - INOVAWEB");
-    $msend->SetNomeOrigem($cliente.' - INOVAWEB');
+    $msend->SetNomeOrigem($cliente.' - INOVAWEB',$email);
     //$msend->addDestino('comercial@inovautilidades.com.br');
     //$msend->addDestino('financeiro@inoplast.com.br');
 

@@ -382,7 +382,8 @@ function addCompra(numID){
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" onclick="modalRegistro();" class="btn btn-warning">Registrar-se</button>
+          <span>Seu primeiro acesso?</span>
+          <button type="button" onclick="modalRegistro();" class="btn btn-warning">Cadastre-se</button>
           <button id="fechar" onclick="$('#modalLogin').modal('toggle');" type="button" class="btn btn-default">Fechar</button>
           <button type="button" onclick="doLogin(this);" class="btn btn-primary">Entrar</button>
         </div>

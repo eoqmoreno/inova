@@ -15,7 +15,7 @@ function formatMoney($number, $fractional=false) {
         }
     }
     return $number;
-} 
+}
 
 if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="criar") ){
   header('Content-Type: application/json');
@@ -101,7 +101,7 @@ $repres_nome="";
     $itens = 0;
     foreach ($arr_produtos as $produto){
       $listaFinalStr.="<tr><td>".$produto['nome']."</td><td>".$produto['quant']."</td>".(Usuario::$ativo?"<td>R$ ". formatMoney(floatval($produto['preco']),true) ."</td>":"")."</tr>";
-      if(Usuario::$ativo && ( ( floatval($produto['preco'])*floatval($produto['quant']) ) != 0) ){
+      if(Usuario::$ativo && ( intval($produto['quant']) != 0) ){
         $somatorio += floatval($produto['preco'])*floatval($produto['quant']);
         $itens+=intval($produto['quant']);
       }
@@ -120,11 +120,10 @@ $repres_nome="";
 
     $msend->SetAssunto("$AssuntoTitulo No. $pedido_id - INOVAWEB");
     $msend->SetNomeOrigem($cliente.' - INOVAWEB',$email);
-    //$msend->addDestino('comercial@inovautilidades.com.br');
-    //$msend->addDestino('financeiro@inoplast.com.br');
 
-    $msend->addDestino("jeimison.ti@gmail.com");
+    //$msend->addDestino("jeimison.ti@gmail.com");
     $msend->addDestino("financeiro@inoplast.com.br");
+    $msend->addDestino('comercial@inovautilidades.com.br');
 
     $extras_headertb_exists=Usuario::$ativo?"<th>Preço</th>":"";
     $email_envio='<html>

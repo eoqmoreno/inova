@@ -707,8 +707,8 @@ function modalLoginShow(){
 
       </div>
       <div class="modal-footer">
-        <button type="button" onclick="confirmarPedido(this);" class="btn btn-success">Confirmar <?php if(Usuario::$ativo) echo('Pedido'); else echo('Orçamento'); ?></button>
-        <button id="cancela-pedido" onclick="$('#modalFinalComp').modal('toggle');" type="button" class="btn btn-default">Cancelar Pedido</button>
+        <button type="button" onclick="confirmarPedido(this);" class="btn btn-success"><?php if(Usuario::$ativo) echo('Confirmar Pedido'); else echo('Solicitar Orçamento'); ?></button>
+        <button id="cancela-pedido" onclick="$('#modalFinalComp').modal('toggle');" type="button" class="btn btn-default"><?php if(Usuario::$ativo) echo('Cancelar Pedido'); else echo('Cancelar Orçamento'); ?></button>
       </div>
       </form>
     </div><!-- /.modal-content -->
@@ -861,7 +861,7 @@ function confirmarPedido(btnClick){
   condpgto=$("#condpgto"),
   przpgto=$("#przpgto");
 
-
+var usuarioLogado = <?php if(Usuario::$ativo) echo('true'); else echo('false'); ?>;
     //Prossegue
     var nomeStt = nomeClient.val().length>5; //Nome com >5 caracteres
     var tipoCliStt = tipoCli.val()!=='-1'; //tipo de cliente selecionado
@@ -875,6 +875,12 @@ function confirmarPedido(btnClick){
     var numeroStt = numeroClient.val().length>=1; //Se existe algo escrito em Número
     var condicaoPag = condpgto.val()!=='-1'; //tipo de cliente selecionado
     var prazPag = przpgto.val()!=='-1'; //tipo de cliente selecionado
+    var precosPreenchidos = true;
+
+    if(usuarioLogado) for(var index in itensCompra){
+     precosPreenchidos = precosPreenchidos && ( $("#precoObj"+index).val().length != 0 );
+    }
+
 
 
     if(!nomeStt) apresentaErro( nomeClient , true ); else apresentaSucesso( nomeClient , true );
@@ -889,6 +895,13 @@ function confirmarPedido(btnClick){
     if(!cepStt) apresentaErro( cep , true ); else apresentaSucesso( cep , true );
     if(!condicaoPag) apresentaErro( condpgto , true ); else apresentaSucesso( condpgto , true );
     if(!prazPag) apresentaErro( przpgto , true ); else apresentaSucesso( przpgto , true );
+    if(usuarioLogado){
+      for(var index in itensCompra){
+        var campo=$("#precoObj"+index);
+          if( campo.val().length == 0 )
+          apresentaErro( campo , true ); else apresentaSucesso( campo , true );
+      }
+    }
 
 
   var identificacaoStt=false;
@@ -902,7 +915,7 @@ function confirmarPedido(btnClick){
 
 
 
-  var tudoPronto = nomeStt&&tipoCliStt&&cepStt&&telefoneStt&&emailStt&&bairroStt&&estadoStt&&cidadeStt&&logradouroStt&&numeroStt&&condicaoPag&&prazPag&&identificacaoStt;
+  var tudoPronto = nomeStt&&tipoCliStt&&cepStt&&telefoneStt&&emailStt&&bairroStt&&estadoStt&&cidadeStt&&logradouroStt&&numeroStt&&condicaoPag&&prazPag&&identificacaoStt&&precosPreenchidos;
 
 
 if(tudoPronto){
@@ -931,7 +944,6 @@ if(tudoPronto){
   dados.append('condpgto',condpgto.val());
   dados.append('przpgto',parseInt(przpgto.val()));
 
-  var usuarioLogado = <?php if(Usuario::$ativo) echo('true'); else echo('false'); ?>;
   if(usuarioLogado) for(var index in itensCompra){
     itensCompra[ index ]['preco']=$("#precoObj"+index).val();
   }
@@ -995,7 +1007,7 @@ for(var index in itensCompra){
         }
         var usuarioLogado=<?php if(Usuario::$ativo) echo('true');else echo('false'); ?>;
         var campoExtra="";
-        if(usuarioLogado) campoExtra="<td><input type='text' placeholder='0,00' style='height:34px;' maxlength='7' class='form-control normalForm maskDinheiro' id='precoObj"+data.objeto['id']+"'></td>";
+        if(usuarioLogado) campoExtra="<td><input type='text' placeholder='0,00' style='height:34px;' maxlength='7' class='form-control normalForm maskDinheiro' id='precoObj"+data.objeto['id']+"' required></td>";
         item.html("<td>"+data.objeto['nome']+"</td>"+campoExtra+"<td>"+unidades+"</td>");
         //tmDelayExec+=(++itmCont)*10;
 	      tbbody.append( item ); //.hide().delay(tmDelayExec).fadeIn()

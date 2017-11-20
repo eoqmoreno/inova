@@ -11,10 +11,10 @@ echo(ObjetoView::$mvw->head(true));
 <?php echo "
 96%{opacity:1;}
 97%{opacity:.7;}
-98%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-3.jpg);}
-99%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-1.jpg);}
+98%{background-image: url(images/Site_Replace/INOVA-3.jpg);}
+99%{background-image: url(images/Site_Replace/INOVA-1.jpg);}
 0%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-1.jpg);
+  background-image: url(images/Site_Replace/INOVA-1.jpg);
   opacity:.7;
 }
 1%{opacity:1;}
@@ -22,20 +22,20 @@ echo(ObjetoView::$mvw->head(true));
 
 29%{opacity:1;}
 30%{opacity:.7;}
-31%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-1.jpg);}
-32%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-2.jpg);}
+31%{background-image: url(images/Site_Replace/INOVA-1.jpg);}
+32%{background-image: url(images/Site_Replace/INOVA-2.jpg);}
 33%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-2.jpg);
+  background-image: url(images/Site_Replace/INOVA-2.jpg);
   opacity:.7;
 }
 34%{opacity:1;}
 
 62%{opacity:1;}
 63%{opacity:.7;}
-64%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-2.jpg);}
-65%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-3.jpg);}
+64%{background-image: url(images/Site_Replace/INOVA-2.jpg);}
+65%{background-image: url(images/Site_Replace/INOVA-3.jpg);}
 66%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-3.jpg);
+  background-image: url(images/Site_Replace/INOVA-3.jpg);
   opacity:.7;
 }
 67%{opacity:1;}";
@@ -45,10 +45,10 @@ echo(ObjetoView::$mvw->head(true));
 <?php echo "
 96%{opacity:1;}
 97%{opacity:.7;}
-98%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-6.jpg);}
-99%{background-image: url(".URLPos::getURLDirRoot()."/images/homescreen/homesc-inovabck.jpg);}
+98%{background-image: url(images/Site_Replace/INOVA-6.jpg);}
+99%{background-image: url(images/homescreen/homesc-inovabck.jpg);}
 0%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/homescreen/homesc-inovabck.jpg);
+  background-image: url(images/homescreen/homesc-inovabck.jpg);
   opacity:.7;
 }
 1%{opacity:1;}
@@ -56,20 +56,20 @@ echo(ObjetoView::$mvw->head(true));
 
 29%{opacity:1;}
 30%{opacity:.7;}
-31%{background-image: url(".URLPos::getURLDirRoot()."/images/homescreen/homesc-inovabck.jpg);}
-32%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-5.jpg);}
+31%{background-image: url(images/homescreen/homesc-inovabck.jpg);}
+32%{background-image: url(images/Site_Replace/INOVA-5.jpg);}
 33%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-5.jpg);
+  background-image: url(images/Site_Replace/INOVA-5.jpg);
   opacity:.7;
 }
 34%{opacity:1;}
 
 62%{opacity:1;}
 63%{opacity:.7;}
-64%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-5.jpg);}
-65%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-6.jpg);}
+64%{background-image: url(images/Site_Replace/INOVA-5.jpg);}
+65%{background-image: url(images/Site_Replace/INOVA-6.jpg);}
 66%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-6.jpg);
+  background-image: url(images/Site_Replace/INOVA-6.jpg);
   opacity:.7;
 }
 67%{opacity:1;}";

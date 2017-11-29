@@ -1202,7 +1202,8 @@ width: 25%;
     float: right;
 }
 #certificacoes{
-  background-image: url(../images/backcat.jpg);
+  /*background-image: url(../images/backcat.jpg);*/
+  background-color: rgb(210, 182, 134);
 background-position: center;
 background-attachment: fixed;
 background-size: cover;

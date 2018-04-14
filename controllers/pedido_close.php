@@ -1,4 +1,22 @@
 <?php
+function formatMoney($number, $fractional=false) {
+    if ($fractional) {
+        $number = sprintf('%.2f', $number);
+    }
+	$number = str_replace('.',',',$number);
+    while (true) {
+        $replaced = preg_replace('/(-?\d+)(\d\d
+
+\d)/', '$1.$2', $number);
+        if ($replaced != $number) {
+            $number = $replaced;
+        } else {
+            break;
+        }
+    }
+    return $number;
+}
+
 if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="criar") ){
   header('Content-Type: application/json');
 
@@ -79,8 +97,18 @@ $repres_nome="";
     }
 
     $listaFinalStr="";
+    $somatorio = 0.0;
+    $itens = 0;
     foreach ($arr_produtos as $produto){
-      $listaFinalStr.="<tr><td>".$produto['nome']."</td><td>".$produto['quant']."</td>".(Usuario::$ativo?"<td>". str_replace('.',',',$produto['preco']) ."</td>":"")."</tr>";
+      $listaFinalStr.="<tr><td>".$produto['nome']."</td><td>".$produto['quant']."</td>".(Usuario::$ativo?"<td>R$ ". formatMoney(floatval($produto['preco']),true) ."</td>":"")."</tr>";
+      if(Usuario::$ativo && ( intval($produto['quant']) != 0) ){
+        $somatorio += floatval($produto['preco'])*floatval($produto['quant']);
+        $itens+=intval($produto['quant']);
+      }
+    }
+
+    if(Usuario::$ativo){
+      $listaFinalStr.="<tr><th style=\"text-align:center;\">Valor Total</th><th style=\"text-align:center;\">$itens itens</th><th>R$ ".formatMoney($somatorio,true)."</th></tr>";
     }
 
 
@@ -91,12 +119,11 @@ $repres_nome="";
 
 
     $msend->SetAssunto("$AssuntoTitulo No. $pedido_id - INOVAWEB");
-    $msend->SetNomeOrigem($cliente.' - INOVAWEB');
-    //$msend->addDestino('comercial@inovautilidades.com.br');
-    //$msend->addDestino('financeiro@inoplast.com.br');
+    $msend->SetNomeOrigem($cliente.' - INOVAWEB',$email);
 
-    $msend->addDestino("jeimison.ti@gmail.com");
+    //$msend->addDestino("jeimison.ti@gmail.com");
     $msend->addDestino("financeiro@inoplast.com.br");
+    $msend->addDestino('comercial@inovautilidades.com.br');
 
     $extras_headertb_exists=Usuario::$ativo?"<th>Preço</th>":"";
     $email_envio='<html>

@@ -11,6 +11,14 @@
 *******Typography******
 **************************/
 
+:root{
+  --azul:#337ab7;
+  --laranja-transp:#e27a00b3;
+  --laranja:#e27a00;
+  --bordas-certif:var(--laranja-transp);
+  --fundo-certif:var(--azul);
+  --backgrnd-certif:#337ab763;
+}
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
@@ -576,14 +584,15 @@ ul.nostyle{
 .folio-overview a {
   font-size: 18px;
   color: #333;
-  height: 50px;
-  width: 50px;
-  line-height: 50px;
-  border-radius: 50%;
+  height: 57px;
+  width: 100px;
+  line-height: 26px;
+  border-radius: 7px;
   background-color: #fff;
   display: inline-block;
   margin-top: 20px;
-  margin-right: 5px;
+  margin-right: 1px;
+  margin-left: 1px;
 }
 
 .folio-overview a:hover {
@@ -601,8 +610,8 @@ ul.nostyle{
 }
 
 #portfolio .folio-item:hover .folio-image {
-  -webkit-transform: scale(1.5) rotate(-15deg);
-  transform: scale(1.5) rotate(-15deg);
+  -webkit-transform: scale(1.25) rotate(-12deg);
+  transform: scale(1.25) rotate(-12deg);
 }
 
 .folio-image img {
@@ -610,7 +619,7 @@ ul.nostyle{
 }
 
 #portfolio .folio-item:hover .overlay {
-  opacity: 0.8;
+  opacity: 0.75;
   bottom: 0;
   height: 100%;
 }
@@ -647,6 +656,15 @@ ul.nostyle{
   left: 50%;
   color: #999;
   margin-left: -17px;
+}
+
+p.descricao{
+  word-break: break-all;
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 /*************************
@@ -1192,13 +1210,17 @@ width: 25%;
     float: right;
 }
 #certificacoes{
-  background-image: url(../images/backcat.jpg);
+  /*background-image: url(../images/backcat.jpg);*/
+  background-color: var(--backgrnd-certif);
 background-position: center;
 background-attachment: fixed;
 background-size: cover;
 }
+#certificacoes .container div.row{
+  padding-top: 20px;
+}
 
-#certificacoes h3{
+#certificacoes center h3{
   text-align: center;
       background: rgba(0, 82, 117, 0.55);
       width: 100%;
@@ -1211,4 +1233,46 @@ background-size: cover;
       margin-top: -8%;
       font-family: Open Sans;
 }
-/*Presets*/
+
+.msgScreenNotify{
+  font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 22px;
+  color: white;
+  text-shadow: 2px 2px 4px #fefefe;
+}
+
+.flip-texto {
+  /*height: 22px;*/
+  text-align: center;
+  animation-name: giro-anim-texto;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-duration: 6s;
+}
+@keyframes giro-anim-texto {
+  0% {transform: rotateX(0deg);}
+  100% {transform: rotateX(360deg);}
+}
+
+
+/*MAPS*/
+
+.gm-style-iw {
+	background-color: #fff;
+	/*box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+	border: 1px solid rgba(72, 181, 233, 0.6);
+	border-radius: 2px 2px 10px 10px;*/
+}
+
+.iw-title {
+	font-family: 'Open Sans Condensed', sans-serif;
+	font-size: 22px;
+	font-weight: 400;
+	padding: 10px;
+	background-color: #48b5e9;
+	color: white;
+	margin: 0;
+	border-radius: 2px 2px 0 0;
+  text-align: center;
+}

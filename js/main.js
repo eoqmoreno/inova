@@ -45,7 +45,7 @@ jQuery(function($) {
 		return false;
 	});
 
-	// User define function
+	// User define functio
 	function Scroll() {
 		var contentTop      =   [];
 		var contentBottom   =   [];
@@ -236,20 +236,27 @@ form_wwu.prepend( form_status.html('<p class="text-warning">Por favor, escolha u
 	function initialize_map() {
 		var myLatlng = new google.maps.LatLng(latitude,longitude);
 		var mapOptions = {
-			zoom: 17,
+			zoom: 15,
 			scrollwheel: false,
 			mapTypeId: 'satellite',
 			center: myLatlng
 		};
 		var map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
 
-		var contentString = '';
+		var contentString = '<div class="gm-style-iw">'+
+		'<div class="iw-title">Inova Utilidades</div>'+
+		'</div>';
+
 		var infowindow = new google.maps.InfoWindow({
-			content: '<div class="map-content"><ul class="address">' + $('.address').html() + '</ul></div>'
-		});
+	 content: contentString
+ });
+
+
 		var marker = new google.maps.Marker({
 			position: myLatlng,
-			map: map
+			label:"N",
+			map: map,
+			title:"Inova Utilidades"
 		});
 		google.maps.event.addListener(marker, 'click', function() {
 			infowindow.open(map,marker);

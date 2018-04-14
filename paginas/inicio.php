@@ -8,13 +8,12 @@ echo(ObjetoView::$mvw->head(true));
 
 <style>
 @keyframes changebk-contact {
-<?php echo "
-96%{opacity:1;}
+<?php echo "96%{opacity:1;}
 97%{opacity:.7;}
-98%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-3.jpg);}
-99%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-1.jpg);}
+98%{background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-3.jpg);}
+99%{background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-1.jpg);}
 0%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-1.jpg);
+  background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-1.jpg);
   opacity:.7;
 }
 1%{opacity:1;}
@@ -22,20 +21,20 @@ echo(ObjetoView::$mvw->head(true));
 
 29%{opacity:1;}
 30%{opacity:.7;}
-31%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-1.jpg);}
-32%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-2.jpg);}
+31%{background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-1.jpg);}
+32%{background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-2.jpg);}
 33%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-2.jpg);
+  background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-2.jpg);
   opacity:.7;
 }
 34%{opacity:1;}
 
 62%{opacity:1;}
 63%{opacity:.7;}
-64%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-2.jpg);}
-65%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-3.jpg);}
+64%{background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-2.jpg);}
+65%{background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-3.jpg);}
 66%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-3.jpg);
+  background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-3.jpg);
   opacity:.7;
 }
 67%{opacity:1;}";
@@ -45,10 +44,10 @@ echo(ObjetoView::$mvw->head(true));
 <?php echo "
 96%{opacity:1;}
 97%{opacity:.7;}
-98%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-6.jpg);}
-99%{background-image: url(".URLPos::getURLDirRoot()."/images/homescreen/homesc-inovabck.jpg);}
+98%{background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-6.jpg);}
+99%{background-image: url(".URLPos::getURLDirRoot()."images/homescreen/homesc-inovabck.jpg);}
 0%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/homescreen/homesc-inovabck.jpg);
+  background-image: url(".URLPos::getURLDirRoot()."images/homescreen/homesc-inovabck.jpg);
   opacity:.7;
 }
 1%{opacity:1;}
@@ -56,20 +55,20 @@ echo(ObjetoView::$mvw->head(true));
 
 29%{opacity:1;}
 30%{opacity:.7;}
-31%{background-image: url(".URLPos::getURLDirRoot()."/images/homescreen/homesc-inovabck.jpg);}
-32%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-5.jpg);}
+31%{background-image: url(".URLPos::getURLDirRoot()."images/homescreen/homesc-inovabck.jpg);}
+32%{background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-5.jpg);}
 33%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-5.jpg);
+  background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-5.jpg);
   opacity:.7;
 }
 34%{opacity:1;}
 
 62%{opacity:1;}
 63%{opacity:.7;}
-64%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-5.jpg);}
-65%{background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-6.jpg);}
+64%{background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-5.jpg);}
+65%{background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-6.jpg);}
 66%{
-  background-image: url(".URLPos::getURLDirRoot()."/images/Site_Replace/INOVA-6.jpg);
+  background-image: url(".URLPos::getURLDirRoot()."images/Site_Replace/INOVA-6.jpg);
   opacity:.7;
 }
 67%{opacity:1;}";
@@ -172,10 +171,12 @@ function alteraCor(ObjetoBtn,chgID){
 var folioItem=$(ObjetoBtn).parent().parent().parent().parent().parent().parent().parent().parent();
 folioItem.find("div.folio-image img").attr('src',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Altera imagem visível
 var folioTextos=folioItem.find("div.overlay div.overlay-content div.overlay-text");
-folioTextos.find("div.folio-info p").html(lastProdutosArr[chgID]['nome_cor']); //Altera nome da cor no canto inferior
+
+folioTextos.find("div.folio-info.nome p").html(lastProdutosArr[chgID]['nome_cor']); //Altera nome da cor no canto inferior
+
 if(debug_lvl>1) console.log(folioTextos.find("div.folio-overview span.folio-expand"));
-$(folioTextos.find("div.folio-overview span.folio-expand")[0]).find("a").attr('href',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Muda imagem a ser exibida em modo album
-$(folioTextos.find("div.folio-overview span.folio-expand")[1]).find("a").attr('href',"javascript:addCompra("+lastProdutosArr[chgID]['id_cor']+");"); //Muda ID de compra
+$(folioTextos.find("div.folio-overview span.folio-link")).find("a").attr('href',"<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/"+lastProdutosArr[chgID]['link_imagem']); //Muda imagem a ser exibida em modo album
+$(folioTextos.find("div.folio-overview span.folio-expand")).find("a").attr('href',"javascript:addCompra("+lastProdutosArr[chgID]['id_cor']+");"); //Muda ID de compra
 
 }
 //Função responsável por remover linhas de tabs posteriores
@@ -195,6 +196,7 @@ if(produtosArr.length>0)
 for (var id in produtosArr) {
   var obj=produtosArr[id];
   var qntCores=0;
+  var descric=obj['descricao'];
 
   var coresListaBtn=$("<ul class='dropdown-menu'></ul>");
   for (var idval in obj['cores']){
@@ -225,7 +227,7 @@ item.append(
   $('<div class="overlay"></div>').append(
     $('<div class="overlay-content"></div>').append(
       $('<div class="overlay-text"></div>').append(
-        $('<div class="folio-info"></div>').append( $('<h3></h3>').html(obj['titulo']) ).append( $('<p></p>').html(escolhida['nome_cor']) ).append(
+        $('<div class="folio-info nome"></div>').append( $('<h3></h3>').html(obj['titulo']) ).append( $('<p></p>').html(escolhida['nome_cor']) ).append(
           $("<div class='btn-group'></div>").append(
           $("<button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'></button>").html("Alterar cor <span class='caret'></span>")
           ).append(coresListaBtn)
@@ -233,12 +235,20 @@ item.append(
           //$('<a></a>').html('Alterar cor <i class="fa fa-angle-double-down"></i>').addClass("btn").addClass("btn-danger").attr('href','javascript:alteraCor('+obj['id_cor']+');' )
         )
       ).append(
-        $('<div class="folio-overview"></div>').append(
+        $('<div class="folio-overview"></div>')/*.append(
           $('<span class="folio-link"></span>').append( $('<a class="folio-read-more" href="#"></a>').html('<i class="fa fa-link"></i>').attr('data-single_url','<?php echo URLPos::getURLDirRoot(); ?>catalogo_item.php/'+produtosArr[id]['id_itm']) )
-        ).append(
-          $('<span class="folio-expand"></span>').append( $('<a data-lightbox="portfolio"></a>').html('<i class="fa fa-search-plus"></i>').attr('href','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+escolhida['link_imagem'] ) )
-        ).append($("<span class=\"folio-expand\"></span>").append( $("<a></a>").html("<i class=\"fa fa-cart-plus\"></i>").attr("href","javascript:addCompra("+escolhida["id_cor"]+");" ) ))
+        )*/.append(
+          $('<span class="folio-link"></span>').append( $('<a data-lightbox="portfolio"></a>').html('<i class="fa fa-search-plus"></i><br/>Aproximar').attr('href','<?php echo URLPos::getURLDirRoot(); ?>images/catalogo/'+escolhida['link_imagem'] ) )
+        ).append($("<span class=\"folio-expand\"></span>").append( $("<a></a>").html("<i class=\"fa fa-cart-plus\"></i><br/>Adicionar").attr("href","javascript:addCompra("+escolhida["id_cor"]+");" ) ))
         <?php /*if(Cookie::get("UID")!==false) echo(''); */ ?>
+      ).append(
+        $('<div class="folio-info"></div>').append(
+          $('<br/>')
+        ).append(
+          $('<p></p>').html('Dimensões:')
+        ).append(
+          $('<p></p>').addClass("descricao").html(descric)
+        )
       )
     )
   )
@@ -371,7 +381,8 @@ function addCompra(numID){
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" onclick="modalRegistro();" class="btn btn-warning">Registrar-se</button>
+          <span>Seu primeiro acesso?</span>
+          <button type="button" onclick="modalRegistro();" class="btn btn-warning">Cadastre-se</button>
           <button id="fechar" onclick="$('#modalLogin').modal('toggle');" type="button" class="btn btn-default">Fechar</button>
           <button type="button" onclick="doLogin(this);" class="btn btn-primary">Entrar</button>
         </div>
@@ -695,8 +706,8 @@ function modalLoginShow(){
 
       </div>
       <div class="modal-footer">
-        <button type="button" onclick="confirmarPedido(this);" class="btn btn-success">Confirmar <?php if(Usuario::$ativo) echo('Pedido'); else echo('Orçamento'); ?></button>
-        <button id="cancela-pedido" onclick="$('#modalFinalComp').modal('toggle');" type="button" class="btn btn-default">Cancelar Pedido</button>
+        <button type="button" onclick="confirmarPedido(this);" class="btn btn-success"><?php if(Usuario::$ativo) echo('Confirmar Pedido'); else echo('Solicitar Orçamento'); ?></button>
+        <button id="cancela-pedido" onclick="$('#modalFinalComp').modal('toggle');" type="button" class="btn btn-default"><?php if(Usuario::$ativo) echo('Cancelar Pedido'); else echo('Cancelar Orçamento'); ?></button>
       </div>
       </form>
     </div><!-- /.modal-content -->
@@ -849,7 +860,7 @@ function confirmarPedido(btnClick){
   condpgto=$("#condpgto"),
   przpgto=$("#przpgto");
 
-
+var usuarioLogado = <?php if(Usuario::$ativo) echo('true'); else echo('false'); ?>;
     //Prossegue
     var nomeStt = nomeClient.val().length>5; //Nome com >5 caracteres
     var tipoCliStt = tipoCli.val()!=='-1'; //tipo de cliente selecionado
@@ -863,6 +874,12 @@ function confirmarPedido(btnClick){
     var numeroStt = numeroClient.val().length>=1; //Se existe algo escrito em Número
     var condicaoPag = condpgto.val()!=='-1'; //tipo de cliente selecionado
     var prazPag = przpgto.val()!=='-1'; //tipo de cliente selecionado
+    var precosPreenchidos = true;
+
+    if(usuarioLogado) for(var index in itensCompra){
+     precosPreenchidos = precosPreenchidos && ( $("#precoObj"+index).val().length != 0 );
+    }
+
 
 
     if(!nomeStt) apresentaErro( nomeClient , true ); else apresentaSucesso( nomeClient , true );
@@ -877,6 +894,13 @@ function confirmarPedido(btnClick){
     if(!cepStt) apresentaErro( cep , true ); else apresentaSucesso( cep , true );
     if(!condicaoPag) apresentaErro( condpgto , true ); else apresentaSucesso( condpgto , true );
     if(!prazPag) apresentaErro( przpgto , true ); else apresentaSucesso( przpgto , true );
+    if(usuarioLogado){
+      for(var index in itensCompra){
+        var campo=$("#precoObj"+index);
+          if( campo.val().length == 0 )
+          apresentaErro( campo , true ); else apresentaSucesso( campo , true );
+      }
+    }
 
 
   var identificacaoStt=false;
@@ -890,7 +914,7 @@ function confirmarPedido(btnClick){
 
 
 
-  var tudoPronto = nomeStt&&tipoCliStt&&cepStt&&telefoneStt&&emailStt&&bairroStt&&estadoStt&&cidadeStt&&logradouroStt&&numeroStt&&condicaoPag&&prazPag&&identificacaoStt;
+  var tudoPronto = nomeStt&&tipoCliStt&&cepStt&&telefoneStt&&emailStt&&bairroStt&&estadoStt&&cidadeStt&&logradouroStt&&numeroStt&&condicaoPag&&prazPag&&identificacaoStt&&precosPreenchidos;
 
 
 if(tudoPronto){
@@ -919,7 +943,6 @@ if(tudoPronto){
   dados.append('condpgto',condpgto.val());
   dados.append('przpgto',parseInt(przpgto.val()));
 
-  var usuarioLogado = <?php if(Usuario::$ativo) echo('true'); else echo('false'); ?>;
   if(usuarioLogado) for(var index in itensCompra){
     itensCompra[ index ]['preco']=$("#precoObj"+index).val();
   }
@@ -983,7 +1006,7 @@ for(var index in itensCompra){
         }
         var usuarioLogado=<?php if(Usuario::$ativo) echo('true');else echo('false'); ?>;
         var campoExtra="";
-        if(usuarioLogado) campoExtra="<td><input type='text' placeholder='0,00' style='height:34px;' maxlength='7' class='form-control normalForm maskDinheiro' id='precoObj"+data.objeto['id']+"'></td>";
+        if(usuarioLogado) campoExtra="<td><input type='text' placeholder='0,00' style='height:34px;' maxlength='7' class='form-control normalForm maskDinheiro' id='precoObj"+data.objeto['id']+"' required></td>";
         item.html("<td>"+data.objeto['nome']+"</td>"+campoExtra+"<td>"+unidades+"</td>");
         //tmDelayExec+=(++itmCont)*10;
 	      tbbody.append( item ); //.hide().delay(tmDelayExec).fadeIn()

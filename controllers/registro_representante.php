@@ -55,14 +55,16 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="cadastro"
         </head>
         <body><center>
         <div style="width:420px;text-align:center;">
-          <img width="90%" src="http://inovautilidades.com.br/images/logo_mini.png"></img>
+          <img width="70%" src="http://inovautilidades.com.br/images/logo_mini.png"></img>
           <h1 style="padding-left:20px;line-height:35px;">Olá, seja bem-vindo(a)<br>'.$nome.'!</h1>
           <h3>Sua inscrição foi realizada com sucesso!</h3>
           <p><b>Aproveite todos os recursos que nosso<br/>site disponibiliza aos nossos representantes.</b></p>
           <p>Você poderá:<br/><ul style="text-align:left;">
-            <li>Ver os preços no catálogo de produtos da empresa;</li>
-            <li>Fazer pedidos diretamente pelo site.</li>
+            <li>Enviar pedidos de maneira mais breve e eficiente;</li>
+            <li>Ver os mais novos produtos e lançammentos da empresa;</li>
+            <li><b>E muito mais possibilidades!</b></li>
           </ul></p>
+          <br/>
           <a style="color: #fff;padding: 10px 16px;font-size: 18px;line-height: 1.3333333;text-align: center;white-space: nowrap;vertical-align: middle;touch-action: manipulation;cursor: pointer;font-weight: 400;text-decoration: none;" target="_blank" href="http://inovautilidades.com.br/">Clique aqui para acessar</a>
         </div></center>
         </body>

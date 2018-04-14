@@ -18,8 +18,12 @@ class URLPos{
 //Retorna string com diretórios suficientes para a raiz da página, pasta do index.php
 	public static function getURLDirRoot(){
 		$num_ocur_extras = substr_count(self::getURLPos(), '/');
-		$str_sum="";
-		for ($i=0;$i<$num_ocur_extras;$i++) $str_sum.="../";
+		//echo(self::getURLPos());
+		//if($num_ocur_extras>1)
+		$str_sum="";//else $str_sum="../";
+		for($cnt=0;$cnt<$num_ocur_extras;$cnt++)
+		$str_sum.="../";
+		//for ($i=0;$i<$num_ocur_extras;$i++) $str_sum.="../";
 		return $str_sum;
 	}
 

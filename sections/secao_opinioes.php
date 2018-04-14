@@ -1,7 +1,7 @@
 <?php
 
 ?>
-<section id="opinioes" class="parallax anim-background">
+<section id="opinioes" class="parallax anim-background-present">
 
     <div class="footer-top wow fadeInUp" data-wow-duration="1000ms" data-wow-delay="300ms">
       <div class="container text-center">

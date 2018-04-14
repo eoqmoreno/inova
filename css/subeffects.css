@@ -1,0 +1,41 @@
+.itemCertific{
+  color: white;
+  /*border: 1px solid #e27a00; Marcacao Laranja*/
+  border: 1px solid var(--bordas-certif);
+  border-radius: 5px;
+  margin-top: 25px;
+  padding-bottom: 25px;
+  background-color: var(--fundo-certif);
+  text-align : center;
+
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.itemCertific hr{
+  width: 90%;
+  border-color: var(--bordas-certif);
+}
+
+.itemCertificTitl{
+  color: rgb(240,240,240);
+  font-family: inherit;
+  /*background-color: rgba(0,0,0,0.1);*/
+  padding: 3px;
+
+  text-shadow: 1px 2px #00000073;
+}
+
+.itemCertific .itemCertificImage{
+  height: 70px;
+  width: auto;
+  align-self: center;
+  margin-bottom: 30px;
+}
+
+.itemCertific .itemCertificDescricao{
+  width: 93%;
+  margin: 0 auto;
+  text-align: justify;
+}

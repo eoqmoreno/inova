@@ -18,7 +18,8 @@ private static $indexes=array(
 'controllers/registro_cliente.php'=>'cliente_reg',
 'controllers/registro_representante.php'=>'representante',
 'controllers/logged_utils.php'=>'logg_utils',
-'controllers/pedido_close.php'=>'pedido'
+'controllers/pedido_close.php'=>'pedido',
+'controllers/registro_ip.php'=>'ip'
 );
 private static $DEFAULT='inicio';
 

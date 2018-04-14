@@ -1,9 +1,9 @@
 <?php
 class DBCon{
 public static $DB=array('db' => 'inova',
-'user' => 'root',
-'pass' => 'ino@4321',
-'addr' => 'localhost',
+'user' => 'inoplast',
+'pass' => 'Ino@43',
+'addr' => 'inova.mysql.uhserver.com',
 'encoding' => 'utf8',
 'timezone' => 'America/Fortaleza');
 

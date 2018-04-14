@@ -5,13 +5,20 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="cadastro"
   {
     header('Content-Type: application/json');
     $retorno = array('code'=>0,'msg'=>"OK!");
-    $existe = false;
-
-    if($_POST['cpf']!=""){
-    $buscaCPF=DBCon::dbQuery("SELECT * FROM inova_representante WHERE cpf=\"".$_POST['cpf']."\";"); // Consulta de CEP já existe
-    $existe = $existe || $buscaCPF->num_rows>0;
+    $cpf_valido=false;
+    if(!empty($_POST['cpf'])){
+      $cpf_valido=validaCPF($_POST['cpf']);
     }
-    if(!$existe){ //Se tudo retorna FALSO, prossegue
+
+      if(!$cpf_valido) $retorno=array('code'=>3,'msg'=>'O CPF digitado não é válido. Verifique os dados e tente novamente.');
+
+    $existe = false;
+    if(!empty($_POST['cpf'])){
+    $buscaCPF=DBCon::dbQuery("SELECT * FROM inova_representante WHERE cpf=\"".$_POST['cpf']."\";"); // Consulta de CEP já existe
+    $existe = $buscaCPF->num_rows>0;
+      if($existe) $retorno = array('code'=>1,'msg'=>"As credenciais já estão cadastradas. Caso tenha problemas, entre em contato pelo SAC.");
+    }
+    if(!$existe&&$cpf_valido){ //Se tudo retorna FALSO, prossegue
       $nome = $_POST["nome"];$CPF = $_POST["cpf"]; $email = $_POST["email"];
       $telefone = $_POST["telefone"]; $senha = $_POST["senha"];
 
@@ -48,14 +55,16 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="cadastro"
         </head>
         <body><center>
         <div style="width:420px;text-align:center;">
-          <img width="90%" src="http://inovautilidades.com.br/images/logo_mini.png"></img>
+          <img width="70%" src="http://inovautilidades.com.br/images/logo_mini.png"></img>
           <h1 style="padding-left:20px;line-height:35px;">Olá, seja bem-vindo(a)<br>'.$nome.'!</h1>
           <h3>Sua inscrição foi realizada com sucesso!</h3>
           <p><b>Aproveite todos os recursos que nosso<br/>site disponibiliza aos nossos representantes.</b></p>
           <p>Você poderá:<br/><ul style="text-align:left;">
-            <li>Ver os preços no catálogo de produtos da empresa;</li>
-            <li>Fazer pedidos diretamente pelo site.</li>
+            <li>Enviar pedidos de maneira mais breve e eficiente;</li>
+            <li>Ver os mais novos produtos e lançammentos da empresa;</li>
+            <li><b>E muito mais possibilidades!</b></li>
           </ul></p>
+          <br/>
           <a style="color: #fff;padding: 10px 16px;font-size: 18px;line-height: 1.3333333;text-align: center;white-space: nowrap;vertical-align: middle;touch-action: manipulation;cursor: pointer;font-weight: 400;text-decoration: none;" target="_blank" href="http://inovautilidades.com.br/">Clique aqui para acessar</a>
         </div></center>
         </body>
@@ -63,7 +72,7 @@ if( isset(URLPos::getURLObjects()[2]) && (URLPos::getURLObjects()[2]=="cadastro"
         $msend->enviar();
       }
 
-    }else{$retorno = array('code'=>1,'msg'=>"As credenciais já estão cadastradas. Caso tenha problemas, entre em contato pelo SAC.");}
+    }
 
     echo(json_encode($retorno));
 
